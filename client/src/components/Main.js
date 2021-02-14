@@ -7,6 +7,7 @@ import ShowItems from './ShoppingList';
 // import ShowUsers from './admin/ShowUsers';
 // import ShowCategories from './admin/ShowCategories';
 import PropTypes from 'prop-types';
+import ScrollToTop from './ScrollToTop';
 import FileUpload from './FileUpload';
 import ShowProfile from './profile/ShowProfile';
 import EditProfile from './profile/EditProfile';
@@ -29,6 +30,7 @@ class Main extends Component {
 
         return (
             <main>
+                <ScrollToTop />
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route exact path='/admin' component={ is_admin ? AdminManage: ShowItems} />

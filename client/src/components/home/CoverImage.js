@@ -58,19 +58,19 @@ class CoverImage extends Component {
                         <div class="grid-container">
                         {/* <div class="box box1" style={{ backgroundImage: `url(${this.state.path}cover_image.jpg)` }}></div> */}
 
-                            <Link onClick={this.dogItems} align='center' style={{ textDecoration: 'none' }} to='/profile/edit'>
+                            <Link onClick={this.dogItems} align='center' style={{ textDecoration: 'none' }} to='/products'>
                                 <div class="box box2" style={{ backgroundImage: `url(${this.state.path}dog.jpg)` }}>
                                     <h1 className={"title display-1 font-weight-normal"}>כלבים</h1>
                                     <p style={{ fontSize: '1.5em' }} className={"lead font-weight-normal"}>מזון יבש לכלבים</p>
                                 </div>
                             </Link>
-                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='/profile/edit'>
+                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='/products'>
                                 <div class="box box2" style={{ backgroundImage: `url(${this.state.path}cat.jpg)` }}>
                                     <span className={"title display-1 font-weight-normal"}>חתולים</span>
                                     <p style={{ fontSize: '1.5em' }} className={"lead font-weight-normal"}>מזון יבש לחתולים</p>
                                 </div>
                             </Link>
-                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='/profile/edit'>
+                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='#'>
                                 <div class="box box2" style={{ backgroundImage: `url(${this.state.path}haircut-dog.jpg)` }} >
                                     <span className={"title display-1 font-weight-normal"}>תספורות</span>
                                     <p style={{ fontSize: '1.5em' }} className={"lead font-weight-normal"}>קביעת תור לתספורת מקצועית <br />למגוון רחב של כלבים</p>
