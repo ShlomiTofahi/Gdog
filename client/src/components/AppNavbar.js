@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
     Collapse,
     Navbar,
@@ -20,7 +20,7 @@ class AppNavbar extends Component {
     state = {
         isOpen: false
     }
-    
+
     static propTypes = {
         auth: PropTypes.object.isRequired,
         isAuthenticated: PropTypes.bool
@@ -39,15 +39,15 @@ class AppNavbar extends Component {
     };
     render() {
         const { isAuthenticated, user } = this.props.auth;
-        const is_admin =  (isAuthenticated && user.admin);
-        
+        const is_admin = (isAuthenticated && user.admin);
+
         const authLinks = (
             <Fragment>
                 <NavItem>
                     <Logout />
                 </NavItem>
                 <NavItem>
-                <Link onClick={ this.toggle } className={'navlink py-2 d-none d-md-inline-block lead'} to='/profile'>פרופיל</Link>
+                    <Link onClick={this.toggle} className={'navlink py-2 d-none d-md-inline-block lead'} to='/profile'>פרופיל</Link>
                 </NavItem>
             </Fragment>
         );
@@ -65,41 +65,41 @@ class AppNavbar extends Component {
 
         return (
             <div>
-            <Navbar style={this.shdowStyle()} fixed='top' color='white' light expand='sm' className='mb-5'>
-                <Container>
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className='ml-auto' navbar>
-                        { isAuthenticated ? authLinks : guestLinks }
-                            { is_admin &&
-                            <NavItem>
-                            <Link className={'navlink py-2 d-none d-md-inline-block lead'} style={{color:'red'}}to='/admin'>Admin</Link>
-                            </NavItem>
-                            }
-                            <NavItem>
-                                <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/about'>אודות</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/contact'>צור קשר</Link>
-                            </NavItem>
-                           <NavItem>
-                                <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
-                            </NavItem>
+                <Navbar style={this.shdowStyle()} fixed='top' color='white' light expand='sm' className='mb-5'>
+                    <Container>
+                        <NavbarToggler onClick={this.toggle} />
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className='ml-auto' navbar>
+                                {isAuthenticated ? authLinks : guestLinks}
+                                {is_admin &&
+                                    <NavItem>
+                                        <Link className={'navlink py-2 d-none d-md-inline-block lead'} style={{ color: 'red' }} to='/admin'>Admin</Link>
+                                    </NavItem>
+                                }
+                                <NavItem>
+                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/about'>אודות</Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/contact'>צור קשר</Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
+                                </NavItem>
 
-                            {/*  <NavItem>
+                                {/*  <NavItem>
                                 <Link href='/contact'>Contact</Link>
                             </NavItem> */}
 
-                        </Nav>
-                    </Collapse>
-                    <Link className={['navlinkLogo d-none d-sm-inline-block']} to='/'>
+                            </Nav>
+                        </Collapse>
+                        <Link className={['navlinkLogo d-sm-inline-block']} to='/'>
                             <p class='mb-0'>
-                            <img style={{ width: '71%' }} src='images/logo2.png' alt='' />
+                                <img style={{ width: '71%' }} src='images/logo2.png' alt='' />
                             </p>
-                         </Link>
-                </Container>
-            </Navbar>
-        </div>
+                        </Link>
+                    </Container>
+                </Navbar>
+            </div>
         );
     }
 }
