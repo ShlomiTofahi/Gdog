@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
+import { Link } from 'react-router-dom';
 
 class LoginModal extends Component {
     state = {
@@ -68,8 +69,9 @@ class LoginModal extends Component {
     render() {
         return(
             <div>
-                <NavLink  onClick={ this.toggle } href='#'>התחבר</NavLink>  
-                 
+                {/* <Link className='navlink' style={{float:'right'}} onClick={ this.toggle } href='#'>התחבר</Link>   */}
+                <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} onClick={ this.toggle } to='#'>התחבר</Link>
+
                 <Modal align="right" isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader  cssModule={{'modal-title': 'w-100 text-center'}} toggle={this.toggle}>התחברות</ModalHeader>
                     <ModalBody>

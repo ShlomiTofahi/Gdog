@@ -47,7 +47,7 @@ class AppNavbar extends Component {
                     <Logout />
                 </NavItem>
                 <NavItem>
-                    <Link onClick={this.toggle} className={'navlink py-2 d-none d-md-inline-block lead'} to='/profile'>פרופיל</Link>
+                    <Link style={{float:'right'}} onClick={this.toggle} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/profile'>פרופיל</Link>
                 </NavItem>
             </Fragment>
         );
@@ -73,17 +73,17 @@ class AppNavbar extends Component {
                                 {isAuthenticated ? authLinks : guestLinks}
                                 {is_admin &&
                                     <NavItem>
-                                        <Link className={'navlink py-2 d-none d-md-inline-block lead'} style={{ color: 'red' }} to='/admin'>Admin</Link>
+                                        <Link style={{float:'right', color: 'red'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/admin'>Admin</Link>
                                     </NavItem>
                                 }
                                 <NavItem>
-                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/about'>אודות</Link>
+                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/about'>אודות</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/contact'>צור קשר</Link>
+                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/contact'>צור קשר</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link className={'navlink py-2 d-none d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
+                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
                                 </NavItem>
 
                                 {/*  <NavItem>
@@ -92,9 +92,9 @@ class AppNavbar extends Component {
 
                             </Nav>
                         </Collapse>
-                        <Link className={['navlinkLogo d-sm-inline-block']} to='/'>
+                        <Link style={{marginRight:'50px'}} className={['navlinkLogo d-sm-inline-block',]} to='/'>
                             <p class='mb-0'>
-                                <img style={{ width: '71%' }} src='images/logo2.png' alt='' />
+                                <img style={{ width: '71%' }} src='images/logo.png' alt='לוגו' />
                             </p>
                         </Link>
                     </Container>

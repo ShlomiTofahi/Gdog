@@ -149,7 +149,8 @@ class RegisterModal extends Component {
 
         return(
             <div>
-                <NavLink className="Nav-Link lead" onClick={ this.toggle } href='#'>הירשם</NavLink>  
+                {/* <NavLink className='navlink' style={{float:'right'}} className="Nav-Link lead" onClick={ this.toggle } href='#'>הירשם</NavLink>   */}
+                <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'}  onClick={ this.toggle } to='#'>הירשם</Link>
 
                 <Modal align="right" isOpen={this.state.modal} toggle={this.toggle} onClosed={this.close}>
                     <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}} toggle={this.toggle}>הרשמה</ModalHeader>
