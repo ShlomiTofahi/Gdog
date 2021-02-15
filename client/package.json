@@ -26,9 +26,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -49,10 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
-  "devDependencies": {
-    "babel-plugin-import": "^1.13.3",
-    "customize-cra": "^1.0.0",
-    "react-app-rewired": "^2.1.8"
-  }
+  "proxy": "http://localhost:5000"
 }
