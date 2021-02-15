@@ -147,7 +147,7 @@ class AppNavbar extends Component {
                 {/* <!-- Copyright --> */}
                 <div class="text-center p-1" style={{ backgroundColor: '#fafafa' }}>
                     {/* © 2020 Copyright: */}
-                    <a class="text-dark" href="#"><small>Copyright © 2020 Shlomi Tofahi - All Rights Reserved</small></a>
+                    <a class="text-dark" href="#"><small>Copyright © 2021 GDog - All Rights Reserved</small></a>
                 </div>
                 {/* <!-- Copyright --> */}
             </footer>
