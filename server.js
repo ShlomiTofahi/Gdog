@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
-const fileUpload =require('express-fileUpload');
+const fileUpload =require('express-fileupload');
 var fs = require('fs');
 
 const app = express();
