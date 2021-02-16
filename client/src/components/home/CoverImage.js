@@ -56,7 +56,6 @@ class CoverImage extends Component {
                     <Container>
 
                         <div class="grid-container">
-                        {/* <div class="box box1" style={{ backgroundImage: `url(${this.state.path}cover_image.jpg)` }}></div> */}
 
                             <Link onClick={this.dogItems} align='center' style={{ textDecoration: 'none' }} to='/products'>
                                 <div class="box box2" style={{ backgroundImage: `url(${this.state.path}dog.jpg)` }}>

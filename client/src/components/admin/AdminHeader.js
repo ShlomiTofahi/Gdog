@@ -4,34 +4,31 @@ import { Link } from 'react-router-dom';
 class AdminSettings extends Component {
 
 
-    render() {
+  render() {
 
-        return (
+    return (
 
 
-            <header style={headerStyle}>
-                {/* <Link to='/admin/users'>Users</Link>
-                            <Link to='/admin/items'>Items</Link>
-                            <Link to='/admin/categories'>Categories</Link> */}
-                <h1>כלים</h1>
+      <header style={headerStyle}>
+        <h1>כלים</h1>
 
-                <Link style={linkStyle} to="/admin/users">משתמשים</Link> | <Link style={linkStyle} to="/admin/categories">קטגוריות</Link>
+        <Link style={linkStyle} to="/admin/users">משתמשים</Link> | <Link style={linkStyle} to="/admin/categories">קטגוריות</Link>
                  | <Link style={linkStyle} to="/admin/products">מוצרים</Link>  | <Link style={linkStyle} to="/admin/breeds">גזעים</Link>
-            </header>
-        );
-    }
+      </header>
+    );
+  }
 }
 
 const headerStyle = {
-    background: '#333',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px'
-  }
-  
-  const linkStyle = {
-    color: '#fff',
-    textDecoration: 'none'
-  }
-  
+  background: '#333',
+  color: '#fff',
+  textAlign: 'center',
+  padding: '10px'
+}
+
+const linkStyle = {
+  color: '#fff',
+  textDecoration: 'none'
+}
+
 export default AdminSettings;

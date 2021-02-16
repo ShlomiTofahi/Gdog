@@ -33,6 +33,7 @@ class AppNavbar extends Component {
     }
     shdowStyle = () => {
         return {
+            direction:'ltr',
             webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
             boxSshadow: '0 0 5px 0.1px #C7C7C7'
         };
@@ -47,7 +48,7 @@ class AppNavbar extends Component {
                     <Logout />
                 </NavItem>
                 <NavItem>
-                    <Link style={{float:'right'}} onClick={this.toggle} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/profile'>פרופיל</Link>
+                    <Link style={{ float: 'right' }} onClick={this.toggle} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/profile'>פרופיל</Link>
                 </NavItem>
             </Fragment>
         );
@@ -67,36 +68,33 @@ class AppNavbar extends Component {
             <div>
                 <Navbar style={this.shdowStyle()} fixed='top' color='white' light expand='sm' className='mb-5'>
                     <Container>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className='ml-auto' navbar>
-                                {isAuthenticated ? authLinks : guestLinks}
-                                {is_admin &&
-                                    <NavItem>
-                                        <Link style={{float:'right', color: 'red'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/admin'>Admin</Link>
-                                    </NavItem>
-                                }
-                                <NavItem>
-                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/about'>אודות</Link>
-                                </NavItem>
-                                <NavItem>
-                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/contact'>צור קשר</Link>
-                                </NavItem>
-                                <NavItem>
-                                    <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
-                                </NavItem>
-
-                                {/*  <NavItem>
-                                <Link href='/contact'>Contact</Link>
-                            </NavItem> */}
-
-                            </Nav>
-                        </Collapse>
-                        <Link style={{marginRight:'50px'}} className={['navlinkLogo d-sm-inline-block',]} to='/'>
+                    <Link   style={{ marginRight: '100px' }} className={['navlinkLogo d-sm-inline-block',]} to='/'>
                             <p class='mb-0'>
                                 <img style={{ width: '71%' }} src='images/logo.png' alt='לוגו' />
                             </p>
                         </Link>
+                        <NavbarToggler className='NavToggler' onClick={this.toggle} />
+                        <Collapse onClick={this.toggle} isOpen={this.state.isOpen} navbar >
+                            <Nav className='ml-auto' navbar>
+                                {isAuthenticated ? authLinks : guestLinks}
+                                {is_admin &&
+                                    <NavItem>
+                                        <Link style={{ float: 'right', color: 'red' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/admin'>
+                                            <strong>Admin</strong></Link>
+                                    </NavItem>
+                                }
+                                <NavItem>
+                                    <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/about'>אודות</Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/contact'>צור קשר</Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+
                     </Container>
                 </Navbar>
             </div>

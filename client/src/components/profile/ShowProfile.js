@@ -7,6 +7,7 @@ import {
     CardTitle, CardSubtitle, Button, Badge
 } from 'reactstrap';
 import { loadUser } from '../../actions/authActions'
+import moment from 'moment';
 
 class ShowProfile extends Component {
 
@@ -60,7 +61,7 @@ class ShowProfile extends Component {
                                 <CardSubtitle tag="h6" className="mb-2 text-muted"><spen style={{ color: 'black' }}>חיית מחמד:</spen> {user.pet.name}</CardSubtitle>
                                 <CardSubtitle tag="h6" className="mb-2 text-muted"><spen style={{ color: 'black' }}>גזע:</spen> {user.breed.name}</CardSubtitle>
                                 <CardText>
-                                    <small className="text-muted">תאריך הרשמה: {user.register_date}</small>
+                                    <small className="text-muted">תאריך הרשמה: {moment(user.register_date).format('DD/MM/YYYY')}</small>
                                 </CardText>
                             </CardBody>
                         </Card>

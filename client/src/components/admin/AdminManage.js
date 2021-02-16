@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import ShowCategories from './ShowCategories';
@@ -15,7 +15,7 @@ class AdminManage extends Component {
   render() {
     return (
       <Router>
-        {/* <div className="App"> */}
+        <Fragment>
           <Container className='mb-5'>
             <AdminHeader />
             <Route path="/admin/categories" component={ShowCategories} />
@@ -23,7 +23,7 @@ class AdminManage extends Component {
             <Route path="/admin/products" component={ShoppingList} />
             <Route path="/admin/breeds" component={ShowBreeds} />
           </Container>
-        {/* </div> */}
+        </Fragment>
       </Router>
     );
   }

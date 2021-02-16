@@ -36,7 +36,7 @@ const headerStyle = {
   }
 
   const VlStyle = {
-    borderLeft: '1px solid green',
+    borderLeft: '1px solid gray',
     height: '15px',
     // position: 'absolute',
     // left: '50%',
