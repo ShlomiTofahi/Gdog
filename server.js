@@ -65,7 +65,7 @@ mongoose
  app.use('/api/breeds', require('./routes/api/breeds'));
  app.use('/api/posts', require('./routes/api/posts'));
  app.use('/api/categories', require('./routes/api/categories'));
- app.use('/api/comments', require('./routes/api/Comments'));
+ app.use('/api/comments', require('./routes/api/comments'));
  app.use('/api/ages', require('./routes/api/ages'));
  
 // Serve static assets if in production
