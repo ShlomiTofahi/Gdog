@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
-const fileUpload =require('express-fileupload');
+const fileUpload = require('express-fileupload');
 var fs = require('fs');
 
 const app = express();
@@ -65,7 +65,7 @@ mongoose
  app.use('/api/breeds', require('./routes/api/breeds'));
  app.use('/api/posts', require('./routes/api/posts'));
  app.use('/api/categories', require('./routes/api/categories'));
- app.use('/api/Comments', require('./routes/api/Comments'));
+ app.use('/api/comments', require('./routes/api/Comments'));
  app.use('/api/ages', require('./routes/api/ages'));
  
 // Serve static assets if in production
