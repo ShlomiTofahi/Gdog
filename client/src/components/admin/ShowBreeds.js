@@ -106,7 +106,7 @@ class ShowBreeds extends Component {
     return (
       <Fragment>
         {/* <Container className='mb-5'> */}
-          <div class="tab">
+          <div class="admin-tab">
             <button class="tablinks" onClick={this.openBreeds.bind(this, "dog")}>כלב</button>
             <button class="tablinks" onClick={this.openBreeds.bind(this, 'cat')}>חתול</button>
             <button class="tablinks" onClick={this.openBreeds.bind(this, 'parrot')}>תוכי</button>

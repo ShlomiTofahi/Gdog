@@ -661,13 +661,44 @@ padding-top:10px ;
 
 
 /*Admin*/
-
-
 /*ShowBreeds*/
-
-
 /* Style the tab */
-
+.admin-tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the tab */
+  .admin-tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .admin-tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .admin-tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+  
 .tab {
     /* overflow: hidden; */
     border: 1px solid #ccc;
@@ -873,36 +904,6 @@ border-bottom-right-radius:5px; */
         -webkit-box-shadow: inset 2px 6px 50px #21201f;
         box-shadow: inset 2px 6px 100px #21201f;
     }
-    /* .forum-cover{
-    background-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 0.9;
-      height:100px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position:center;
-      object-fit: cover;
-      
-  
-      
-  border:none 6px #ffffff;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright:5px;
-  -moz-border-radius-bottomleft:5px;
-  -moz-border-radius-bottomright:5px;
-
-  -webkit-border-bottom-left-radius:5px;
-  -webkit-border-bottom-right-radius:5px;
-
-  border-bottom-left-radius:5px;
-  border-bottom-right-radius:5px;
-  
-  
-    -moz-box-shadow:inset 2px 6px 50px #21201f;
-    -webkit-box-shadow:inset 2px 6px 50px #21201f;
-    box-shadow:inset 2px 6px 100px #21201f;
-  } */
 }
 
 @media screen and (max-width: 576px) {
@@ -917,14 +918,14 @@ border-bottom-right-radius:5px; */
         background-position: center;
         object-fit: cover;
         border: none 6px #ffffff;
-        -moz-border-radius-topleft: 5px;
+        /* -moz-border-radius-topleft: 5px;
         -moz-border-radius-topright: 5px;
         -moz-border-radius-bottomleft: 5px;
         -moz-border-radius-bottomright: 5px;
         -webkit-border-bottom-left-radius: 5px;
         -webkit-border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-bottom-right-radius: 5px; */
         -moz-box-shadow: inset 2px 6px 50px #21201f;
         -webkit-box-shadow: inset 2px 6px 50px #21201f;
         box-shadow: inset 2px 6px 40px #21201f;
@@ -1028,11 +1029,11 @@ border-bottom-right-radius:5px; */
     border-bottom-right-radius: 50px;
 }
 
-.forum-pet-image {
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-}
+    .forum-pet-image {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
 
 .forum-post {
     position: absolute;
