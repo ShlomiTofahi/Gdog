@@ -137,15 +137,17 @@ class Post extends Component {
             <Row>
               <div style={postUserDetails} class="input-group col-12 col-sm-8 col-md-6 col-lg-5 pr-0">
                 <CardImg bottom className='forum-pet-image ml-1 mt-sm-0 mt-3' src={post.user.petImage} />
-                <p class='pt-sm-0 pt-3'>
-                  {/* <small className="text-muted">
+                <p class='pt-sm-1 pt-3'>
+                {post.user.name}
+                <br />
+
+                  <small className="text-muted">
                     פורסם ב:
                   {moment(post.published_date).format(' DD/MM/YYYY')}&nbsp;
                   בשעה:
                   {moment(post.published_date).format(' hh:mm')}
                   </small>
-                  <br /> */}
-                  {post.user.name}
+           
                 </p>
               </div>
             </Row>
