@@ -1050,7 +1050,7 @@ border-bottom-right-radius:5px; */
 
 .forum-comment {
     height: 100%;
-    width: 500px;
+    width: 50%;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
