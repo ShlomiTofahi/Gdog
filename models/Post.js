@@ -2,28 +2,37 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const PostSchema =  new Schema({
+const PostSchema = new Schema({
     title: String,
     user: {
-       type: mongoose.Schema.Types.ObjectId,
-       ref: "User"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     body: String,
     comments: [{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: "Comment"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
     }],
     pet: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Pet'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pet'
     },
     breed: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Breed'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Breed'
     },
     category: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Category'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+    },
+    postImage: {
+        type: String,
+        default: ''
+    },
+    views: {
+        type: Number,
+        required: true,
+        default: 0
     },
     published_date: {
         type: Date,
@@ -31,4 +40,4 @@ const PostSchema =  new Schema({
     }
 });
 
-module.exports = Post = mongoose.model('Post',PostSchema);
+module.exports = Post = mongoose.model('Post', PostSchema);

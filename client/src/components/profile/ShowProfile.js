@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-    Card, CardImg, CardText, CardBody, Container, CardFooter,
-    CardTitle, CardSubtitle, Button, Badge
+    Card, CardImg, CardText, CardBody, Container, CardTitle, CardSubtitle
 } from 'reactstrap';
-import { loadUser } from '../../actions/authActions'
 import moment from 'moment';
+
+import { loadUser } from '../../actions/authActions'
 
 class ShowProfile extends Component {
 

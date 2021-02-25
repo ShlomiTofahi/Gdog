@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import itemReducer from './itemReducer';
 import postReducer from './postReducer';
+import commentReducer from './commentReducer';
 import errorReducer from './errorReducer';
 import msgReducer from './msgReducer';
 import authReducer from './authReducer';
@@ -12,6 +13,7 @@ import categoryReducer from './categoryReducer';
 export default combineReducers({
     item: itemReducer,
     post: postReducer,
+    comment: commentReducer,
     error: errorReducer,
     msg: msgReducer,
     auth: authReducer,

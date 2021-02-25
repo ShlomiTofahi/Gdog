@@ -17,9 +17,6 @@ class App extends Component {
     store.dispatch(loadUser());
   }
   render() {
-    console.log("hi");
-    console.log(process.env.DANGEROUSLY_DISABLE_HOST_CHECK);
-
     return (
       <Provider store={store}>
         <div className="App"

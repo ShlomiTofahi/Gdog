@@ -41,27 +41,15 @@ router.delete('/:id', auth, (req, res) => {
 
 // @route   POST api/users/edit
 // @desc    Edit A User
-// @access  Private----------------------------------------------
+// @access  Private
 router.post('/edit/:id', auth, (req, res) => {
-    //console.log(req.body.password);
-    // console.log(req.params.id)
 
     const { name, pet, breed, cellphone, petImage, email } = req.body;
-    // console.log('enter' )
-    // console.log(req.body )
 
     //Simple validation
     if (!name || !pet || !breed || !cellphone || !petImage || !email) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
-    // console.log(petImage)
-    // try {
-    //     if (!fs.existsSync(petImage)) {
-    //         petImage='/uploads/users/no-image.png';
-    //     }
-    // } catch (err) {
-    //     console.error(err)
-    // }
 
     Pet.findOne({ name: pet }).then(pet => {
         Breed.findOne({ name: breed }).then(breed => {
@@ -74,25 +62,16 @@ router.post('/edit/:id', auth, (req, res) => {
                 petImage,
                 email
             };
-            // console.log(newUser)
             User.findById(req.params.id).then(user =>
                 user.updateOne(newUser).then(() => {
                     User.findById(req.params.id).populate('pet').populate('breed')
                         .then(user => {
-                            // console.log(user )
-
                             res.json(user)
                         })
                 }))
                 .catch(err => res.status(404).json({ success: false }));
         })
     })
-
-    // if(req.body.password !== '') {
-    //     newUser.password=req.body.password
-    //     console.log("_____________");
-    // }
-
 });
 
 

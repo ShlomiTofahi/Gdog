@@ -2,20 +2,18 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Card, CardImg, CardText, CardBody, Fade,
-    CardTitle, CardSubtitle, Button, Container,
-    Form, FormGroup, Label, Input, NavLink, Alert,
-    ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
-
+    Card, CardBody, Fade, CardTitle, Button, Container,Form, FormGroup, Label,
+    Input, Alert,ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
+import { Redirect } from "react-router-dom";
+import axios from 'axios';
+
 import { edit } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
 import { getPets, getPet } from '../../actions/petActions';
 
-import FileUpload from '../FileUpload';
-import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import FileUpload from '../fileupload/FileUpload';
 
 class EditProfile extends Component {
     state = {
@@ -88,7 +86,6 @@ class EditProfile extends Component {
         }
 
         //If edited, close modal
-        // alert(this.state.removedOrginalImageAndNotSave)
         if (!this.state.removedOrginalImageAndNotSave && msg && msg.id === 'EDIT_USER_SUCCESS') {
             this.setState({ redirect: '/profile' });
             // Clear errors
@@ -138,8 +135,7 @@ class EditProfile extends Component {
         this.props.edit(id, NewUser);
         // this.setState({ redirect: '/profile' });
 
-        // alert(this.state.petImage)
-        // alert(this.state.prevPetImage)
+
         //delete prev image
 
         const noImageFullpath = this.state.path + 'no-image.png';

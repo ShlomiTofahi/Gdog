@@ -1,21 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import {
-    Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,
+    Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert,
     ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Fade, Collapse,
-    Alert
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { editItem } from '../actions/itemActions';
-import { clearErrors } from '../actions/errorActions';
-import { clearMsgs } from '../actions/msgActions';
-import { getPets, getPet } from '../actions/petActions';
-import { getAges } from '../actions/ageActions';
-import FileUpload from './FileUpload';
+import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import axios from 'axios';
+
+import { editItem } from '../../actions/itemActions';
+import { clearErrors } from '../../actions/errorActions';
+import { clearMsgs } from '../../actions/msgActions';
+import { getPets, getPet } from '../../actions/petActions';
+import { getAges } from '../../actions/ageActions';
+import FileUpload from '../fileupload/FileUpload';
+
 
 class ItemModal extends Component {
     state = {
@@ -185,8 +186,6 @@ class ItemModal extends Component {
         }
 
         // const content = this.state.editorState.getCurrentContent();
-
-        // console.log(convertToRaw(content));
 
         // Edit item via addItem action
         this.props.editItem(this.props.itemID, newItem);

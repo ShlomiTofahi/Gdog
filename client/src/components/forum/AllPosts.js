@@ -1,20 +1,14 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getPets } from '../../actions/petActions';
-import { getPosts, getFilterPosts } from '../../actions/postActions';         
+import { getPosts, getFilterPosts } from '../../actions/postActions';
 import { getBreeds } from '../../actions/breedActions';
 import { deleteBreed } from '../../actions/breedActions';
 
-import ForumPet from './ForumPet';
-import Post from './Post';
-import AllPosts from './AllPosts';
-import ForumHeader from './ForumHeader';
-
-
+import ShowPosts from './ShowPosts';
+import AddPostModal from './AddPostModal';
 
 
 class Forum extends Component {
@@ -31,28 +25,25 @@ class Forum extends Component {
 
   componentDidMount() {
     this.props.getPosts();
+
   }
+
 
   render() {
     const { posts } = this.props.post;
 
-
     return (
-      <Router>
-        {/* <div className="App"> */}
-        <div class="forum-cover" style={{ backgroundImage: `url(images/forum.png)` }} />
-        <ForumHeader />
-
-        <Container className='mb-5'>
-          <Route exact path="/forum" component={AllPosts} />
-          <Route exact path="/forum/:pet" component={ForumPet} />
-          <Route exact path="/forum/post/:id" component={Post} />
-        </Container>
-        {/* </div> */}
-      </Router>
+      <Fragment>
+          <div class="tabcontent3">
+            <AddPostModal />
+            <ShowPosts elements={posts} />
+          </div>
+      </Fragment>
     );
   }
 }
+
+
 
 const mapStateToProps = (state) => ({
   auth: state.auth,

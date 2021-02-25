@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Table } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getUsers, deleteUser } from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
+import { getUsers, deleteUser } from '../../actions/authActions';
 
 class ShowUsers extends Component {
 

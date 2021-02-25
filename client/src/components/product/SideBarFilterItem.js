@@ -1,18 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import {
-    ListGroup, ListGroupItem, Card, Button, CardTitle, CardText, CardBody, CardImg, Row, Col, Form, Fade, Input,
-    ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, CardFooter
+    Button, Col, Form, Input,
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getItems, getFilterItems, getMinMaxPrice } from '../actions/itemActions';
-import { getAges } from '../actions/ageActions';
 import PropTypes from 'prop-types';
-import ItemModal from './itemModal';
-import { getPets, getPet } from '../actions/petActions';
-import { getCategories } from '../actions/categoryActions';
-import ReactStars from "react-rating-stars-component";
 import { Collapse } from 'react-collapse';
+
+import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
+import { getAges } from '../../actions/ageActions';
+import { getPets, getPet } from '../../actions/petActions';
+import { getCategories } from '../../actions/categoryActions';
 
 class ShoppingList extends Component {
     state = {
@@ -25,18 +22,13 @@ class ShoppingList extends Component {
         category: [],
         age: [],
         breeds: [],
-        //dropDownPetValue: 'Select pet',
-        //dropDownBreedValue: 'Select breed',
-        //dropDownPetOpen: false,
-        //dropDownBreedOpen: false,
+
         dropDownCategoryOpen: false,
         dropDownRatingOpen: false,
         dropDownDogOpen: false,
         dropDowncatOpen: false,
         dropDownParrotOpen: false,
         dropDownOtherOpen: false
-        // fadeIn:false
-        // isOpen:false
     };
 
     static protoType = {

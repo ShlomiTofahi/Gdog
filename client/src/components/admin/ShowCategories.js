@@ -1,10 +1,11 @@
 
 import React, { Component, Fragment } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getCategories, deleteCategory } from '../../actions/categoryActions';
 import PropTypes from 'prop-types';
+
+import { getCategories, deleteCategory } from '../../actions/categoryActions';
+
 import AddCategoryModal from './AddCategoryModal';
 import ShowElements from './ShowElements';
 
@@ -18,7 +19,7 @@ class ShowCategories extends Component {
     }
 
     componentDidMount() {
-        this.props.getCategories();
+                // this.props.getCategories();
     }
 
     onDeleteClick = (id) => {

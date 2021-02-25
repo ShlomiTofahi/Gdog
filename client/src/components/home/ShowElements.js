@@ -1,6 +1,6 @@
 
 import React, { Component, Fragment } from 'react';
-import { Container, ListGroup, ListGroupItem, Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { getItems } from '../../actions/itemActions';
 import { clearErrors, returnErrors } from '../../actions/errorActions';
 import { clearMsgs, returnMsgs } from '../../actions/msgActions';
-
-
 
 class ShowElements extends Component {
   state = {

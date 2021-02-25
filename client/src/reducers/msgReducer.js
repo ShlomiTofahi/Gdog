@@ -6,7 +6,7 @@ const initialState = {
   id: null
 };
 
-export default function errorReducer(state = initialState, action) {
+export default function msgReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MSGS:
       return {

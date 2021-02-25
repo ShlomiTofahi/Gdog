@@ -1,19 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import {
-    ListGroup, ListGroupItem, Card, Button, CardTitle, CardText, CardBody, CardImg, Row, Col, Form, Fade, Input, Collapse,
-    ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, CardFooter
+     Card, Button, CardTitle, CardText, CardBody, CardImg, Col, CardFooter
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { editItem, getItems, deleteItem, getFilterItems, ratingItem, viewsItem } from '../actions/itemActions';
-import { getAges } from '../actions/ageActions';
 import PropTypes from 'prop-types';
+import ReactStars from "react-rating-stars-component";
+
+import { editItem, getItems, deleteItem, getFilterItems, ratingItem, viewsItem } from '../../actions/itemActions';
+import { getAges } from '../../actions/ageActions';
+import { getPets, getPet } from '../../actions/petActions';
+import { getCategories } from '../../actions/categoryActions';
+
 import ItemDetails from './ItemDetails';
 import EditItemModal from './EditItemModal';
-import SideBarFilterItem from './SideBarFilterItem';
-import { getPets, getPet } from '../actions/petActions';
-import { getCategories } from '../actions/categoryActions';
-import ReactStars from "react-rating-stars-component";
 
 class Item extends Component {
     state = {
@@ -71,19 +71,17 @@ class Item extends Component {
 
 
     ratingChanged = (_id, rating) => {
-        //console.log(rating)
-        //console.log(_id)
 
-        var ratedList = localStorage.getItem('ratedList');
-        if (ratedList == null)
-            ratedList = [];
+        var ratedItemList = localStorage.getItem('ratedItemList');
+        if (ratedItemList == null)
+            ratedItemList = [];
 
-        if (!ratedList.includes(String(_id)))
+        if (!ratedItemList.includes(String(_id))){
             this.props.ratingItem(_id, rating)
+            ratedItemList = ratedItemList.concat(String(_id))
+        }
 
-        ratedList = ratedList.concat(String(_id))
-
-        localStorage.setItem('ratedList', ratedList);
+        localStorage.setItem('ratedItemList', ratedItemList);
 
     };
 
@@ -97,16 +95,17 @@ class Item extends Component {
     };
 
     handleClickItemToTrue = (id) => {
-        var viewedList = localStorage.getItem('viewedList');
-        if (viewedList == null)
-            viewedList = [];
+        var viewedItemList = localStorage.getItem('viewedItemList');
+        if (viewedItemList == null)
+        viewedItemList = [];
 
-        if (!viewedList.includes(String(id)))
+        if (!viewedItemList.includes(String(id))){
             this.props.viewsItem(id)
+            viewedItemList = viewedItemList.concat(String(id))
+        }
 
-        viewedList = viewedList.concat(String(id))
 
-        localStorage.setItem('viewedList', viewedList);
+        localStorage.setItem('viewedItemList', viewedItemList);
 
         this.setState({
             itemClicked: true

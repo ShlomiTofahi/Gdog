@@ -1,14 +1,16 @@
 import React, { Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,Fade,
-         NavLink, Alert,ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+        Alert,ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { getPets, getPet } from '../../actions/petActions';
-import FileUpload from '../FileUpload';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+
+import FileUpload from '../fileupload/FileUpload';
 
 class RegisterModal extends Component {
     state = {

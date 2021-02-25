@@ -1,18 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import {
-    ListGroup, ListGroupItem, Card, Button, CardTitle, CardText, CardBody, CardImg, Row, Col, Form, Fade, Input,
-    ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, CardFooter
+    Button, Col
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Collapse } from 'react-collapse';
+
 import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
 import { getAges } from '../../actions/ageActions';
-import PropTypes from 'prop-types';
-import ItemModal from '../itemModal';
 import { getPets, getPet } from '../../actions/petActions';
 import { getCategories } from '../../actions/categoryActions';
-import { Collapse } from 'react-collapse';
-import { set } from 'mongoose';
 
 class Robot extends Component {
     state = {

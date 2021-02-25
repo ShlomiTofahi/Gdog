@@ -56,16 +56,13 @@ router.get('/:id', (req, res) => {
 
 // @route   GET api/items/filter
 // @desc    Get specific Item
-// @access  Public---------------------------------------------------------------
+// @access  Public
 router.post('/filter', (req, res) => {
     const { name, price, pet, breed, category, age, rating } = req.body;
 
-    console.log(req.body)
     //Simple validation
     if (name == null || price == null || age == null || pet == null || breed == null || category == null || rating == null)
         return res.status(400).json({ msg: 'One or more field is missing' });
-
-    console.log(req.body)
 
     Pet.find({ name: { $in: pet } }).then(pet => {
         Breed.find({ name: { $in: breed } }).then(breed => {
@@ -79,66 +76,95 @@ router.post('/filter', (req, res) => {
                                 .sort({ date: -1 })
                                 .then(items => res.json(items))
                         } else {
-                            console.log(rating)
                             var item = [];
                             var itemIdList = [];
 
                             Item.find({ name: { $regex: name, $options: 'i' } }).select("_id").then(newItem => {
-
                                 if (name != "") {
-                                    itemIdList = []
-                                    newItem.map(item => itemIdList.push(String(item._id)))
-                                    if (!item.length) item = newItem;
-                                    if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
-                                }
-
-
-
-                                Item.find({ price: { $lte: price } }).select("_id").then(newItem => {
-                                    console.log("newItem")
-                                    console.log(newItem)
-
-                                    if (price != "") {
+                                    if (!newItem.length) {
+                                        return res.json([])
+                                    }
+                                    else {
                                         itemIdList = []
                                         newItem.map(item => itemIdList.push(String(item._id)))
                                         if (!item.length) item = newItem;
                                         if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
                                     }
-                                    console.log(item)
+                                }
 
-                                    Item.find({ age: { $in: age } }).select("_id").then(newItem => {
+                                Item.find({ price: { $lte: price } }).select("_id").then(newItem => {
+                                    if (price != "") {
                                         itemIdList = []
-                                        newItem.map(item => itemIdList.push(String(item._id)))
-                                        if (!item.length) item = newItem;
-                                        if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
-
-                                        console.log(newItem)
-
-                                        Item.find({ category: { $in: category } }).select("_id").then(newItem => {
-                                            itemIdList = []
+                                        if (!newItem.length) {
+                                            return res.json([])
+                                        }
+                                        else {
                                             newItem.map(item => itemIdList.push(String(item._id)))
                                             if (!item.length) item = newItem;
-                                            if (newItem.length) { item = item.filter(element => itemIdList.includes(String(element._id))); }
+                                            if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                        }
+                                    }
 
-
-                                            Item.find({ pet: { $in: pet } }).select("_id").then(newItem => {
-                                                itemIdList = []
+                                    Item.find({ age: { $in: age } }).select("_id").then(newItem => {
+                                        if (age.length) {
+                                            itemIdList = []
+                                            if (!newItem.length) {
+                                                return res.json([])
+                                            } else {
                                                 newItem.map(item => itemIdList.push(String(item._id)))
                                                 if (!item.length) item = newItem;
                                                 if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                            }
+                                        }
 
-                                                Item.find({ breed: { $in: breed } }).select("_id").then(newItem => {
-                                                    itemIdList = []
+                                        Item.find({ category: { $in: category } }).select("_id").then(newItem => {
+                                            if (category.length) {
+                                                itemIdList = []
+                                                if (!newItem.length) {
+                                                    return res.json([])
+                                                } else {
                                                     newItem.map(item => itemIdList.push(String(item._id)))
                                                     if (!item.length) item = newItem;
-                                                    if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                                    if (newItem.length) { item = item.filter(element => itemIdList.includes(String(element._id))); }
+                                                }
+                                            }
 
-                                                    Item.find({ rating: { $in: rating } }).select("_id").then(newItem => {
-                                                        itemIdList = []
-                                                        console.log(newItem)
+                                            Item.find({ pet: { $in: pet } }).select("_id").then(newItem => {
+                                                if (pet.length) {
+                                                    itemIdList = []
+                                                    if (!newItem.length) {
+                                                        return res.json([])
+                                                    } else {
                                                         newItem.map(item => itemIdList.push(String(item._id)))
                                                         if (!item.length) item = newItem;
                                                         if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                                    }
+                                                }
+
+                                                Item.find({ breed: { $in: breed } }).select("_id").then(newItem => {
+                                                    if (breed.length) {
+                                                        itemIdList = []
+                                                        if (!newItem.length) {
+                                                            return res.json([])
+                                                        } else {
+                                                            newItem.map(item => itemIdList.push(String(item._id)))
+                                                            if (!item.length) item = newItem;
+                                                            if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                                        }
+                                                    }
+
+                                                    Item.find({ rating: { $in: rating } }).select("_id").then(newItem => {
+                                                        if (rating != "") {
+                                                            itemIdList = []
+                                                            if (!newItem.length) {
+                                                                return res.json([])
+                                                            }
+                                                            else {
+                                                                newItem.map(item => itemIdList.push(String(item._id)))
+                                                                if (!item.length) item = newItem;
+                                                                if (newItem.length) item = item.filter(element => itemIdList.includes(String(element._id)));
+                                                            }
+                                                        }
 
                                                         Item.find({ "_id": { $in: item } }).populate('pet').populate('breed').populate('category').populate('age').populate('rating')
                                                             .sort({ date: -1 })
@@ -217,7 +243,6 @@ router.post('/', auth, (req, res) => {
 // @desc    Edit A Item
 // @access  Private
 router.post('/edit/:id', auth, (req, res) => {
-    console.log(req.body )
 
     User.findById(req.user.id).then(user => {
         if (!user.admin) {
@@ -251,7 +276,7 @@ router.post('/edit/:id', auth, (req, res) => {
                         Item.findById(req.params.id).then(item =>
                             item.updateOne(newItem).then(() => {
                                 Item.findById(req.params.id).populate('category').populate('pet').populate('breed').populate('age').populate('rating')
-                                .then(item => res.json(item))                            
+                                    .then(item => res.json(item))
                             })
                         ).catch(err => res.status(404).json({ success: false }));
                     })

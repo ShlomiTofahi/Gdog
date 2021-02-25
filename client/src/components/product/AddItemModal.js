@@ -3,17 +3,19 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,
      ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Fade, Collapse, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addItem } from '../actions/itemActions';
-import { clearErrors } from '../actions/errorActions';
-import { clearMsgs } from '../actions/msgActions';
-import { getPets, getPet } from '../actions/petActions';
-import { getCategories } from '../actions/categoryActions';
-import { getAges } from '../actions/ageActions';
-import FileUpload from './FileUpload';
+import axios from 'axios';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import axios from 'axios';
+
+import { addItem } from '../../actions/itemActions';
+import { clearErrors } from '../../actions/errorActions';
+import { clearMsgs } from '../../actions/msgActions';
+import { getPets, getPet } from '../../actions/petActions';
+import { getCategories } from '../../actions/categoryActions';
+import { getAges } from '../../actions/ageActions';
+import FileUpload from '../fileupload/FileUpload';
+
 
 class ItemModal extends Component {
     state = {

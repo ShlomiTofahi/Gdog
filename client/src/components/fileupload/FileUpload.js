@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Prompt } from 'react-router'
+import { Button, Fade } from 'reactstrap';
+import axios from 'axios';
 
 import Message from './Message';
 import Progress from './Progress';
-import axios from 'axios';
-import { Button, Fade } from 'reactstrap';
+
 var path = require('path');
 
 const FileUpload = (props) => {
@@ -49,8 +50,6 @@ const FileUpload = (props) => {
   });
   const onChangeFileUpload = event => {
     let file = event.target.files[0];
-    // console.log('file')
-    console.log(file.type)
     if (file.type != "image/png" && file.type != 'image/jpg' && file.type != 'image/jpeg'
                                   && file.type != 'image/webp' && file.type != 'image/gif') {
       setMessage("File does not support. You must use .png or .jpg ");

@@ -5,7 +5,7 @@ const initialState = {
     loading: false
 }; 
 
-export default function itemReducer(state = initialState, action ) {
+export default function ageReducer(state = initialState, action ) {
     switch (action.type) {
         case GET_AGES:
             return {

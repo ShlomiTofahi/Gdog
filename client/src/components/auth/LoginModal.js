@@ -1,10 +1,11 @@
 import React, { Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { login } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
-import { Link } from 'react-router-dom';
 
 class LoginModal extends Component {
     state = {

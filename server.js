@@ -20,10 +20,8 @@ app.post('/upload', (req, res) => {
 
   const file = req.files.file;
   const {filename, abspath} = req.body;
-  console.log(abspath)
   file.mv(`${__dirname}/client/public${abspath}${filename}`, err => {
     if (err) {
-      console.error(err);
       return res.status(500).send(err);
     }
 
@@ -36,7 +34,6 @@ app.post('/remove', (req, res) => {
     return res.status(400).json({ msg: 'No file to remove' });
   }
   const { filepath } = req.body;
-  console.log(filepath)
 
   fs.unlinkSync(`${__dirname}/client/public/${filepath}`);
 

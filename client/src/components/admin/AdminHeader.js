@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class AdminSettings extends Component {
@@ -7,8 +7,6 @@ class AdminSettings extends Component {
   render() {
 
     return (
-
-
       <header style={headerStyle}>
         <h1>כלים</h1>
 

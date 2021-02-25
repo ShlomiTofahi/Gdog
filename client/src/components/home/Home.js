@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CoverImage from './CoverImage'
 import Robot from './Robot'
+
 export default class Home extends Component {
     render() {
         return (
@@ -12,7 +13,6 @@ export default class Home extends Component {
                     height: '100%',
                     paddingBottom: '50px'
                 }}>
-
                 <CoverImage />
                 <Robot />
             </div>

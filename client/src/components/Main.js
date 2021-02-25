@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
 import { connect } from  'react-redux';
 import { Switch, Route } from 'react-router-dom';
-// import Admin from './admin/AdminSettings';
-import AdminManage from './admin/AdminManage';
-import ShowItems from './ShoppingList';
-// import ShowUsers from './admin/ShowUsers';
-// import ShowCategories from './admin/ShowCategories';
 import PropTypes from 'prop-types';
+
+import AdminManage from './admin/AdminManage';
+import Products from './product/Products';
 import ScrollToTop from './ScrollToTop';
-import FileUpload from './FileUpload';
+import FileUpload from './fileupload/FileUpload';
 import ShowProfile from './profile/ShowProfile';
 import EditProfile from './profile/EditProfile';
 import Home from './home/Home';
 import About from './About';
 import Contact from './Contact';
-import Payment from './Payment';
+import Payment from './product/Payment';
 import Forum from './forum/Forum';
 
 class Main extends Component {
@@ -33,15 +31,12 @@ class Main extends Component {
                 <ScrollToTop />
                 <Switch>
                     <Route exact path='/' component={Home}/>
-                    <Route exact path='/admin' component={ is_admin ? AdminManage: ShowItems} />
-                    {/* <Route exact path='/admin/users' component={ is_admin ? ShowUsers: ShowItems}/>
-                    <Route exact path='/admin/categories' component={is_admin ? ShowCategories: ShowItems }/>
-                    <Route exact path='/admin/items' component={ShowItems}/> */}
+                    <Route exact path='/admin' component={ is_admin ? AdminManage: Home} />
 
-                    <Route exact path='/profile' component={isAuthenticated ? ShowProfile: ShowItems}/>
-                    <Route exact path='/profile/edit' component={isAuthenticated ? EditProfile: ShowItems}/>
+                    <Route exact path='/profile' component={isAuthenticated ? ShowProfile: Home}/>
+                    <Route exact path='/profile/edit' component={isAuthenticated ? EditProfile: Home}/>
 
-                    <Route exact path='/products' component={ShowItems}/>
+                    <Route exact path='/products' component={Products}/>
                     <Route exact path='/about' component={About}/>
                     <Route exact path='/contact' component={Contact}/>
                     <Route exact path='/products/payment' component={Payment}/>
