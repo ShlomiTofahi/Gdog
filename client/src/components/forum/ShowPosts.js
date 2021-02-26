@@ -106,32 +106,33 @@ class ShowElements extends Component {
         <TransitionGroup align='right' className='pt-3 pb-3'>
           {elements && elements.map(({ _id, title, published_date, views, comments, user }) => (
             <CSSTransition key={_id} timeout={500} classNames='fade'>
-              <ListGroupItem className='mt-1' style={this.getStyle()}>
+              <ListGroupItem className='mt-2' style={this.getStyle()}>
                 <Link to={'/forum/post/'+_id} style={{ color: 'black' }} onClick={this.handleClickPost.bind(this, _id)}>
                   <Col>
                     <Row>
-                      <span class="ml-4">
+                      <span class="forum-user-image ml-1 ml-sm-2 ml-md-3">
                         <CardImg bottom className='forum-pet-image' src={user.petImage} />
                       </span>
-                      <span class="ml-4">{title}<br />
+                      
+                      <span class="forum-post-title">{title}<br />
                       <small>פורסם ע"י: {user.name}</small>
-
                       </span>
+
                       <span className='forum-post'>
                         <Row className='pt-2'>
 
-                          <small class='ml-1 ml-sm-4'>
+                          <small class='ml-1 ml-sm-1 ml-md-3 ml-lg-4'>
                             תגובות:
                   <br />
                             {comments.length}
                           </small>  
 
-                          <small class='ml-1 ml-sm-5'>
+                          <small class='ml-1 ml-sm-1 ml-md-3 ml-lg-4'>
                             צפיות:
                   <br />
                             {views}
                           </small>
-                          <small class='ml-1 ml-sm-4'>
+                          <small class='ml-1 ml-sm-1 ml-md-2 ml-lg-3'>
                             מועד העלאה:
                   <br />
                             {moment(published_date).format('DD/MM/YYYY')}
