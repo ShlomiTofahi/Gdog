@@ -134,7 +134,7 @@ class ShowElements extends Component {
                           <small class='ml-1 ml-sm-4'>
                             מועד העלאה:
                   <br />
-                            {moment(published_date).format('DD/MM/YYYY hh:mm')}
+                            {moment(published_date).format('DD/MM/YYYY')}
                           </small>
                         </Row>
                       </span>
