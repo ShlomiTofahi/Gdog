@@ -52,13 +52,13 @@ class AppNavbar extends Component {
 
                             <ul class="list-unstyled mb-0 ml-5">
                                 <li>
-                                    <a href="#!" class="text-dark">Link 1</a>
+                                    <a href="#!" class="text-dark">שקי אוכל</a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="text-dark">Link 2</a>
+                                    <a href="#!" class="text-dark">פורום</a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="text-dark">Link 3</a>
+                                    <a href="#!" class="text-dark">תספורת</a>
                                 </li>
                                 <li>
                                     <a href="#!" class="text-dark">Link 4</a>

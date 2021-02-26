@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-     Row, Container
+     Row, Container, Spinner
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import { getCategories } from '../../actions/categoryActions';
 import AddItemModal from './AddItemModal';
 import Item from './Item';
 import SideBarFilterItem from './SideBarFilterItem';
+import { relativeTimeRounding } from 'moment';
 
 class ShoppingList extends Component {
 
@@ -55,20 +56,25 @@ class ShoppingList extends Component {
 
     render() {
         const { isAuthenticated, user } = this.props.auth;
-        var { items } = this.props.item;
+        var { items, loading } = this.props.item;
         const is_admin = (isAuthenticated && user.admin);
 
         return (
 
             <Fragment>
+
+
                 <Container className='mb-5'>
                     <SideBarFilterItem />
 
                     <div class="main">
-
                         {is_admin &&
                             <AddItemModal />
                         }
+
+                    { loading? 
+                        <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
+                        :
                         <Row>
                             {items.map(({ _id, name, price, age, category, discount, itemImage, pet, breed, description, weight, rating, views }) => (
                                 <Item key={_id}
@@ -87,6 +93,7 @@ class ShoppingList extends Component {
                                     views={views} />
                             ))}
                         </Row>
+                    } 
                     </div>
                 </Container>
 
@@ -95,7 +102,12 @@ class ShoppingList extends Component {
     }
 }
 
-
+const spinnerStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    width: '3rem', height: '3rem' 
+  };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,

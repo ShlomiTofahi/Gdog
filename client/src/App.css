@@ -943,10 +943,16 @@ a {
         width:64%;
     }
 }
-@media screen and (max-width: 768px) and (min-width: 513px) {
+@media screen and (max-width: 768px) and (min-width: 570px) {
     .forum-post-title{
         word-break:break-all;
         width:58%;
+    }
+}
+@media screen and (max-width: 570px) and (min-width: 513px) {
+    .forum-post-title{
+        word-break:break-all;
+        width:52%;
     }
 }
 @media screen and (max-width: 513px){
@@ -954,7 +960,6 @@ a {
         word-break:break-all;
         width:100%;
     }
-
 }
 
 @media screen and (max-width: 768px) {

@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import {
-    Button, Col, Form, Input,
+    Button, Col, Form, Input,Spinner
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 
-import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
+import { getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
 import { getAges } from '../../actions/ageActions';
 import { getPets, getPet } from '../../actions/petActions';
 import { getCategories } from '../../actions/categoryActions';
@@ -32,7 +32,6 @@ class ShoppingList extends Component {
     };
 
     static protoType = {
-        getItems: PropTypes.func.isRequired,
         getFilterItems: PropTypes.func.isRequired,
         getAges: PropTypes.func.isRequired,
         getPet: PropTypes.func.isRequired,
@@ -48,13 +47,7 @@ class ShoppingList extends Component {
     }
 
     componentDidMount() {
-        // this.props.getItems();
-        // this.props.getAges();
-        // this.props.getPets();
-        // this.props.getCategories();
         this.props.getMinMaxPrice();
-        // if(this.props.item.minmaxprice)
-        //     this.setState({price:this.props.item.minmaxprice.max})
     }
 
     onChange = e => {
@@ -163,7 +156,7 @@ class ShoppingList extends Component {
     }
     render() {
         const { isAuthenticated, user } = this.props.auth;
-        const { items, minmaxprice } = this.props.item;
+        const { minmaxprice, loading } = this.props.item;
         const { ages } = this.props.age;
         const is_admin = (isAuthenticated && user.admin);
         const { pets, pet } = this.props.pet;
@@ -212,8 +205,12 @@ class ShoppingList extends Component {
             <Fragment>
 
 
-
                 <div class="sidenav" align="center">
+
+                { loading? 
+                <Spinner type="grow" size="sm" color="secondary" />
+                    :null
+                }
                     <button style={{ fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>  <span class="pl-1">סינון מוצרים</span>
                     
                         {filterBtnSymbol}
@@ -396,5 +393,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getItems, getAges, getFilterItems, getPets, getPet, getCategories, getMinMaxPrice }
+    { getAges, getFilterItems, getPets, getPet, getCategories, getMinMaxPrice }
 )(ShoppingList);

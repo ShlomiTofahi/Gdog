@@ -3,6 +3,9 @@ import React, { Component, Fragment } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  Spinner
+} from 'reactstrap';
 
 import { getPets } from '../../actions/petActions';
 import { getPosts, getFilterPosts } from '../../actions/postActions';
@@ -144,7 +147,7 @@ class ShowBreeds extends Component {
     const { isAuthenticated, user, users } = this.props.auth;
     const is_admin = (isAuthenticated && user.admin);
     const { categories } = this.props.category;
-    const { posts } = this.props.post;
+    const { posts, loading } = this.props.post;
 
 
 
@@ -165,14 +168,20 @@ class ShowBreeds extends Component {
         {categories.map(({ _id, name }) => (
           <div id={name} class="tabcontent">
             <AddPostModal />
-            <ShowPosts elements={posts} />
+            { loading? 
+              <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
+              :<ShowPosts elements={posts} />
+            }
           </div>
         ))}
 
         <div id="כללי" class="tabcontent">
           <AddPostModal />
-          <ShowPosts elements={posts} />
-        </div>
+          { loading? 
+              <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
+              :<ShowPosts elements={posts} />
+          }        
+          </div>
       </Fragment>
     );
   }
@@ -186,6 +195,14 @@ const btnRemoveStyle = {
   borderRadius: "50%",
   cursor: "pointer",
   float: "right",
+};
+
+const spinnerStyle = {
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  width: '3rem',
+  height: '3rem' 
 };
 
 const btnEditStyle = {
