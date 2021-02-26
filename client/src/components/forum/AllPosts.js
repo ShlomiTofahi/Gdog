@@ -50,8 +50,8 @@ class Forum extends Component {
 
 const spinnerStyle = {
   position: 'absolute',
-  left: '50%',
-  top: '50%',
+  left: '45%',
+  top: '40%',
   width: '3rem',
   height: '3rem' 
 };
