@@ -110,7 +110,7 @@ class ShowElements extends Component {
                 <Link to={'/forum/post/'+_id} style={{ color: 'black' }} onClick={this.handleClickPost.bind(this, _id)}>
                   <Col>
                     <Row>
-                      <span class="forum-user-image ml-1 ml-sm-2 ml-md-3">
+                      <span class="ml-1 ml-sm-2 ml-md-3">
                         <CardImg bottom className='forum-pet-image' src={user.petImage} />
                       </span>
                       

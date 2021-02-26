@@ -949,17 +949,12 @@ a {
         width:58%;
     }
 }
-@media screen and (max-width: 513px) and (min-width: 481px) {
+@media screen and (max-width: 513px){
     .forum-post-title{
-        word-break:normal;
+        word-break:break-all;
         width:100%;
     }
-}
-@media screen and (max-width: 481px) and (min-width: 381px) {
-    .forum-post-title{
-        word-break:normal;
-        width:100%;
-    }
+
 }
 
 @media screen and (max-width: 768px) {
