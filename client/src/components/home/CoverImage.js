@@ -3,10 +3,7 @@ import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
-import { getAges } from '../../actions/ageActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
+import { getFilterItems } from '../../actions/itemActions';
 
 class CoverImage extends Component {
     state = {
@@ -93,17 +90,7 @@ class CoverImage extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-    auth: state.auth,
-    item: state.item,
-    pet: state.pet,
-    isAuthenticated: state.auth.isAuthenticated,
-    age: state.age,
-    category: state.category
-
-});
-
 export default connect(
-    mapStateToProps,
-    { getItems, getAges, getFilterItems, getPets, getPet, getCategories, getMinMaxPrice }
+    null,
+    { getFilterItems }
 )(CoverImage);

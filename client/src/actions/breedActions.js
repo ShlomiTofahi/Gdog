@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_BREEDS, ADD_BREED, DELETE_BREED, BREEDS_LOADING, ADD_BREED_SUCCESS, ADD_BREED_FAIL, DELETE_FAIL} from '../actions/types';
+import { GET_BREEDS, ADD_BREED, DELETE_BREED, BREEDS_LOADING, ADD_BREED_FAIL, DELETE_FAIL } from '../actions/types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from   './errorActions';
 import { returnMsgs } from './msgActions';

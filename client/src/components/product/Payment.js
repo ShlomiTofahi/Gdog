@@ -4,7 +4,7 @@ export default class Payment extends Component {
     render() {
         return (
             <div>
-               התשלום מתבצע דרך ביט
+                התשלום מתבצע דרך ביט
             </div>
         )
     }

@@ -1,16 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import {
-     Card, Button, CardTitle, CardText, CardBody, CardImg, Col, CardFooter
+    Card, Button, CardTitle, CardText, CardBody, CardImg, Col, CardFooter
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactStars from "react-rating-stars-component";
 
-import { editItem, getItems, deleteItem, getFilterItems, ratingItem, viewsItem } from '../../actions/itemActions';
-import { getAges } from '../../actions/ageActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
+import { deleteItem, ratingItem, viewsItem } from '../../actions/itemActions';
 
 import ItemDetails from './ItemDetails';
 import EditItemModal from './EditItemModal';
@@ -19,56 +16,17 @@ class Item extends Component {
     state = {
         rating: 0,
         itemClicked: false
-
-
-        //     name: "",
-        //     pet: [],
-        //     breed: [],
-        //     category: [],
-        //     picture: [],
-        //     age: [],
-        //     breeds: [],
-        //     //dropDownPetValue: 'Select pet',
-        //     //dropDownBreedValue: 'Select breed',
-        //     //dropDownPetOpen: false,
-        //     //dropDownBreedOpen: false,
-        //     // dropDownCategoryOpen: false,
-        //     // dropDownDogOpen: false,
-        //     // dropDowncatOpen: false,
-        //     // dropDownParrotOpen: false,
-        //     // dropDownOtherOpen: false
-        //    // fadeIn:false
-        //    // isOpen:false
     };
 
     static protoType = {
-        getItems: PropTypes.func.isRequired,
-        getFilterItems: PropTypes.func.isRequired,
-        getAges: PropTypes.func.isRequired,
-        getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired,
-        getCategrys: PropTypes.func.isRequired,
         ratingItem: PropTypes.func.isRequired,
         viewsItem: PropTypes.func.isRequired,
-        auth: PropTypes.object,
-        item: PropTypes.object.isRequired,
-        age: PropTypes.object.isRequired,
-        isAuthenticated: PropTypes.bool,
-        pet: PropTypes.object.isRequired,
-        category: PropTypes.object.isRequired
-    }
-
-    componentDidMount() {
-        //this.props.getItems();
-        // this.props.getAges();
-        // this.props.getPets();
-        // this.props.getCategories();
+        auth: PropTypes.object
     }
 
     onDeleteClick = (id) => {
         this.props.deleteItem(id);
     }
-
 
     ratingChanged = (_id, rating) => {
 
@@ -76,7 +34,7 @@ class Item extends Component {
         if (ratedItemList == null)
             ratedItemList = [];
 
-        if (!ratedItemList.includes(String(_id))){
+        if (!ratedItemList.includes(String(_id))) {
             this.props.ratingItem(_id, rating)
             ratedItemList = ratedItemList.concat(String(_id))
         }
@@ -97,13 +55,12 @@ class Item extends Component {
     handleClickItemToTrue = (id) => {
         var viewedItemList = localStorage.getItem('viewedItemList');
         if (viewedItemList == null)
-        viewedItemList = [];
+            viewedItemList = [];
 
-        if (!viewedItemList.includes(String(id))){
+        if (!viewedItemList.includes(String(id))) {
             this.props.viewsItem(id)
             viewedItemList = viewedItemList.concat(String(id))
         }
-
 
         localStorage.setItem('viewedItemList', viewedItemList);
 
@@ -121,41 +78,15 @@ class Item extends Component {
 
     render() {
         const { isAuthenticated, user } = this.props.auth;
-        const { items } = this.props.item;
-        const { ages } = this.props.age;
         const is_admin = (isAuthenticated && user.admin);
-        const { pets } = this.props.pet;
-        const { categorys } = this.props.category;
 
-        var dogBreeds = null;
-        var catBreeds = null;
-        var parrotBreeds = null;
-        var otherBreeds = null;
-
-        if (pets)
-            pets.map(pet => {
-                if (pet.name == "Dog") {
-                    dogBreeds = pet.breeds
-                }
-                if (pet.name == "Cat") {
-                    catBreeds = pet.breeds
-                }
-                if (pet.name == "Parrot") {
-                    parrotBreeds = pet.breeds
-                }
-                if (pet.name == "Other") {
-                    otherBreeds = pet.breeds
-                }
-            })
-        const { _id, name, price, age, category, discount, itemImage, pet, breed, description, weight, rating, views } = this.props;
+        const { _id, name, price, age, category, discount, itemImage, pet, breed, weight, rating, views } = this.props;
         rating.overall = (rating.overall % 1) > 0.85 ? rating.overall + 1 : rating.overall;
+
         return (
 
             <Fragment>
-
-
                 <CSSTransition key={_id} timeout={500} classNames='fade'>
-
                     <Col xs="12" sm="6" md="4" className='pt-4' >
                         <div className='position-relative'>
                             <Card className={['products']} align="right" timeout={500}
@@ -231,50 +162,19 @@ class Item extends Component {
                                 </CardFooter>
                             </Card>
                         </div>
-
                     </Col>
                 </CSSTransition>
-
-
-                {/* 
-                    <ListGroup>
-                        <TransitionGroup className='shopping-list'>
-                            {items.map(({ _id, name,price }) => (
-                                    <CSSTransition key={_id} timeout={500} classNames='fade'>
-                                    <ListGroupItem>
-                                        
-                                        { is_admin && 
-                                        <Button
-                                            className='remove-btn'
-                                            color='danger'
-                                            size='sm'
-                                            onClick={ this.onDeleteClick.bind(this, _id) }
-                                            >&times;</Button>
-                                            }
-                                        {name}
-                                        {price}
-                                    </ListGroupItem>
-                                </CSSTransition>
-                            ))}
-                        </TransitionGroup>
-                    </ListGroup> */}
             </Fragment>
         );
     }
 }
 
 
-
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    item: state.item,
-    isAuthenticated: state.auth.isAuthenticated,
-    age: state.age,
-    pet: state.pet,
-    category: state.category
+    auth: state.auth
 });
 
 export default connect(
     mapStateToProps,
-    { getItems, deleteItem, viewsItem, getAges, getFilterItems, getPets, getPet, getCategories, ratingItem }
+    { deleteItem, viewsItem, ratingItem }
 )(Item);

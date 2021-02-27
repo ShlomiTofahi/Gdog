@@ -4,7 +4,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getPets } from '../../actions/petActions';
 import { getBreeds } from '../../actions/breedActions';
 import { deleteBreed } from '../../actions/breedActions';
 
@@ -13,36 +12,18 @@ import AddBreedModal from './AddBreedModal';
 
 
 class ShowBreeds extends Component {
-  // state = {
-  //   Collapsetoggle: true,
-  //   name: "",
-
-  //   DogOpen: false,
-  //   catOpen: false,
-  //   ParrotOpen: false
-  // };
 
   static protoType = {
-    auth: PropTypes.object,
-    pet: PropTypes.object,
-    getPets: PropTypes.func.isRequired,
+    breed: PropTypes.object,
     getBreeds: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
   }
 
   componentDidMount() {
-    // this.props.getPets();
     this.props.getBreeds();
   }
 
   onDeleteClick = (id) => {
     this.props.deleteBreed(id);
-  }
-  onEditClick = (id) => {
-    // this.props.deleteCategory(id);
-  }
-  onAddClick = (id) => {
-    //this.props.deleteCategory(id);
   }
 
   getStyle = () => {
@@ -68,11 +49,7 @@ class ShowBreeds extends Component {
   }
 
   render() {
-    const { isAuthenticated, user, users } = this.props.auth;
-    const is_admin = (isAuthenticated && user.admin);
-    // const { pets } = this.props.pet;
     const { breeds } = this.props.breed;
-
 
     var dogBreeds = [];
     var catBreeds = [];
@@ -90,42 +67,30 @@ class ShowBreeds extends Component {
         }
       })
 
-    // if (pets)
-    //   pets.map(pet => {
-    //     if (pet.name == "כלב") {
-    //       dogBreeds = pet.breeds
-    //     }
-    //     if (pet.name == "חתול") {
-    //       catBreeds = pet.breeds
-    //     }
-    //     if (pet.name == "תוכי") {
-    //       parrotBreeds = pet.breeds
-    //     }
-    //   })
 
     return (
       <Fragment>
         {/* <Container className='mb-5'> */}
-          <div class="admin-tab">
-            <button class="tablinks" onClick={this.openBreeds.bind(this, "dog")}>כלב</button>
-            <button class="tablinks" onClick={this.openBreeds.bind(this, 'cat')}>חתול</button>
-            <button class="tablinks" onClick={this.openBreeds.bind(this, 'parrot')}>תוכי</button>
-          </div>
+        <div class="admin-tab">
+          <button class="tablinks" onClick={this.openBreeds.bind(this, "dog")}>כלב</button>
+          <button class="tablinks" onClick={this.openBreeds.bind(this, 'cat')}>חתול</button>
+          <button class="tablinks" onClick={this.openBreeds.bind(this, 'parrot')}>תוכי</button>
+        </div>
 
-          <div id="dog" class="tabcontent">
-            <AddBreedModal pet='כלב' />
-            <ShowElements elements={dogBreeds} onDeleteClick={this.onDeleteClick} />
-          </div>
+        <div id="dog" class="tabcontent">
+          <AddBreedModal pet='כלב' />
+          <ShowElements elements={dogBreeds} onDeleteClick={this.onDeleteClick} />
+        </div>
 
-          <div id="cat" class="tabcontent">
-            <AddBreedModal pet='חתול' />
-            <ShowElements elements={catBreeds} onDeleteClick={this.onDeleteClick} />
-          </div>
+        <div id="cat" class="tabcontent">
+          <AddBreedModal pet='חתול' />
+          <ShowElements elements={catBreeds} onDeleteClick={this.onDeleteClick} />
+        </div>
 
-          <div id="parrot" class="tabcontent">
-            <AddBreedModal pet='תוכי' />
-            <ShowElements elements={parrotBreeds} onDeleteClick={this.onDeleteClick} />
-          </div>
+        <div id="parrot" class="tabcontent">
+          <AddBreedModal pet='תוכי' />
+          <ShowElements elements={parrotBreeds} onDeleteClick={this.onDeleteClick} />
+        </div>
         {/* </Container> */}
       </Fragment>
     );
@@ -152,13 +117,10 @@ const btnEditStyle = {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  pet: state.pet,
   breed: state.breed
 });
 
 export default connect(
   mapStateToProps,
-  { getBreeds, getPets, deleteBreed }
+  { getBreeds, deleteBreed }
 )(ShowBreeds);

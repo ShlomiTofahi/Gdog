@@ -4,19 +4,8 @@ import { returnErrors } from './errorActions';
 import { returnMsgs } from './msgActions';
 
 import {
-  USER_LOADED,
-  USER_LOADING,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USERS_LOADING,
-  DELETE_USER,
-  GET_USERS,
-  EDIT_USER_SUCCESS,
-  EDIT_USER_FAIL
+  USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS,REGISTER_SUCCESS,
+  REGISTER_FAIL, USERS_LOADING, DELETE_USER, GET_USERS, EDIT_USER_SUCCESS, EDIT_USER_FAIL
 } from './types';
 
 
@@ -119,7 +108,7 @@ export const edit = (id, user) => (dispatch, getState) => {
     })
     .catch(err => {
       dispatch(
-        returnErrors(err.response.data.msg, err.response.status, 'EDIT_FAIL')
+        returnErrors(err.response.data.msg, err.response.status, 'EDIT_USER_FAIL')
       );
       dispatch({
         type: EDIT_USER_FAIL

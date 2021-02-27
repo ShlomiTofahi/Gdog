@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class AdminSettings extends Component {
+class AdminHeader extends Component {
 
 
   render() {
@@ -9,9 +9,8 @@ class AdminSettings extends Component {
     return (
       <header style={headerStyle}>
         <h1>כלים</h1>
-
         <Link style={linkStyle} to="/admin/users">משתמשים</Link> | <Link style={linkStyle} to="/admin/categories">קטגוריות</Link>
-                 | <Link style={linkStyle} to="/admin/products">מוצרים</Link>  | <Link style={linkStyle} to="/admin/breeds">גזעים</Link>
+        | <Link style={linkStyle} to="/admin/products">מוצרים</Link>  | <Link style={linkStyle} to="/admin/breeds">גזעים</Link>
       </header>
     );
   }
@@ -29,4 +28,4 @@ const linkStyle = {
   textDecoration: 'none'
 }
 
-export default AdminSettings;
+export default AdminHeader;

@@ -10,81 +10,50 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { deletePost, viewsPost } from '../../actions/postActions';
-import { clearErrors, returnErrors } from '../../actions/errorActions';
-import { clearMsgs, returnMsgs } from '../../actions/msgActions';
+// import { clearErrors, returnErrors } from '../../actions/errorActions';
+// import { clearMsgs, returnMsgs } from '../../actions/msgActions';
 
-class ShowElements extends Component {
+class ShowPosts extends Component {
   state = {
-    modal: false,
-    // itemClicked: false
-
+    modal: false
   };
+
   static protoType = {
     auth: PropTypes.object,
-    category: PropTypes.object,
-    getUsers: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    viewsPost: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    // this.props.getItems();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { error, msg, isAuthenticated } = this.props;
-    if (error !== prevProps.error) {
-      // Check for register error
-      if (error.id === 'DELETE_FAIL') {
-        this.setState({ msg: error.msg, modal: true });
-      } else {
-        this.setState({ msg: null, modal: false });
-      }
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const { error, msg, isAuthenticated } = this.props;
+  //   if (error !== prevProps.error) {
+  //     // Check for register error
+  //     if (error.id === 'DELETE_FAIL') {
+  //       this.setState({ msg: error.msg, modal: true });
+  //     } else {
+  //       this.setState({ msg: null, modal: false });
+  //     }
+  //   }
+  // }
 
   handleClickPost = (id) => {
     var viewedPostList = localStorage.getItem('viewedPostList');
     if (viewedPostList == null)
       viewedPostList = [];
 
-    if (!viewedPostList.includes(String(id))){
+    if (!viewedPostList.includes(String(id))) {
       this.props.viewsPost(id)
       viewedPostList = viewedPostList.concat(String(id))
     }
 
-
     localStorage.setItem('viewedPostList', viewedPostList);
+  }
 
-    // this.setState({
-    //     itemClicked: true
-    // });
-
-}
-
-// handleClickItemToFalse = () => {
-//     this.setState({
-//         itemClicked: false
-//     });
-// }
   onDeleteClick = (id) => {
     this.props.deletePost(id);
   }
   onEditClick = (id) => {
-    // this.props.deleteCategory(id);
-  }
-  onAddClick = (id) => {
-    //this.props.deleteCategory(id);
-  }
-
-  toggle = () => {
-    // Clear errors
-    this.props.clearErrors();
-    // Clear msgs
-    this.props.clearMsgs();
-
-    this.setState({
-      modal: !this.state.modal
-    });
+    //TODO
   }
 
   getStyle = () => {
@@ -98,7 +67,6 @@ class ShowElements extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
     const is_admin = (isAuthenticated && user.admin);
-
     const elements = this.props.elements
 
     return (
@@ -107,15 +75,15 @@ class ShowElements extends Component {
           {elements && elements.map(({ _id, title, published_date, views, comments, user }) => (
             <CSSTransition key={_id} timeout={500} classNames='fade'>
               <ListGroupItem className='mt-2' style={this.getStyle()}>
-                <Link to={'/forum/post/'+_id} className="text-dark" onClick={this.handleClickPost.bind(this, _id)}>
+                <Link to={'/forum/post/' + _id} className="text-dark" onClick={this.handleClickPost.bind(this, _id)}>
                   <Col>
                     <Row>
                       <span class="ml-1 ml-sm-2 ml-md-3">
                         <CardImg bottom className='forum-pet-image' src={user.petImage} />
                       </span>
-                      
+
                       <span class="forum-post-title">{title}<br />
-                      <small>פורסם ע"י: {user.name}</small>
+                        <small>פורסם ע"י: {user.name}</small> {user.admin && <small class='text-muted'>מנהל</small>}
                       </span>
 
                       <span className='forum-post'>
@@ -123,40 +91,36 @@ class ShowElements extends Component {
 
                           <small class='ml-3 ml-sm-1 ml-md-3 ml-lg-4'>
                             תגובות:
-                  <br />
+                          <br />
                             {comments.length}
-                          </small>  
+                          </small>
 
                           <small class='ml-3 ml-sm-1 ml-md-3 ml-lg-4'>
                             צפיות:
-                  <br />
+                          <br />
                             {views}
                           </small>
                           <small class='ml-2 ml-sm-1 ml-md-2 ml-lg-3'>
                             מועד העלאה:
-                  <br />
+                          <br />
                             {moment(published_date).format('DD/MM/YYYY')}
                           </small>
                         </Row>
                       </span>
-
-
-
                     </Row>
                   </Col>
                 </Link>
-                
-                {this.props.isAuthenticated  && (this.props.auth.user.admin || this.props.auth.user._id===user._id) ?  
-                        <div>
-                          <Button
-                            style={btnRemoveStyle}
-                            // style={{right: '0'}}
-                            className='remove-btn-admin'
-                            color='danger'
-                            size='sm'
-                            onClick={this.onDeleteClick.bind(this, _id)}
-                          >&#10007;</Button>
-                          {/* <Button
+
+                { isAuthenticated && (is_admin || this.props.auth.user._id === user._id) ?
+                  <div>
+                    <Button
+                      style={btnRemoveStyle}
+                      className='remove-btn-admin'
+                      color='danger'
+                      size='sm'
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >&#10007;</Button>
+                    {/* <Button
                         style={btnEditStyle}
                         className='edit-btn-admin'
                         title='ערוך'
@@ -165,8 +129,8 @@ class ShowElements extends Component {
                         onClick={this.onEditClick.bind(this, _id)}
                       >&#x2711;</Button> */}
 
-                        </div>
-                        : null}
+                  </div>
+                  : null}
               </ListGroupItem>
             </CSSTransition>
           ))}
@@ -198,14 +162,13 @@ const btnEditStyle = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  category: state.category,
-  msg: state.msg,
-  error: state.error,
-  item: state.item
+  // msg: state.msg,
+  error: state.error
 });
 
 export default connect(
   mapStateToProps,
-  { deletePost, viewsPost, clearErrors, clearMsgs, returnErrors, returnMsgs }
-)(ShowElements);
+  { deletePost, viewsPost,
+    //  clearErrors, clearMsgs, returnErrors, returnMsgs
+     }
+)(ShowPosts);

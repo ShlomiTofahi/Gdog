@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Card, CardBody, Fade, CardTitle, Button, Container,Form, FormGroup, Label,
-    Input, Alert,ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
+    Card, CardBody, Fade, CardTitle, Button, Container, Form, FormGroup, Label,
+    Input, Alert, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
 } from 'reactstrap';
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
@@ -11,7 +11,7 @@ import axios from 'axios';
 import { edit } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
-import { getPets, getPet } from '../../actions/petActions';
+import { getPet } from '../../actions/petActions';
 
 import FileUpload from '../fileupload/FileUpload';
 
@@ -43,15 +43,12 @@ class EditProfile extends Component {
 
     static protoType = {
         auth: PropTypes.object,
-        isAuthenticated: PropTypes.bool,
         pet: PropTypes.object.isRequired,
-        category: PropTypes.object.isRequired,
         error: PropTypes.object.isRequired,
         edit: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
         clearMsgs: PropTypes.func.isRequired,
         getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired
     }
 
     componentDidMount() {
@@ -75,7 +72,7 @@ class EditProfile extends Component {
         const { error, msg, isAuthenticated } = this.props;
         if (error !== prevProps.error) {
             // Check for register error
-            if (error.id === 'EDIT_FAIL') {
+            if (error.id === 'EDIT_USER_FAIL') {
                 this.setState({
                     msg: error.msg,
                     redirect: null
@@ -88,29 +85,13 @@ class EditProfile extends Component {
         //If edited, close modal
         if (!this.state.removedOrginalImageAndNotSave && msg && msg.id === 'EDIT_USER_SUCCESS') {
             this.setState({ redirect: '/profile' });
+
             // Clear errors
             this.props.clearErrors();
             // Clear msgs
             this.props.clearMsgs();
         }
-        //If authenticated, close modal
-        // if (this.state.modal) {
-        //     if (msg.id === 'EDIT_USER_SUCCESS') {
-        //         this.toggle();
-        //     }
-        // }
     }
-    // componentDidUpdate(prevProps) {
-    //     const { error, isAuthenticated } = this.props;
-    //     if(error !== prevProps.error) {
-    //         // Check for edit error
-    //         if(error.id === 'EDIT_FAIL') {
-    //             this.setState({ msg: error.msg });
-    //         } else {
-    //             this.setState({ msg: null });
-    //         }
-    //     }
-    // }
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -120,6 +101,7 @@ class EditProfile extends Component {
         e.preventDefault();
         const { name, pet, breed, email, cellphone, petImage, password } = this.state;
         const id = this.props.auth.user._id;
+
         // Create user object
         const NewUser = {
             name,
@@ -133,11 +115,8 @@ class EditProfile extends Component {
 
         // Attempt to edit
         this.props.edit(id, NewUser);
-        // this.setState({ redirect: '/profile' });
-
 
         //delete prev image
-
         const noImageFullpath = this.state.path + 'no-image.png';
         if (this.state.petImage != this.state.prevPetImage && this.state.prevPetImage != noImageFullpath) {
             const formData = new FormData();
@@ -155,6 +134,7 @@ class EditProfile extends Component {
     removedOrginalImageAndNotSave = () => {
         const { name, pet, breed, email, cellphone, petImage, password } = this.state;
         const id = this.props.auth.user._id;
+
         // Create user object
         const NewUser = {
             name,
@@ -182,20 +162,6 @@ class EditProfile extends Component {
             removedOrginalImageAndNotSave: true
         });
     }
-
-    // DropDowntoggle = () => {
-    //     this.setState({
-    //         dropdownOpen: !this.state.dropdownOpen
-    //     });
-    // }
-
-    // select = (event) => {
-    //     this.setState({
-    //         dropdownOpen: !this.state.dropdownOpen,
-    //         dropDownValue: event.target.innerText,
-    //         [event.target.name]: event.target.innerText
-    //     });
-    // }
 
     DropDowntogglePet = () => {
 
@@ -232,13 +198,11 @@ class EditProfile extends Component {
             [event.target.name]: event.target.innerText
         });
     }
+
     setRegisterModalStates = (val) => {
         this.setState({ petImage: val });
-        // if(this.state.removeImagefadeIn==false){
-        //     this.setState({removeImagefadeIn:!this.state.removeImagefadeIn });
-        // }
     }
-    //  
+
     setRegisterModalStates = (val) => {
         this.setState({ petImage: val });
         if (this.state.removeImagefadeIn == false) {
@@ -246,25 +210,6 @@ class EditProfile extends Component {
         }
     }
 
-    // close = () => {
-    //     const filepath = this.state.petImage
-
-    //     if (filepath !== '') {
-    //         const formData = new FormData();
-    //         formData.append('filepath', filepath);
-    //         axios.post('/remove', formData);
-    //         this.setState({ petImage: '' });
-    //     }
-    // }
-    // frameStyle = () => {
-    //     return {
-    //         border: '1px solid rgb(230, 230, 230)',
-    //         borderRadius: '5%',
-    //         marginTop: '5px',
-    //         padding: '5px',
-    //         width: '30rem'
-    //     };
-    // };
     bodyStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
@@ -277,10 +222,9 @@ class EditProfile extends Component {
             boxSshadow: '0 0 5px 0.1px #C7C7C7'
         };
     };
+
     render() {
-        const { isAuthenticated, user } = this.props.auth;
         const { pets, pet } = this.props.pet;
-        const { categories } = this.props.category;
 
         return (
             <Fragment >
@@ -341,7 +285,7 @@ class EditProfile extends Component {
                                                                 },
                                                             };
                                                         },
-                                                    },
+                                                    },  
                                                 }}>
                                                 {pets.map(({ name, _id }) => (
                                                     <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
@@ -426,14 +370,12 @@ class EditProfile extends Component {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated,
     pet: state.pet,
-    category: state.category,
     error: state.error,
     msg: state.msg
 });
 
 export default connect(
     mapStateToProps,
-    { edit, clearErrors, clearMsgs, getPets, getPet }
+    { edit, clearErrors, clearMsgs, getPet }
 )(EditProfile);

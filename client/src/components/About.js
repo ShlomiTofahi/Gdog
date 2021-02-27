@@ -20,8 +20,6 @@ export default class About extends Component {
             width: '90%',
             display: 'inline',
             borderRadius: '10%'
-
-            // paddingBottom:'20px'
         };
     };
     render() {

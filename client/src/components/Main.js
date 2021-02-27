@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { connect } from  'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -24,38 +24,39 @@ class Main extends Component {
 
     render() {
         const { isAuthenticated, user } = this.props.auth;
-        const is_admin =  (isAuthenticated && user.admin);
+        const is_admin = (isAuthenticated && user.admin);
 
         return (
             <main>
                 <ScrollToTop />
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route exact path='/admin' component={ is_admin ? AdminManage: Home} />
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/admin' component={is_admin ? AdminManage : Home} />
 
-                    <Route exact path='/profile' component={isAuthenticated ? ShowProfile: Home}/>
-                    <Route exact path='/profile/edit' component={isAuthenticated ? EditProfile: Home}/>
+                    <Route exact path='/profile' component={isAuthenticated ? ShowProfile : Home} />
+                    <Route exact path='/profile/edit' component={isAuthenticated ? EditProfile : Home} />
 
-                    <Route exact path='/products' component={Products}/>
-                    <Route exact path='/about' component={About}/>
-                    <Route exact path='/contact' component={Contact}/>
-                    <Route exact path='/products/payment' component={Payment}/>
-                    <Route exact path='/forum' component={Forum}/>
-                    <Route exact path='/FileUpload' component={FileUpload}/>
+                    <Route exact path='/products' component={Products} />
+                    <Route exact path='/products/payment' component={Payment} />
+
+                    <Route exact path='/forum' component={Forum} />
+                    <Route exact path='/about' component={About} />
+                    <Route exact path='/contact' component={Contact} />
+                    <Route exact path='/FileUpload' component={FileUpload} />
 
                 </Switch>
             </main>
         )
-    }    
+    }
 }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
     isAuthenticated: state.auth.isAuthenticated
 });
-export default  connect(
+export default connect(
     mapStateToProps,
-      {}
-     ) (Main); 
+    {}
+)(Main);
 
 

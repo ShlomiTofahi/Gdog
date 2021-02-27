@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import {
-    Button, Col, Form, Input,Spinner
+    Button, Col, Form, Input, Spinner
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 
 import { getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
-import { getAges } from '../../actions/ageActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
 
-class ShoppingList extends Component {
+class SideBarFilterItem extends Component {
     state = {
         Collapsetoggle: false,
         name: "",
@@ -33,15 +30,10 @@ class ShoppingList extends Component {
 
     static protoType = {
         getFilterItems: PropTypes.func.isRequired,
-        getAges: PropTypes.func.isRequired,
-        getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired,
         getMinMaxPrice: PropTypes.func.isRequired,
         auth: PropTypes.object,
         item: PropTypes.object.isRequired,
         age: PropTypes.object.isRequired,
-        isAuthenticated: PropTypes.bool,
         pet: PropTypes.object.isRequired,
         category: PropTypes.object.isRequired
     }
@@ -110,7 +102,6 @@ class ShoppingList extends Component {
                 }
             })
 
-        this.props.getPet(id);
         if (name == "כלב")
             this.setState({
                 dropdownDogOpen: !this.state.dropdownDogOpen
@@ -155,11 +146,9 @@ class ShoppingList extends Component {
         })
     }
     render() {
-        const { isAuthenticated, user } = this.props.auth;
         const { minmaxprice, loading } = this.props.item;
         const { ages } = this.props.age;
-        const is_admin = (isAuthenticated && user.admin);
-        const { pets, pet } = this.props.pet;
+        const { pets } = this.props.pet;
         const { categories } = this.props.category;
 
 
@@ -192,7 +181,7 @@ class ShoppingList extends Component {
             <span class="down-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                 <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
             </svg></span>
-            
+
         var filterDropDownSymbol = {}
         filterDropDownSymbol['category'] = this.state.dropDownCategoryOpen ? <span>&#45;</span> : <span>&#x2B;</span>
         filterDropDownSymbol['rating'] = this.state.dropDownRatingOpen ? <span>&#45;</span> : <span>&#x2B;</span>
@@ -207,12 +196,12 @@ class ShoppingList extends Component {
 
                 <div class="sidenav" align="center">
 
-                { loading? 
-                <Spinner type="grow" size="sm" color="secondary" />
-                    :null
-                }
+                    {loading ?
+                        <Spinner type="grow" size="sm" color="secondary" />
+                        : null
+                    }
                     <button style={{ fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>  <span class="pl-1">סינון מוצרים</span>
-                    
+
                         {filterBtnSymbol}
                     </button>
                     {/* <Button onClick={this.CollapseHangdle}>סינון מוצרים</Button> */}
@@ -385,7 +374,6 @@ class ShoppingList extends Component {
 const mapStateToProps = (state) => ({
     auth: state.auth,
     item: state.item,
-    isAuthenticated: state.auth.isAuthenticated,
     age: state.age,
     pet: state.pet,
     category: state.category
@@ -393,5 +381,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getAges, getFilterItems, getPets, getPet, getCategories, getMinMaxPrice }
-)(ShoppingList);
+    { getFilterItems, getMinMaxPrice }
+)(SideBarFilterItem);

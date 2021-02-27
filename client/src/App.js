@@ -4,8 +4,7 @@ import AppNavbar from './components/AppNavbar';
 import Footer from './components/Footer';
 import Main from './components/Main';
 
-import {Container} from 'reactstrap';
-import { Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store'
 import { loadUser } from './actions/authActions'
 
@@ -19,13 +18,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App"
-        //  style={{ backgroundImage: 'url(/images/bg.jpg)' }}
-         >
+        <div className="App">
           <AppNavbar />
-          {/* <Container> */}
-            <Main />
-          {/* </Container> */}
+          <Main />
           <Footer />
         </div>
       </Provider>

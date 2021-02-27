@@ -1,13 +1,16 @@
-import { GET_ITEMS, GET_ITEM, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, ITEM_LOADING, RATING_ITEM, GET_MINMAXPRICE, VIEWS_ITEM, EDIT_ITEM} from '../actions/types';
+import {
+    GET_ITEMS, GET_ITEM, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING,
+    ITEM_LOADING, RATING_ITEM, GET_MINMAXPRICE, VIEWS_ITEM, EDIT_ITEM
+} from '../actions/types';
 
 const initialState = {
     items: [],
     loading: false,
     minmaxprice: null,
     item: null
-}; 
+};
 
-export default function itemReducer(state = initialState, action ) {
+export default function itemReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ITEMS:
             return {
@@ -31,14 +34,14 @@ export default function itemReducer(state = initialState, action ) {
                 ...state,
                 items: state.items.filter(item => item._id !== action.payload)
             };
-            case EDIT_ITEM:
-                let newItems = [...state.items];  
-                 var index = newItems.findIndex(element => element._id === action.payload._id );
-                 newItems[index] = action.payload;
-                return {
-                    ...state,
-                    items:  newItems
-                };
+        case EDIT_ITEM:
+            let newItems = [...state.items];
+            var index = newItems.findIndex(element => element._id === action.payload._id);
+            newItems[index] = action.payload;
+            return {
+                ...state,
+                items: newItems
+            };
         case RATING_ITEM:
         case VIEWS_ITEM:
             return {
@@ -47,15 +50,15 @@ export default function itemReducer(state = initialState, action ) {
         case GET_MINMAXPRICE:
             return {
                 ...state,
-                minmaxprice:action.payload                
+                minmaxprice: action.payload
             };
         case ITEMS_LOADING:
         case ITEM_LOADING:
-        return {
-            ...state,
-            loading: true
-        }
+            return {
+                ...state,
+                loading: true
+            }
         default:
-        return state;
+            return state;
     }
 }

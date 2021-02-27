@@ -8,7 +8,7 @@ import { Collapse } from 'react-collapse';
 
 import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
 import { getAges } from '../../actions/ageActions';
-import { getPets, getPet } from '../../actions/petActions';
+import { getPets } from '../../actions/petActions';
 import { getCategories } from '../../actions/categoryActions';
 
 class Robot extends Component {
@@ -40,7 +40,6 @@ class Robot extends Component {
         getItems: PropTypes.func.isRequired,
         getFilterItems: PropTypes.func.isRequired,
         getAges: PropTypes.func.isRequired,
-        getPet: PropTypes.func.isRequired,
         getPets: PropTypes.func.isRequired,
         getCategories: PropTypes.func.isRequired,
         getMinMaxPrice: PropTypes.func.isRequired,
@@ -56,7 +55,7 @@ class Robot extends Component {
         // this.props.getItems();
         // this.props.getAges();
         // this.props.getPets();
-        this.props.getCategories();
+        // this.props.getCategories();
         // if(this.props.item.minmaxprice)
         //     this.setState({price:this.props.item.minmaxprice.max})
     }
@@ -295,5 +294,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getItems, getAges, getFilterItems, getPets, getPet, getCategories, getMinMaxPrice }
+    { getItems, getAges, getFilterItems, getPets, getCategories, getMinMaxPrice }
 )(Robot);

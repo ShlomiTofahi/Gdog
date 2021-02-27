@@ -6,13 +6,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {Collapse} from 'react-collapse';
+import { Collapse } from 'react-collapse';
 
-import { getItem } from '../../actions/itemActions';
-import { clearErrors } from '../../actions/errorActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
-import { getAges } from '../../actions/ageActions';
 
 class ItemDetail extends Component {
     state = {
@@ -23,12 +18,6 @@ class ItemDetail extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        pet: PropTypes.object.isRequired,
-        addItem: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired,
-        getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired
     }
 
 
@@ -39,8 +28,6 @@ class ItemDetail extends Component {
     };
 
     toggle = () => {
-        // Clear errors
-        this.props.clearErrors();
         this.setState({
             modal: !this.state.modal,
         });
@@ -123,12 +110,12 @@ class ItemDetail extends Component {
                                 </svg>
                             </Button>
                             <Collapse isOpened={this.state.dropDownPaymentOpen}>
-                            <small class='pr-3'>  התשלום מתבצע דרך bit לדרכי ביצוע תשלום  <a style={{color:'orange'}}class='contact-btn' href='/products/payment'>
-                                          לחץ כאן
-                                            <br />
-                                            <br />
-                                        </a></small>
-                                        
+                                <small class='pr-3'>  התשלום מתבצע דרך bit לדרכי ביצוע תשלום  <a style={{ color: 'orange' }} class='contact-btn' href='/products/payment'>
+                                    לחץ כאן
+                                    <br />
+                                    <br />
+                                </a></small>
+
                             </Collapse>
                         </Card>
                     </ModalBody>
@@ -142,12 +129,11 @@ const mapStateToProps = state => ({
     item: state.item,
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
-    pet: state.pet,
     category: state.category,
     age: state.age
 });
 
 export default connect(
     mapStateToProps,
-    { getItem, clearErrors, getPets, getPet, getCategories, getAges }
+    {}
 )(ItemDetail);

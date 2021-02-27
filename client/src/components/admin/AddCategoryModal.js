@@ -3,11 +3,11 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, A
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getCategories, addCategory } from '../../actions/categoryActions';
+import { addCategory } from '../../actions/categoryActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
 
-class ItemModal extends Component {
+class AddCategoryModal extends Component {
     state = {
         modal: false,
         name: ''
@@ -19,12 +19,8 @@ class ItemModal extends Component {
         msg: PropTypes.object.isRequired,
         clearErrors: PropTypes.func.isRequired,
         clearMsgs: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired
     }
-    // componentDidMount() {
-    //     // this.props.getPets();
-    //     // this.props.getCategories();
-    // }
+
     componentDidUpdate(prevProps) {
         const { error, msg } = this.props;
         if (error !== prevProps.error) {
@@ -68,13 +64,6 @@ class ItemModal extends Component {
 
         // Add category via addCategory action
         this.props.addCategory(newCategory);
-
-//         this.setState({
-//             name: '',
-//         })
-
-        // Close modal
-        //this.toggle();
     }
 
 
@@ -101,9 +90,7 @@ class ItemModal extends Component {
                     <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle} ><span class="lead">הוספת קטגוריה</span></ModalHeader>
 
                     <ModalBody>
-                    {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-
-
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
 
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
@@ -139,4 +126,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { addCategory, clearMsgs, clearErrors }
-)(ItemModal);
+)(AddCategoryModal);

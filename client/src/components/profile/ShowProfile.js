@@ -13,13 +13,9 @@ class ShowProfile extends Component {
 
     static protoType = {
         auth: PropTypes.object,
-        isAuthenticated: PropTypes.bool,
         loadUser: PropTypes.func.isRequired
     }
 
-    // componentDidMount() {
-    //     this.props.loadUser()
-    // }
     frameStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
@@ -42,7 +38,7 @@ class ShowProfile extends Component {
     };
 
     render() {
-        const { isAuthenticated, user } = this.props.auth;
+        const { user } = this.props.auth;
 
         return (
             <Fragment >
@@ -76,7 +72,6 @@ class ShowProfile extends Component {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(

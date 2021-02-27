@@ -1,14 +1,12 @@
 
 import React, { Component, Fragment } from 'react';
-import { Container, ListGroup, ListGroupItem, Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getItems } from '../../actions/itemActions';
-import { clearErrors, returnErrors } from '../../actions/errorActions';
-import { clearMsgs, returnMsgs } from '../../actions/msgActions';
-
+import { clearErrors } from '../../actions/errorActions';
+import { clearMsgs } from '../../actions/msgActions';
 
 
 class ShowElements extends Component {
@@ -17,13 +15,6 @@ class ShowElements extends Component {
   };
   static protoType = {
     auth: PropTypes.object,
-    category: PropTypes.object,
-    getUsers: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
-  }
-
-  componentDidMount() {
-    this.props.getItems();
   }
 
   componentDidUpdate(prevProps) {
@@ -39,36 +30,11 @@ class ShowElements extends Component {
   }
 
   onDeleteClick = (id) => {
-    // const { items } = this.props.item;
-    // const { error, msg } = this.props;
     this.props.onDeleteClick(id);
-
-    // var res = items.filter(item => item.category._id === id)
-    // if (error.id === 'DELETE_CATEGORY_FAIL') {
-    //    this.setState({ msg: error.msg });
-      //  this.setState({ modal: true })
-    // }
-    // if (res.length) {
-    //   this.setState({ modal: true })
-    // }
-
-    // var res = items.filter(item => item.category._id === id)
-    // if (res.length){
-    // this.props.returnMsgs('קיים מוצרים תחת קטגוריה זו', null, '')
-    // this.setState({ msg: msg.msg });
-
-    // this.setState({modal:!this.state.modal})
-
-    //this.toggle();
-    // }
-    // else {
-    // }
   }
+
   onEditClick = (id) => {
-    // this.props.deleteCategory(id);
-  }
-  onAddClick = (id) => {
-    //this.props.deleteCategory(id);
+    //TODO
   }
 
   toggle = () => {
@@ -81,6 +47,7 @@ class ShowElements extends Component {
       modal: !this.state.modal
     });
   }
+
   getStyle = () => {
     return {
       background: "#f4f4f4",
@@ -90,9 +57,7 @@ class ShowElements extends Component {
   };
 
   render() {
-    const { isAuthenticated, user, users } = this.props.auth;
-    const is_admin = (isAuthenticated && user.admin);
-
+    const { isAuthenticated } = this.props.auth;
     const elements = this.props.elements
 
     return (
@@ -103,7 +68,7 @@ class ShowElements extends Component {
               <CSSTransition key={_id} timeout={500} classNames='fade'>
                 <ListGroupItem className='mt-1' style={this.getStyle()}>
 
-                  {this.props.isAuthenticated ?
+                  {isAuthenticated ?
                     <div>
                       <Button
                         style={btnRemoveStyle}
@@ -136,13 +101,14 @@ class ShowElements extends Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
         >
-          <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle} ><span class="lead">הודעת שגיאה</span></ModalHeader>
+          <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle} >
+            <span class="lead">הודעת שגיאה</span>
+          </ModalHeader>
 
           <ModalBody>
             {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
           </ModalBody>
         </Modal>
-        
       </Fragment>
     );
   }
@@ -169,14 +135,11 @@ const btnEditStyle = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  category: state.category,
   msg: state.msg,
   error: state.error,
-  item: state.item
 });
 
 export default connect(
   mapStateToProps,
-  { getItems, clearErrors, clearMsgs, returnErrors, returnMsgs }
+  { clearErrors, clearMsgs }
 )(ShowElements);

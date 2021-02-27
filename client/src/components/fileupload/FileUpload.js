@@ -51,18 +51,18 @@ const FileUpload = (props) => {
   const onChangeFileUpload = event => {
     let file = event.target.files[0];
     if (file.type != "image/png" && file.type != 'image/jpg' && file.type != 'image/jpeg'
-                                  && file.type != 'image/webp' && file.type != 'image/gif') {
+      && file.type != 'image/webp' && file.type != 'image/gif') {
       setMessage("File does not support. You must use .png or .jpg ");
       // return false;
-   }
-   else if (file.size > 5242880) {
-    setMessage("Please upload a file smaller than 5 MB");
-    //  return false;
-   }
-   else{
-     setFile(file);
-     setFilename(props.payload + '_' + file.name.replace(/\s+/g, '_'));
-   }
+    }
+    else if (file.size > 5242880) {
+      setMessage("Please upload a file smaller than 5 MB");
+      //  return false;
+    }
+    else {
+      setFile(file);
+      setFilename(props.payload + '_' + file.name.replace(/\s+/g, '_'));
+    }
   };
 
   const onSubmitFileUpload = async e => {
@@ -182,7 +182,7 @@ const FileUpload = (props) => {
       setRemoveImagefadeIn(false);
       setRemovedOrginalImage(true);
 
-      if (props.removedOrginalItemImage){
+      if (props.removedOrginalItemImage) {
         props.removedOrginalItemImage();
 
       }
@@ -197,9 +197,12 @@ const FileUpload = (props) => {
           const noImageFullpath = props.path + 'no-image.png';
           // const filepath = this.state.petImage
           if (!props.imageSaved) {
-            if (filepath !== '' && filepath != noImageFullpath) {
+            if (filepath !== '' && filepath !== noImageFullpath && filepath !== props.prevImage) {
               const formData = new FormData();
               formData.append('filepath', filepath);
+              alert(filepath)
+              alert(props.currImage)
+
               axios.post('/remove', formData);
             }
             if (removedOrginalImage) {

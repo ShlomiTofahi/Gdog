@@ -3,8 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, A
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getCategories, addBreed } from '../../actions/breedActions';
-import { getPets } from '../../actions/petActions';
+import { addBreed } from '../../actions/breedActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
 
@@ -12,7 +11,7 @@ class AddBreedModal extends Component {
     state = {
         modal: false,
         name: '',
-        pet:this.props.pet
+        pet: this.props.pet
     };
 
     static propTypes = {
@@ -20,13 +19,7 @@ class AddBreedModal extends Component {
         error: PropTypes.object.isRequired,
         msg: PropTypes.object.isRequired,
         clearErrors: PropTypes.func.isRequired,
-        clearMsgs: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired
-    }
-
-    componentDidMount() {
-         //this.props.getPets();
-        // this.props.getCategories();
+        clearMsgs: PropTypes.func.isRequired
     }
 
     componentDidUpdate(prevProps) {
@@ -72,16 +65,7 @@ class AddBreedModal extends Component {
         }
         // Add breed via addBreed action
         this.props.addBreed(newBreed);
-        // this.props.getPets();
-
-//         this.setState({
-//             name: '',
-//         })
-
-        // Close modal
-        //this.toggle();
     }
-
 
     render() {
         return (
@@ -102,13 +86,10 @@ class AddBreedModal extends Component {
                     isOpen={this.state.modal}
                     toggle={this.toggle}
                 >
-                    {/* <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader> */}
                     <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle} ><span class="lead">הוספת קטגוריה</span></ModalHeader>
 
                     <ModalBody>
-                    {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-
-
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
 
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
@@ -143,5 +124,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addBreed, clearMsgs, clearErrors, getPets }
+    { addBreed, clearMsgs, clearErrors }
 )(AddBreedModal);

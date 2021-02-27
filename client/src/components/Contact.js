@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Container } from 'reactstrap';
 
-export default class About extends Component {
+export default class Contact extends Component {
 
     aboutStyle = () => {
         return {

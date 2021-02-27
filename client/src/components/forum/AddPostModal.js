@@ -13,12 +13,11 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { addPost } from '../../actions/postActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
+import { getPet } from '../../actions/petActions';
 
 import FileUpload from '../fileupload/FileUpload';
 
-class ItemModal extends Component {
+class AddPostModal extends Component {
   state = {
     path: '/uploads/posts/',
     modal: false,
@@ -46,19 +45,12 @@ class ItemModal extends Component {
     msg: PropTypes.object.isRequired,
     pet: PropTypes.object.isRequired,
     addPost: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
     getPet: PropTypes.func.isRequired,
-    getPets: PropTypes.func.isRequired,
-    getCategories: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    // this.props.getPets();
-    this.props.getCategories();
+    clearErrors: PropTypes.func.isRequired
   }
 
   componentDidUpdate(prevProps) {
-    const { error, msg, isAuthenticated } = this.props;
+    const { error, msg } = this.props;
     if (error !== prevProps.error) {
       // Check for register error
       if (error.id === 'ADD_POST_FAIL') {
@@ -68,7 +60,7 @@ class ItemModal extends Component {
       }
     }
 
-    //If authenticated, close modal
+    //If added post, close modal
     if (this.state.modal) {
       if (msg.id === 'ADD_POST_SUCCESS') {
         this.toggle();
@@ -382,27 +374,26 @@ const addPostBorder = {
   boxSshadow: '0 0 1px 0.1px #C7C7C7',
   webkitBorderRadius: '15px',
   mozBorderRadius: '15px',
-  borderRadius: '15px', 
+  borderRadius: '15px',
 };
 
 const addPostInput = {
   background: '#f7f7f7',
   webkitBorderRadius: '20px',
   mozBorderRadius: '20px',
-  borderRadius: '20px', 
+  borderRadius: '20px',
 };
 
 const mapStateToProps = state => ({
   post: state.item,
   auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
   error: state.error,
   msg: state.msg,
   pet: state.pet,
-  category: state.category,
+  category: state.category
 });
 
 export default connect(
   mapStateToProps,
-  { addPost, clearErrors, clearMsgs, getPets, getPet, getCategories }
-)(ItemModal);
+  { addPost, clearErrors, clearMsgs, getPet }
+)(AddPostModal);

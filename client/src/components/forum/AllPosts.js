@@ -5,30 +5,21 @@ import {
   Spinner
 } from 'reactstrap';
 
-import { getPets } from '../../actions/petActions';
-import { getPosts, getFilterPosts } from '../../actions/postActions';
-import { getBreeds } from '../../actions/breedActions';
-import { deleteBreed } from '../../actions/breedActions';
+import { getPosts } from '../../actions/postActions';
 
 import ShowPosts from './ShowPosts';
 import AddPostModal from './AddPostModal';
 
 
-class Forum extends Component {
+class AllPosts extends Component {
 
   static protoType = {
-    auth: PropTypes.object,
-    pet: PropTypes.object,
-    getPosts: PropTypes.func.isRequired,
-    getFilterPosts: PropTypes.func.isRequired,
-    getPets: PropTypes.func.isRequired,
-    getBreeds: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    post: PropTypes.object,
+    getPosts: PropTypes.func.isRequired
   }
 
   componentDidMount() {
     this.props.getPosts();
-
   }
 
 
@@ -37,12 +28,13 @@ class Forum extends Component {
 
     return (
       <Fragment>
-          <div class="tabcontent3">
-            <AddPostModal />
-            { loading? 
-              <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
-              :<ShowPosts elements={posts} />
-            }          </div>
+        <div class="tabcontent3">
+          <AddPostModal />
+          {loading ?
+            <div style={{ position: 'relative', height: '333px' }}><Spinner style={spinnerStyle} color="secondary" /></div>
+            : <ShowPosts elements={posts} />
+          }
+        </div>
       </Fragment>
     );
   }
@@ -53,19 +45,14 @@ const spinnerStyle = {
   left: '45%',
   top: '40%',
   width: '3rem',
-  height: '3rem' 
+  height: '3rem'
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
   post: state.post,
-  category: state.category,
-  pet: state.pet,
-  breed: state.breed
 });
 
 export default connect(
   mapStateToProps,
-  { getBreeds, getPets, deleteBreed, getPosts, getFilterPosts }
-)(Forum);
+  { getPosts }
+)(AllPosts);

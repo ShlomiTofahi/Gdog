@@ -16,6 +16,14 @@ class ForumHeader extends Component {
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
+    tablinks = document.getElementsByClassName("header-tablinks-right");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    tablinks = document.getElementsByClassName("header-tablinks-left");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
     event.currentTarget.className += " active";
   }
 
@@ -23,19 +31,17 @@ class ForumHeader extends Component {
 
     return (
       <Fragment>
-        {/* <div class="main-box" style={{ backgroundImage: `url(images/forum.png)` }} /> */}
-
         <header class='forum-nav-header'>
-          <h1 class='pb-2 lead' style={{fontSize:'24px'}}>הקהילה שלנו הבית שלך</h1>
+          <h1 class='pb-2 lead' style={{ fontSize: '24px' }}>הקהילה שלנו הבית שלך</h1>
           <div class="header-tab">
+            <Link class="header-tablinks-right" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum">הכל</Link>
             <Link class="header-tablinks" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum/dog"><Icon icon={dogIcon} /> כלב</Link>
             <Link class="header-tablinks" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum/cat"><Icon icon={catIcon} /> חתול</Link>
             <Link class="header-tablinks" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum/parrot"><Icon icon={parrotIcon} /> תוכי</Link>
-            <Link class="header-tablinks" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum/other">אחר</Link>
+            <Link class="header-tablinks-left" onClick={this.openTab.bind(this)} style={linkStyle} to="/forum/other">אחר</Link>
           </div>
         </header>
       </Fragment>
-
     );
   }
 }

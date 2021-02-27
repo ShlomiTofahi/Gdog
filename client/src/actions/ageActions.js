@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { GET_AGES, AGES_LOADING, GET_ITEMS} from './types';
-import { tokenConfig } from './authActions';
+import { GET_AGES, AGES_LOADING } from './types';
 import { returnErrors } from   './errorActions';
 
 export const getAges = () => dispatch => {

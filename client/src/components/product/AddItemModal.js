@@ -1,6 +1,8 @@
-import React, { Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,
-     ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Fade, Collapse, Alert } from 'reactstrap';
+import React, { Component } from 'react';
+import {
+    Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,
+    ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Fade, Collapse, Alert
+} from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -11,13 +13,12 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { addItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
-import { getAges } from '../../actions/ageActions';
+import { getPet } from '../../actions/petActions';
+
 import FileUpload from '../fileupload/FileUpload';
 
 
-class ItemModal extends Component {
+class AddItemModal extends Component {
     state = {
         path: '/uploads/items/',
         modal: false,
@@ -31,9 +32,9 @@ class ItemModal extends Component {
         breed: '',
         category: '',
         age: '',
-        itemImage:'',
+        itemImage: '',
 
-        fadeIn:false,
+        fadeIn: false,
         dropDownCategoryValue: 'בחר קטגוריה',
         dropDownAgeValue: 'בחר שלב חיים',
         dropDownPetValue: 'בחר חיית מחמד',
@@ -55,20 +56,13 @@ class ItemModal extends Component {
         addItem: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
         getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired
-    }
-
-    componentDidMount() {
-        // this.props.getPets();
-        // this.props.getCategories();
     }
 
     componentDidUpdate(prevProps) {
         const { error, msg, isAuthenticated } = this.props;
-        if(error !== prevProps.error) {
+        if (error !== prevProps.error) {
             // Check for register error
-            if(error.id === 'ADD_ITEM_FAIL') {
+            if (error.id === 'ADD_ITEM_FAIL') {
                 this.setState({ msg: error.msg });
             } else {
                 this.setState({ msg: null });
@@ -76,8 +70,8 @@ class ItemModal extends Component {
         }
 
         //If authenticated, close modal
-        if(this.state.modal) {
-            if(msg.id === 'ADD_ITEM_SUCCESS') {
+        if (this.state.modal) {
+            if (msg.id === 'ADD_ITEM_SUCCESS') {
                 this.toggle();
                 this.setState({
                     name: '',
@@ -89,7 +83,7 @@ class ItemModal extends Component {
                     breed: '',
                     category: '',
                     age: '',
-                    itemImage:'',
+                    itemImage: '',
                     dropDownCategoryOpen: false,
                     dropDownAgeOpen: false,
                     dropDownPetOpen: false,
@@ -103,7 +97,7 @@ class ItemModal extends Component {
         this.setState({
             editorState,
         });
-      };
+    };
 
     toggle = () => {
         // Clear errors
@@ -119,18 +113,18 @@ class ItemModal extends Component {
             weight: null,
             fadeIn: false,
             dropDownCategoryValue: 'בחר קטגוריה',
-            category:'',
+            category: '',
             dropDownPetValue: 'בחר חיית מחמד',
-            breed:'',
+            breed: '',
             dropDownBreedValue: 'בחר גזע',
-            pet:'',
+            pet: '',
             dropDownAgeValue: 'בחר שלב חיים',
-            age:''
+            age: ''
         });
     }
 
     onChange = e => {
-        this.setState( { [e.target.name]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     // onChangeEditor = (editorState) => this.setState({editorState});
@@ -157,25 +151,9 @@ class ItemModal extends Component {
         }
 
         // const content = this.state.editorState.getCurrentContent();
-        
+
         // Add item via addItem action
         this.props.addItem(newItem);
-
-        // this.setState({
-        //     name: '',
-        //     price: 0,
-        //     description: '',
-        //     age: '',
-        //     itemImage:'',
-        //     dropDownCategoryOpen: false,
-        //     dropDownAgeOpen: false,
-        //     dropDownPetOpen: false,
-        //     dropDownBreedOpen: false
-        // })
-
-            
-        // Close modal
-        // this.toggle();
     }
     OnCheckedDiscount = () => {
         this.setState({
@@ -203,7 +181,7 @@ class ItemModal extends Component {
     }
 
     DropDowntogglePet = () => {
-    
+
         this.setState({
             dropdownPetOpen: !this.state.dropdownPetOpen
         });
@@ -216,95 +194,95 @@ class ItemModal extends Component {
         });
     }
 
-    selectCategory =(event) => {
+    selectCategory = (event) => {
         this.setState({
-          dropdownCategoryOpen: !this.state.dropdownCategoryOpen,
-          dropDownCategoryValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
+            dropdownCategoryOpen: !this.state.dropdownCategoryOpen,
+            dropDownCategoryValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
         });
-      }
+    }
 
-    selectAge =(event) => {
+    selectAge = (event) => {
         this.setState({
-          dropdownAgeOpen: !this.state.dropdownAgeOpen,
-          dropDownAgeValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
+            dropdownAgeOpen: !this.state.dropdownAgeOpen,
+            dropDownAgeValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
         });
-      }
+    }
 
-    selectPet =(event) => {
+    selectPet = (event) => {
         this.props.getPet(event.target.value);
-        if(this.state.fadeIn==false){
-            this.setState({fadeIn:!this.state.fadeIn });
+        if (this.state.fadeIn == false) {
+            this.setState({ fadeIn: !this.state.fadeIn });
         }
         this.setState({
             dropDownBreedValue: 'בחר גזע',
-            breed:'',
-          dropdownPetOpen: !this.state.dropdownPetOpen,
-          dropDownPetValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
+            breed: '',
+            dropdownPetOpen: !this.state.dropdownPetOpen,
+            dropDownPetValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
         });
-      }
+    }
 
-      selectBreed =(event) => {
+    selectBreed = (event) => {
         this.setState({
-          dropdownBreedOpen: !this.state.dropdownBreedOpen,
-          dropDownBreedValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
+            dropdownBreedOpen: !this.state.dropdownBreedOpen,
+            dropDownBreedValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
         });
-      }
+    }
 
     setRegisterModalStates = (val) => {
-        if(val != '')
-            this.setState({itemImage : val});
-    } 
+        if (val != '')
+            this.setState({ itemImage: val });
+    }
     close = () => {
-        const noImageFullpath = this.state.path+'no-image.png';
+        const noImageFullpath = this.state.path + 'no-image.png';
         const filepath = this.state.itemImage
-        if(filepath !== '' && filepath!=noImageFullpath){
+        if (filepath !== '' && filepath != noImageFullpath) {
             const formData = new FormData();
             formData.append('filepath', filepath);
             formData.append('abspath', this.state.path);
 
             axios.post('/remove', formData);
-            this.setState({itemImage : ''});
+            this.setState({ itemImage: '' });
         }
-    }  
+    }
     render() {
         const { pets, pet } = this.props.pet;
         const { categories } = this.props.category;
         const { ages } = this.props.age;
-        const noImageFullpath = this.state.path+'no-image.png';
+        const noImageFullpath = this.state.path + 'no-image.png';
 
         //payload name for item image
-        var payload =this.state.price;
+        var payload = this.state.price;
         if (this.state.discount)
-            payload = payload+this.state.discount;
+            payload = payload + this.state.discount;
         if (this.state.weight)
-            payload = payload+this.state.weight;
+            payload = payload + this.state.weight;
 
-        return(
+        return (
             <div>
-                { this.props.isAuthenticated ?                 
+                { this.props.isAuthenticated ?
                     <Button outline
-                    className='add-item-btn'
-                    color='info'
-                    size='sm'
-                    style={{marginBottom: '2rem'}}
-                    onClick={this.toggle}
-                    >הוסף מוצר</Button> 
-                :   null}
+                        className='add-item-btn'
+                        color='info'
+                        size='sm'
+                        style={{ marginBottom: '2rem' }}
+                        onClick={this.toggle}
+                    >הוסף מוצר</Button>
+                    : null}
 
-                 
+
                 <Modal
-                align="right"
-                isOpen={this.state.modal}
-                toggle={this.toggle}
-                onClosed={this.close}
+                    align="right"
+                    isOpen={this.state.modal}
+                    toggle={this.toggle}
+                    onClosed={this.close}
                 >
-                    <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}} toggle={this.toggle} ><span class="lead">הוספת מוצר למוצרים שלי</span></ModalHeader>
+                    <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle} ><span class="lead">הוספת מוצר למוצרים שלי</span></ModalHeader>
                     <ModalBody>
-                    { this.state.msg ? <Alert color="danger">{ this.state.msg }</Alert> : null }
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='name'>מוצר</Label>
@@ -352,7 +330,7 @@ class ItemModal extends Component {
                                     onChange={this.onChange}
                                 />
 
-                                <label class="checkbox_item" style={{display:'block'}}>      
+                                <label class="checkbox_item" style={{ display: 'block' }}>
                                     <input class="ml-2" onChange={this.OnCheckedDiscount} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedDiscount} />
                                     <span>הנחה</span>
                                 </label>
@@ -367,10 +345,10 @@ class ItemModal extends Component {
                                         onChange={this.onChange}
                                     />
                                     <small >הזן הנחה באחוזים</small>
-                                    <small style={{display:'block'}}>מחיר מבצע: {(this.state.price - this.state.price *(this.state.discount/100)).toFixed(2)} &#8362;</small >
+                                    <small style={{ display: 'block' }}>מחיר מבצע: {(this.state.price - this.state.price * (this.state.discount / 100)).toFixed(2)} &#8362;</small >
                                 </Collapse>
 
-                                <label class="checkbox_item" style={{display:'block', marginTop:'1rem'}}>      
+                                <label class="checkbox_item" style={{ display: 'block', marginTop: '1rem' }}>
                                     <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedWeight} />
                                     <span>משקל</span>
                                 </label>
@@ -388,129 +366,129 @@ class ItemModal extends Component {
                                     <small >הזן משקל בק"ג</small>
                                 </Collapse>
 
-                                <ButtonDropdown 
-                                    style={{marginBottom: '1rem', marginTop:'1rem'}} 
+                                <ButtonDropdown
+                                    style={{ marginBottom: '1rem', marginTop: '1rem' }}
                                     isOpen={this.state.dropdownCategoryOpen} toggle={this.DropDowntoggleCategory}>
                                     <DropdownToggle caret>{this.state.dropDownCategoryValue}</DropdownToggle>
                                     <DropdownMenu
-                                     modifiers={{
-                                        setMaxHeight: {
-                                          enabled: true,
-                                          order: 890,
-                                          fn: (data) => {
-                                            return {
-                                              ...data,
-                                              styles: {
-                                                ...data.styles,
-                                                overflow: 'auto',
-                                                maxHeight: '100px',
-                                              },
-                                            };
-                                          },
-                                        },
-                                      }}>
-                                        {categories.map(({ name, _id}) => (
-                                        <DropdownItem key={_id} name='category' value={_id} onClick={this.selectCategory}>{name}</DropdownItem>
-                                        ))}
-                                    </DropdownMenu>
-                                </ButtonDropdown>
-                                
-                                <ButtonDropdown 
-                                    style={{display:'block', marginBottom: '1rem'}} 
-                                    isOpen={this.state.dropdownAgeOpen} toggle={this.DropDowntoggleAge}>
-                                    <DropdownToggle caret>{this.state.dropDownAgeValue}</DropdownToggle>
-                                    <DropdownMenu
-                                     modifiers={{
-                                        setMaxHeight: {
-                                          enabled: true,
-                                          order: 890,
-                                          fn: (data) => {
-                                            return {
-                                              ...data,
-                                              styles: {
-                                                ...data.styles,
-                                                overflow: 'auto',
-                                                maxHeight: '100px',
-                                              },
-                                            };
-                                          },
-                                        },
-                                      }}>
-                                        {ages.map(({ level, _id}) => (
-                                        <DropdownItem key={_id} name='age' value={_id} onClick={this.selectAge}>{level}</DropdownItem>
+                                        modifiers={{
+                                            setMaxHeight: {
+                                                enabled: true,
+                                                order: 890,
+                                                fn: (data) => {
+                                                    return {
+                                                        ...data,
+                                                        styles: {
+                                                            ...data.styles,
+                                                            overflow: 'auto',
+                                                            maxHeight: '100px',
+                                                        },
+                                                    };
+                                                },
+                                            },
+                                        }}>
+                                        {categories.map(({ name, _id }) => (
+                                            <DropdownItem key={_id} name='category' value={_id} onClick={this.selectCategory}>{name}</DropdownItem>
                                         ))}
                                     </DropdownMenu>
                                 </ButtonDropdown>
 
-                                <ButtonDropdown 
-                                    style={{display:'block', marginBottom: '1rem'}}
-                                     
-                                    isOpen={this.state.dropdownPetOpen} toggle={this.DropDowntogglePet}>
-                                    <DropdownToggle caret>{this.state.dropDownPetValue}</DropdownToggle>
+                                <ButtonDropdown
+                                    style={{ display: 'block', marginBottom: '1rem' }}
+                                    isOpen={this.state.dropdownAgeOpen} toggle={this.DropDowntoggleAge}>
+                                    <DropdownToggle caret>{this.state.dropDownAgeValue}</DropdownToggle>
                                     <DropdownMenu
-                                     modifiers={{
-                                        setMaxHeight: {
-                                          enabled: true,
-                                          order: 890,
-                                          fn: (data) => {
-                                            return {
-                                              ...data,
-                                              styles: {
-                                                ...data.styles,
-                                                overflow: 'auto',
-                                                maxHeight: '100px',
-                                              },
-                                            };
-                                          },
-                                        },
-                                      }}>
-                                        {pets.map(({ name, _id}) => (
-                                        <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
+                                        modifiers={{
+                                            setMaxHeight: {
+                                                enabled: true,
+                                                order: 890,
+                                                fn: (data) => {
+                                                    return {
+                                                        ...data,
+                                                        styles: {
+                                                            ...data.styles,
+                                                            overflow: 'auto',
+                                                            maxHeight: '100px',
+                                                        },
+                                                    };
+                                                },
+                                            },
+                                        }}>
+                                        {ages.map(({ level, _id }) => (
+                                            <DropdownItem key={_id} name='age' value={_id} onClick={this.selectAge}>{level}</DropdownItem>
                                         ))}
                                     </DropdownMenu>
                                 </ButtonDropdown>
-                                
+
+                                <ButtonDropdown
+                                    style={{ display: 'block', marginBottom: '1rem' }}
+
+                                    isOpen={this.state.dropdownPetOpen} toggle={this.DropDowntogglePet}>
+                                    <DropdownToggle caret>{this.state.dropDownPetValue}</DropdownToggle>
+                                    <DropdownMenu
+                                        modifiers={{
+                                            setMaxHeight: {
+                                                enabled: true,
+                                                order: 890,
+                                                fn: (data) => {
+                                                    return {
+                                                        ...data,
+                                                        styles: {
+                                                            ...data.styles,
+                                                            overflow: 'auto',
+                                                            maxHeight: '100px',
+                                                        },
+                                                    };
+                                                },
+                                            },
+                                        }}>
+                                        {pets.map(({ name, _id }) => (
+                                            <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
+                                        ))}
+                                    </DropdownMenu>
+                                </ButtonDropdown>
+
                                 <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
-                                    <ButtonDropdown 
-                                        style={{marginBottom: '1rem'}} 
+                                    <ButtonDropdown
+                                        style={{ marginBottom: '1rem' }}
                                         isOpen={this.state.dropdownBreedOpen} toggle={this.DropDowntoggleBreed}>
                                         <DropdownToggle caret>{this.state.dropDownBreedValue}</DropdownToggle>
                                         <DropdownMenu
-                                        modifiers={{
-                                            setMaxHeight: {
-                                            enabled: true,
-                                            order: 890,
-                                            fn: (data) => {
-                                                return {
-                                                ...data,
-                                                styles: {
-                                                    ...data.styles,
-                                                    overflow: 'auto',
-                                                    maxHeight: '100px',
+                                            modifiers={{
+                                                setMaxHeight: {
+                                                    enabled: true,
+                                                    order: 890,
+                                                    fn: (data) => {
+                                                        return {
+                                                            ...data,
+                                                            styles: {
+                                                                ...data.styles,
+                                                                overflow: 'auto',
+                                                                maxHeight: '100px',
+                                                            },
+                                                        };
+                                                    },
                                                 },
-                                                };
-                                            },
-                                            },
-                                        }}>
-                                        { pet &&
-                                        pet.breeds.map(({ name }) => (
-                                            <DropdownItem name='breed' onClick={this.selectBreed}>{ name }</DropdownItem>
-                                            ))}
+                                            }}>
+                                            {pet &&
+                                                pet.breeds.map(({ name }) => (
+                                                    <DropdownItem name='breed' onClick={this.selectBreed}>{name}</DropdownItem>
+                                                ))}
                                         </DropdownMenu>
                                     </ButtonDropdown>
                                 </Fade>
 
-                                <FileUpload 
-                                    payload={ payload } 
+                                <FileUpload
+                                    payload={payload}
                                     setRegisterModalStates={this.setRegisterModalStates}
-                                    path = {this.state.path}
+                                    path={this.state.path}
                                     currImage={noImageFullpath}
-                                    />
+                                />
 
 
                                 <Button
                                     color='dark'
-                                    style={{marginTop: '2rem'}}
+                                    style={{ marginTop: '2rem' }}
                                     block
                                 >הוסף מוצר</Button>
                             </FormGroup>
@@ -527,12 +505,12 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     msg: state.msg,
-    pet:state.pet,
+    pet: state.pet,
     category: state.category,
     age: state.age
 });
 
 export default connect(
     mapStateToProps,
-    {addItem, clearErrors, clearMsgs, getPets, getPet, getCategories, getAges}
-    )(ItemModal);
+    { addItem, clearErrors, clearMsgs, getPet }
+)(AddItemModal);

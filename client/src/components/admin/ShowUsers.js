@@ -11,7 +11,7 @@ class ShowUsers extends Component {
   static protoType = {
     auth: PropTypes.object,
     getUsers: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    deleteUser: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class ShowUsers extends Component {
     this.props.deleteUser(id);
   }
   onEditClick = (id) => {
-    // this.props.deleteUser(id);
+    //TODO
   }
 
   render() {
@@ -90,8 +90,7 @@ class ShowUsers extends Component {
 
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 
 export default connect(

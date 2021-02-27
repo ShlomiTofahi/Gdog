@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EDIT_ITEM_FAIL, ADD_ITEM_FAIL, ADD_ITEM_SUCCESS, GET_ITEMS, GET_ITEM, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, ITEM_LOADING, RATING_ITEM, GET_MINMAXPRICE, VIEWS_ITEM, EDIT_ITEM } from './types';
+import { EDIT_ITEM_FAIL, ADD_ITEM_FAIL, GET_ITEMS, GET_ITEM, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, ITEM_LOADING, RATING_ITEM, GET_MINMAXPRICE, VIEWS_ITEM, EDIT_ITEM } from './types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 import { returnMsgs } from './msgActions';

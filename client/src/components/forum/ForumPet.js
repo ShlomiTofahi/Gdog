@@ -7,15 +7,12 @@ import {
   Spinner
 } from 'reactstrap';
 
-import { getPets } from '../../actions/petActions';
-import { getPosts, getFilterPosts } from '../../actions/postActions';
-import { getBreeds } from '../../actions/breedActions';
-import { deleteBreed } from '../../actions/breedActions';
+import { getFilterPosts } from '../../actions/postActions';
 
 import ShowPosts from './ShowPosts';
 import AddPostModal from './AddPostModal';
 
-class ShowBreeds extends Component {
+class ForumPet extends Component {
   state = {
     title: '',
     pet: [''],
@@ -24,41 +21,34 @@ class ShowBreeds extends Component {
   };
 
   static protoType = {
-    auth: PropTypes.object,
-    pet: PropTypes.object,
-    getPosts: PropTypes.func.isRequired,
-    getFilterPosts: PropTypes.func.isRequired,
-    getPets: PropTypes.func.isRequired,
-    getBreeds: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    post: PropTypes.object,
+    category: PropTypes.object,
+    getFilterPosts: PropTypes.func.isRequired
   }
 
   componentDidMount() {
     let petSelected = [];
 
-    if(this.props.match.params){
+    if (this.props.match.params) {
       const pet = this.props.match.params.pet
-      if(pet ==='dog') petSelected = ['כלב'];
-      else if(pet ==='cat') petSelected = ['חתול'];
-      else if(pet ==='parrot') petSelected = ['תוכי'];
-      else if(pet ==='other') petSelected = ['אחר'];
+      if (pet === 'dog') petSelected = ['כלב'];
+      else if (pet === 'cat') petSelected = ['חתול'];
+      else if (pet === 'parrot') petSelected = ['תוכי'];
+      else if (pet === 'other') petSelected = ['אחר'];
 
-      this.setState({pet:petSelected});
+      this.setState({ pet: petSelected });
 
     }
-    this.openPosts('כללי', null); 
-
-    this.props.getBreeds();
-    // this.props.getPosts();
+    this.openPosts('כללי', null);
 
     let { title, pet, breed, category } = this.state;
     pet = petSelected;
-    // Create Filted Item object
+    // Create Filted Post object
     const FiltedPosts = {
-        title,
-        pet,
-        breed,
-        category
+      title,
+      pet,
+      breed,
+      category
     };
 
     // Attempt to filter
@@ -67,41 +57,36 @@ class ShowBreeds extends Component {
   componentDidUpdate(prevProps) {
     // const pet = this.props.match.params.pet
 
-    if(this.props.match.params){
+    if (this.props.match.params) {
 
-      if(this.props.match.params.pet !== prevProps.match.params.pet) {
+      if (this.props.match.params.pet !== prevProps.match.params.pet) {
 
         let petSelected = [];
-        if(this.props.match.params.pet ==='dog') petSelected = ['כלב'];
-        else if(this.props.match.params.pet ==='cat') petSelected = ['חתול'];
-        else if(this.props.match.params.pet ==='parrot') petSelected = ['תוכי'];
-        else if(this.props.match.params.pet ==='other') petSelected = ['אחר'];
-  
-        this.setState({pet:petSelected});
+        if (this.props.match.params.pet === 'dog') petSelected = ['כלב'];
+        else if (this.props.match.params.pet === 'cat') petSelected = ['חתול'];
+        else if (this.props.match.params.pet === 'parrot') petSelected = ['תוכי'];
+        else if (this.props.match.params.pet === 'other') petSelected = ['אחר'];
 
+        this.setState({ pet: petSelected });
 
-        this.openPosts('כללי', null); 
+        this.openPosts('כללי', null);
 
-        this.props.getBreeds();
-        // this.props.getPosts();
-    
         let { title, pet, breed, category } = this.state;
         pet = petSelected;
-        // Create Filted Item object
+        // Create Filted Post object
         const FiltedPosts = {
-            title,
-            pet,
-            breed,
-            category
+          title,
+          pet,
+          breed,
+          category
         };
-    
+
         // Attempt to filter
         this.props.getFilterPosts(FiltedPosts);
-
       }
     }
   }
-  
+
   getStyle = () => {
     return {
       background: "#f4f4f4",
@@ -111,21 +96,21 @@ class ShowBreeds extends Component {
   };
 
   openPosts = (category1, event) => {
-    this.setState({ category: category1  })
+    this.setState({ category: category1 })
 
     let { title, pet, breed, category } = this.state;
-    if(category1!='כללי')
+    if (category1 != 'כללי')
       category = category1
-    // Create Filted Item object
-    const FiltedItems = {
-        title,
-        pet,
-        breed,
-        category
+    // Create Filted Post object
+    const FiltedPosts = {
+      title,
+      pet,
+      breed,
+      category
     };
 
     // Attempt to filter
-    this.props.getFilterPosts(FiltedItems);
+    this.props.getFilterPosts(FiltedPosts);
 
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -136,31 +121,24 @@ class ShowBreeds extends Component {
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-      document.getElementById(category1).style.display = "block";
-    if(event)
+    document.getElementById(category1).style.display = "block";
+    if (event)
       event.currentTarget.className += " active";
     else
       document.getElementById("defaultOpen").className += " active";
   }
 
   render() {
-    const { isAuthenticated, user, users } = this.props.auth;
-    const is_admin = (isAuthenticated && user.admin);
     const { categories } = this.props.category;
     const { posts, loading } = this.props.post;
 
-
-
     return (
-      
       <Fragment>
         <div class="tab">
-          <div class="nav text-nowrap flex-nowrap flex-scroll-x pb-1" style={{overflowX: 'auto'}}>
-          <button class="tablinks" id="defaultOpen" onClick={this.openPosts.bind(this, "כללי")}>כללי</button>
-
+          <div class="nav text-nowrap flex-nowrap flex-scroll-x pb-1" style={{ overflowX: 'auto' }}>
+            <button class="tablinks" id="defaultOpen" onClick={this.openPosts.bind(this, "כללי")}>כללי</button>
             {categories.map(({ _id, name }) => (
               <button class="tablinks" onClick={this.openPosts.bind(this, name)}>{name}</button>
-
             ))}
           </div>
         </div>
@@ -168,20 +146,20 @@ class ShowBreeds extends Component {
         {categories.map(({ _id, name }) => (
           <div id={name} class="tabcontent">
             <AddPostModal />
-            { loading? 
-              <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
-              :<ShowPosts elements={posts} />
+            { loading ?
+              <div style={{ position: 'relative', height: '333px' }}><Spinner style={spinnerStyle} color="secondary" /></div>
+              : <ShowPosts elements={posts} />
             }
           </div>
         ))}
 
         <div id="כללי" class="tabcontent">
           <AddPostModal />
-          { loading? 
-              <div style={{position:'relative', height:'333px'}}><Spinner style={spinnerStyle} color="secondary" /></div>
-              :<ShowPosts elements={posts} />
-          }        
-          </div>
+          {loading ?
+            <div style={{ position: 'relative', height: '333px' }}><Spinner style={spinnerStyle} color="secondary" /></div>
+            : <ShowPosts elements={posts} />
+          }
+        </div>
       </Fragment>
     );
   }
@@ -202,7 +180,7 @@ const spinnerStyle = {
   left: '45%',
   top: '40%',
   width: '3rem',
-  height: '3rem' 
+  height: '3rem'
 };
 
 const btnEditStyle = {
@@ -216,15 +194,11 @@ const btnEditStyle = {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
   post: state.post,
-  category: state.category,
-  pet: state.pet,
-  breed: state.breed
+  category: state.category
 });
 
 export default connect(
   mapStateToProps,
-  { getBreeds, getPets, deleteBreed, getPosts, getFilterPosts }
-)(ShowBreeds);
+  { getFilterPosts }
+)(ForumPet);

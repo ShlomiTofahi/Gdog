@@ -1,15 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-class AppNavbar extends Component {
+
+class Footer extends Component {
     state = {
         isOpen: false
-    }
-
-    static propTypes = {
-        auth: PropTypes.object.isRequired,
-        isAuthenticated: PropTypes.bool
     }
 
     toggle = () => {
@@ -25,10 +19,6 @@ class AppNavbar extends Component {
         };
     };
     render() {
-        const { isAuthenticated, user } = this.props.auth;
-        const is_admin = (isAuthenticated && user.admin);
-
-
         return (
             // <!-- Footer -->
             <footer style={this.shdowStyle()} class="text-center text-lg-start">
@@ -141,9 +131,4 @@ class AppNavbar extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, null)(AppNavbar);
+export default Footer;

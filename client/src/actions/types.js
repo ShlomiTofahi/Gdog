@@ -56,7 +56,6 @@ export const GET_BREEDS = 'GET_BREEDS';
 export const ADD_BREED = 'ADD_BREED';
 export const DELETE_BREED = 'DELETE_BREED';
 export const BREEDS_LOADING = 'BREEDS_LOADING';
-export const ADD_BRRE_SUCCESS = "ADD_BRRE_SUCCESS";
 export const ADD_BREED_FAIL = "ADD_BREED_FAIL";
 
 //Ages

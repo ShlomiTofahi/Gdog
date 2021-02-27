@@ -13,12 +13,12 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { editItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
-import { getPets, getPet } from '../../actions/petActions';
-import { getAges } from '../../actions/ageActions';
+import { getPet } from '../../actions/petActions';
+
 import FileUpload from '../fileupload/FileUpload';
 
 
-class ItemModal extends Component {
+class EditItemModal extends Component {
     state = {
         path: '/uploads/items/',
 
@@ -61,7 +61,6 @@ class ItemModal extends Component {
         clearErrors: PropTypes.func.isRequired,
         clearMsgs: PropTypes.func.isRequired,
         getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired
     }
 
     componentDidMount() {
@@ -185,13 +184,11 @@ class ItemModal extends Component {
             itemImage
         }
 
-        // const content = this.state.editorState.getCurrentContent();
 
         // Edit item via addItem action
         this.props.editItem(this.props.itemID, newItem);
 
-        // const { items } = this.props.item;
-        // const item = items.filter(item => item._id == this.props.itemID)[0];
+
 
         //delete prev image
         const noImageFullpath = this.state.path + 'no-image.png';
@@ -392,7 +389,7 @@ class ItemModal extends Component {
                 prevItemImage: item.itemImage
             });
         }
-        if(this.state.removedOrginalImageAndNotSave){
+        if (this.state.removedOrginalImageAndNotSave) {
             this.removedOrginalImageAndNotSave();
         }
     }
@@ -404,7 +401,8 @@ class ItemModal extends Component {
     removedOrginalItemImage = () => {
         this.setState({
             removedOrginalImageAndNotSave: true
-        });    }
+        });
+    }
 
     render() {
         const { pets, pet } = this.props.pet;
@@ -693,5 +691,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { editItem, clearErrors, clearMsgs, getPets, getPet, getAges }
-)(ItemModal);
+    { editItem, clearErrors, clearMsgs, getPet }
+)(EditItemModal);

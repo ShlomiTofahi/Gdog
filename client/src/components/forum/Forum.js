@@ -1,28 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { getPosts } from '../../actions/postActions';         
 
 import ForumPet from './ForumPet';
 import Post from './Post';
 import AllPosts from './AllPosts';
 import ForumHeader from './ForumHeader';
 
-
-
-
 class Forum extends Component {
-
-  static protoType = {
-    getPosts: PropTypes.func.isRequired,
-  }
-
-  componentDidMount() {
-    this.props.getPosts();
-  }
 
   render() {
     return (
@@ -39,8 +24,4 @@ class Forum extends Component {
   }
 }
 
-
-export default connect(
-  null,
-  {getPosts}
-)(Forum);
+export default Forum;

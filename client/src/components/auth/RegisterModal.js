@@ -1,6 +1,8 @@
-import React, { Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,Fade,
-        Alert,ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import React, { Component } from 'react';
+import {
+    Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Fade,
+    Alert, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
+} from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -9,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { getPets, getPet } from '../../actions/petActions';
+import { getCategories } from '../../actions/categoryActions';
+import { getAges } from '../../actions/ageActions';
 
 import FileUpload from '../fileupload/FileUpload';
 
@@ -19,18 +23,18 @@ class RegisterModal extends Component {
         dropDownBreedValue: 'בחר גזע',
         dropDownPetOpen: false,
         dropDownBreedOpen: false,
-        currency:'',
+        currency: '',
         modal: false,
         name: '',
-        pet:'',
-        breed:'',
+        pet: '',
+        breed: '',
         cellphone: '',
         petImage: '',
         email: '',
         password: '',
         msg: null,
         file: null,
-        fadeIn:false
+        fadeIn: false
     };
 
     static propTypes = {
@@ -40,18 +44,22 @@ class RegisterModal extends Component {
         register: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
         getPet: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired
-    }    
+        getPets: PropTypes.func.isRequired,
+        getCategories: PropTypes.func.isRequired,
+        getAges: PropTypes.func.isRequired
+    }
 
     componentDidMount() {
+        this.props.getAges();
         this.props.getPets();
+        this.props.getCategories();
     }
 
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
-        if(error !== prevProps.error) {
+        if (error !== prevProps.error) {
             // Check for register error
-            if(error.id === 'REGISTER_FAIL') {
+            if (error.id === 'REGISTER_FAIL') {
                 this.setState({ msg: error.msg });
             } else {
                 this.setState({ msg: null });
@@ -59,8 +67,8 @@ class RegisterModal extends Component {
         }
 
         // If authenticated, close modal
-        if(this.state.modal) {
-            if(isAuthenticated) {
+        if (this.state.modal) {
+            if (isAuthenticated) {
                 this.toggle();
             }
         }
@@ -75,13 +83,13 @@ class RegisterModal extends Component {
     }
 
     onChange = e => {
-        this.setState( { [e.target.name]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit = e => {
         e.preventDefault();
 
-        const { name, pet, breed, email,cellphone,petImage, password } = this.state;
+        const { name, pet, breed, email, cellphone, petImage, password } = this.state;
         // Create user object
         const NewUser = {
             name,
@@ -106,58 +114,58 @@ class RegisterModal extends Component {
             dropdownBreedOpen: !this.state.dropdownBreedOpen
         });
     }
-    selectPet =(event) => {
+    selectPet = (event) => {
         this.props.getPet(event.target.value);
-        if(this.state.fadeIn==false){
-            this.setState({fadeIn:!this.state.fadeIn });
+        if (this.state.fadeIn == false) {
+            this.setState({ fadeIn: !this.state.fadeIn });
         }
         this.setState({
             dropDownBreedValue: 'בחר גזע',
-            breed:'',
-          dropdownPetOpen: !this.state.dropdownPetOpen,
-          dropDownPetValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
+            breed: '',
+            dropdownPetOpen: !this.state.dropdownPetOpen,
+            dropDownPetValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
         });
-      }
-
-      selectBreed =(event) => {
-        this.setState({
-          dropdownBreedOpen: !this.state.dropdownBreedOpen,
-          dropDownBreedValue: event.target.innerText,
-         [event.target.name]: event.target.innerText
-        });
-      }
-
-      setRegisterModalStates = (val) => {
-          if(val != '')
-            this.setState({petImage : val});
     }
 
-    
+    selectBreed = (event) => {
+        this.setState({
+            dropdownBreedOpen: !this.state.dropdownBreedOpen,
+            dropDownBreedValue: event.target.innerText,
+            [event.target.name]: event.target.innerText
+        });
+    }
+
+    setRegisterModalStates = (val) => {
+        if (val != '')
+            this.setState({ petImage: val });
+    }
+
+
     close = () => {
-        const noImageFullpath = this.state.path+'no-image.png';
+        const noImageFullpath = this.state.path + 'no-image.png';
         const filepath = this.state.petImage
-        if(filepath !== '' && filepath!=noImageFullpath){
+        if (filepath !== '' && filepath != noImageFullpath) {
             const formData = new FormData();
             formData.append('filepath', filepath);
             axios.post('/remove', formData);
-            this.setState({petImage : ''});
+            this.setState({ petImage: '' });
         }
     }
 
     render() {
         const { pets, pet } = this.props.pet;
-        const noImageFullpath = this.state.path+'no-image.png';
+        const noImageFullpath = this.state.path + 'no-image.png';
 
-        return(
+        return (
             <div>
                 {/* <NavLink className='navlink' style={{float:'right'}} className="Nav-Link lead" onClick={ this.toggle } href='#'>הירשם</NavLink>   */}
-                <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'}  onClick={ this.toggle } to='#'>הירשם</Link>
+                <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} onClick={this.toggle} to='#'>הירשם</Link>
 
                 <Modal align="right" isOpen={this.state.modal} toggle={this.toggle} onClosed={this.close}>
-                    <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}} toggle={this.toggle}>הרשמה</ModalHeader>
+                    <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle}>הרשמה</ModalHeader>
                     <ModalBody>
-                         { this.state.msg ? <Alert color="danger">{ this.state.msg }</Alert> : null }
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='name'>שם</Label>
@@ -199,76 +207,76 @@ class RegisterModal extends Component {
                                     className='mb-3'
                                     onChange={this.onChange}
                                 />
-                            {/* <img src="./images/dog.png" width="100px" alt="dog" onClick={this.selectPet} /> */}
-                            {/* <img src="./images/cat.png" width="100px" alt="dog" onClick={this.selectPet} /> */}
-                                <ButtonDropdown 
+                                {/* <img src="./images/dog.png" width="100px" alt="dog" onClick={this.selectPet} /> */}
+                                {/* <img src="./images/cat.png" width="100px" alt="dog" onClick={this.selectPet} /> */}
+                                <ButtonDropdown
                                     isOpen={this.state.dropdownPetOpen} toggle={this.DropDowntogglePet}>
                                     <DropdownToggle caret>{this.state.dropDownPetValue}</DropdownToggle>
                                     <DropdownMenu
-                                     modifiers={{
-                                        setMaxHeight: {
-                                          enabled: true,
-                                          order: 890,
-                                          fn: (data) => {
-                                            return {
-                                              ...data,
-                                              styles: {
-                                                ...data.styles,
-                                                overflow: 'auto',
-                                                maxHeight: '100px',
-                                              },
-                                            };
-                                          },
-                                        },
-                                      }}>
-                                        {pets.map(({ name, _id}) => (
-                                        <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
+                                        modifiers={{
+                                            setMaxHeight: {
+                                                enabled: true,
+                                                order: 890,
+                                                fn: (data) => {
+                                                    return {
+                                                        ...data,
+                                                        styles: {
+                                                            ...data.styles,
+                                                            overflow: 'auto',
+                                                            maxHeight: '100px',
+                                                        },
+                                                    };
+                                                },
+                                            },
+                                        }}>
+                                        {pets.map(({ name, _id }) => (
+                                            <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
                                         ))}
                                     </DropdownMenu>
                                 </ButtonDropdown>
                                 <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
-                                    
 
-                                    <ButtonDropdown 
-                                        style={{marginBottom: '2rem'}} 
+
+                                    <ButtonDropdown
+                                        style={{ marginBottom: '2rem' }}
                                         isOpen={this.state.dropdownBreedOpen} toggle={this.DropDowntoggleBreed}>
                                         <DropdownToggle caret>{this.state.dropDownBreedValue}</DropdownToggle>
                                         <DropdownMenu
-                                        modifiers={{
-                                            setMaxHeight: {
-                                            enabled: true,
-                                            order: 890,
-                                            fn: (data) => {
-                                                return {
-                                                ...data,
-                                                styles: {
-                                                    ...data.styles,
-                                                    overflow: 'auto',
-                                                    maxHeight: '100px',
+                                            modifiers={{
+                                                setMaxHeight: {
+                                                    enabled: true,
+                                                    order: 890,
+                                                    fn: (data) => {
+                                                        return {
+                                                            ...data,
+                                                            styles: {
+                                                                ...data.styles,
+                                                                overflow: 'auto',
+                                                                maxHeight: '100px',
+                                                            },
+                                                        };
+                                                    },
                                                 },
-                                                };
-                                            },
-                                            },
-                                        }}>
-                                        { pet &&
-                                        pet.breeds.map(({ name }) => (
-                                            <DropdownItem name='breed' onClick={this.selectBreed}>{ name }</DropdownItem>
-                                            ))}
+                                            }}>
+                                            {pet &&
+                                                pet.breeds.map(({ name }) => (
+                                                    <DropdownItem name='breed' onClick={this.selectBreed}>{name}</DropdownItem>
+                                                ))}
                                         </DropdownMenu>
                                     </ButtonDropdown>
 
 
                                 </Fade>
-                                <FileUpload 
-                                payload={ this.state.cellphone } 
-                                setRegisterModalStates={this.setRegisterModalStates}
-                                path={this.state.path}
-                                currImage={noImageFullpath}
-                                 />
+                                <FileUpload
+                                    payload={this.state.cellphone}
+                                    setRegisterModalStates={this.setRegisterModalStates}
+                                    path={this.state.path}
+                                    currImage={noImageFullpath}
+                                />
 
                                 <Button
                                     color='dark'
-                                    style={{marginTop: '2rem'}}
+                                    style={{ marginTop: '2rem' }}
                                     block
                                 >הירשם</Button>
                             </FormGroup>
@@ -283,10 +291,10 @@ class RegisterModal extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
-    pet:state.pet
+    pet: state.pet
 });
 
 export default connect(
     mapStateToProps,
-     { register, clearErrors, getPets, getPet }
-     )(RegisterModal);
+    { register, clearErrors, getPets, getPet, getCategories, getAges }
+)(RegisterModal);
