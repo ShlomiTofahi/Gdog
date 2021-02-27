@@ -252,8 +252,8 @@ class Robot extends Component {
 
 
                         <Collapse isOpened={this.state.resultOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>שמחנו לעזור</span>
-                            <Col align="right" className='pt-0'>
+                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>שמחנו לעזור</span>
+                            <Col align="right" className='pt-2'>
                                 <label class="checkbox_item">
                                     <small>
                                         {
