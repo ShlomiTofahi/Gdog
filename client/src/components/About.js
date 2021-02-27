@@ -31,7 +31,7 @@ export default class About extends Component {
                         <Row>
                             <Col xs="12" sm="12" md="6" className='pt-4' >
 
-                                <img style={this.imgStyle()} src='images/about.jpg' alt='' />
+                                <img style={this.imgStyle()} src='/images/about.jpg' alt='' />
                             </Col>
                             <Col xs="12" sm="12" md="6" className='pt-4' >
 

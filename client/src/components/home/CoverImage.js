@@ -58,7 +58,7 @@ class CoverImage extends Component {
                                     <p style={{ fontSize: '1.5em' }} className={"lead font-weight-normal"}>מזון יבש לחתולים</p>
                                 </div>
                             </Link>
-                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='#'>
+                            <Link onClick={this.catItems} align='center' style={{ textDecoration: 'none' }} to='/haircut'>
                                 <div class="box box2" style={{ backgroundImage: `url(${this.state.path}haircut-dog.jpg)` }} >
                                     <span className={"title display-1 font-weight-normal"}>תספורות</span>
                                     <p style={{ fontSize: '1.5em' }} className={"lead font-weight-normal"}>קביעת תור לתספורת מקצועית <br />למגוון רחב של כלבים</p>

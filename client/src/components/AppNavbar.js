@@ -25,6 +25,7 @@ class AppNavbar extends Component {
             isOpen: !this.state.isOpen
         });
     }
+    
     shdowStyle = () => {
         return {
             direction:'ltr',
@@ -32,6 +33,7 @@ class AppNavbar extends Component {
             boxSshadow: '0 0 5px 0.1px #C7C7C7'
         };
     };
+    
     render() {
         const { isAuthenticated, user } = this.props.auth;
         const is_admin = (isAuthenticated && user.admin);
@@ -64,7 +66,7 @@ class AppNavbar extends Component {
                     <Container>
                     <Link style={{ marginRight: '100px' }} className={['navlinkLogo d-sm-inline-block']} to='/'>
                             <p class='mb-0'>
-                                <img style={{ width: '71%' }} src='images/logo.png' alt='לוגו' />
+                                <img style={{ width: '71%' }} src='/images/logo.png' alt='לוגו' />
                             </p>
                         </Link>
                         <NavbarToggler className='NavToggler' onClick={this.toggle} />

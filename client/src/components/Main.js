@@ -12,8 +12,11 @@ import EditProfile from './profile/EditProfile';
 import Home from './home/Home';
 import About from './About';
 import Contact from './Contact';
+import Haircut from './Haircut';
 import Payment from './product/Payment';
 import Forum from './forum/Forum';
+import ForumPet from './forum/ForumPet';
+import Post from './forum/Post';
 
 class Main extends Component {
 
@@ -40,8 +43,12 @@ class Main extends Component {
                     <Route exact path='/products/payment' component={Payment} />
 
                     <Route exact path='/forum' component={Forum} />
+                    <Route exact path="/forum/:pet" component={Forum} />
+                    {/* <Route exact path="/forum/post/:id" component={Post} /> */}
+
                     <Route exact path='/about' component={About} />
                     <Route exact path='/contact' component={Contact} />
+                    <Route exact path='/haircut' component={Haircut} />
                     <Route exact path='/FileUpload' component={FileUpload} />
 
                 </Switch>

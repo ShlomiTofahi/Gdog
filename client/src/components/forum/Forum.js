@@ -12,7 +12,7 @@ class Forum extends Component {
   render() {
     return (
       <Router>
-        <div class="forum-cover" style={{ backgroundImage: `url(images/forum.png)` }} />
+        <div class="forum-cover" style={{ backgroundImage: `url(/images/forum.png)` }} />
         <ForumHeader />
         <Container className='mb-5'>
           <Route exact path="/forum" component={AllPosts} />

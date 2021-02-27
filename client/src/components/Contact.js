@@ -35,7 +35,7 @@ export default class Contact extends Component {
                         <Row>
                             <Col xs="12" sm="12" md="6" className='pt-4' >
 
-                                <img style={this.imgStyle()} src='images/contact.jpg' alt='' />
+                                <img style={this.imgStyle()} src='/images/contact.jpg' alt='' />
                             </Col>
                             <Col xs="12" sm="12" md="6" className='pt-5' >
                                 <div class='lead'>

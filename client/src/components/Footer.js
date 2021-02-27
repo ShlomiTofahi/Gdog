@@ -1,16 +1,44 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import { getFilterItems } from '../actions/itemActions';
 
 class Footer extends Component {
     state = {
         isOpen: false
     }
 
-    toggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
+    dogItems = () => {
+        const FiltedItems = {
+            name: '',
+            price: '',
+            pet: 'כלב',
+            breed: '',
+            category: '',
+            age: '',
+            rating: ''
+        };
+
+        // Attempt to filter
+        this.props.getFilterItems(FiltedItems);
     }
+
+    catItems = () => {
+        const FiltedItems = {
+            name: '',
+            price: '',
+            pet: 'חתול',
+            breed: '',
+            category: '',
+            age: '',
+            rating: ''
+        };
+
+        // Attempt to filter
+        this.props.getFilterItems(FiltedItems);
+    }
+
     shdowStyle = () => {
         return {
             backgroundColor: "white",
@@ -31,7 +59,7 @@ class Footer extends Component {
                             {/* <h5 class="text-uppercase">Footer Content</h5> */}
 
                             <p>
-                                <img style={{ width: '44%' }} src='images/footer.jpg' alt='' />
+                                <img style={{ width: '44%' }} src='/images/footer.jpg' alt='' />
                             </p>
                         </div>
                         {/* <!--Grid column--> */}
@@ -40,18 +68,15 @@ class Footer extends Component {
                         <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
                             <h5 class="text-uppercase">כלבים</h5>
 
-                            <ul class="list-unstyled mb-0 ml-5">
-                                <li>
-                                    <a href="#!" class="text-dark">שקי אוכל</a>
+                            <ul class="list-unstyled mb-0 ml-5 pt-1">
+                                <li class='mb-1'>
+                                    <Link to="/products" onClick={this.dogItems} class="text-dark" >שקי אוכל</Link>
                                 </li>
-                                <li>
-                                    <a href="#!" class="text-dark">פורום</a>
+                                <li class='mb-1'>
+                                    <Link to="/forum/dog" class="text-dark">פורום</Link>
                                 </li>
-                                <li>
-                                    <a href="#!" class="text-dark">תספורת</a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="text-dark">Link 4</a>
+                                <li class='mb-1'>
+                                    <Link to="/haircut" class="text-dark">תספורת</Link>
                                 </li>
                             </ul>
                         </div>
@@ -61,24 +86,21 @@ class Footer extends Component {
                         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                             <h5 class="text-uppercase">חתולים</h5>
 
-                            <ul class="list-unstyled  mb-0 ml-5">
-                                <li>
-                                    <a href="#!" class="text-dark">Link 1</a>
+                            <ul class="list-unstyled  mb-0 ml-5 pt-1">
+                                <li class='mb-1'>
+                                    <Link to="/products" onClick={this.catItems} class="text-dark">שקי אוכל</Link>
                                 </li>
-                                <li>
-                                    <a href="#!" class="text-dark">Link 2</a>
+                                <li class='mb-1'>
+                                    <Link to="/forum/cat" class="text-dark">פורום</Link>
                                 </li>
-                                <li>
-                                    <a href="#!" class="text-dark">Link 3</a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="text-dark">Link 4</a>
+                                <li class='mb-1'>
+                                    <Link to="/haircut" class="text-dark">תספורת</Link>
                                 </li>
                             </ul>
                         </div>
                         {/* <!--Grid column--> */}
                         {/* <!--Grid column--> */}
-                        <div class="col-lg-3 col-md-12 mb-4 mb-md-0" align="right">
+                        <div class="col-lg-3 col-md-12 mb-4 mb-md-0 mt-md-0 mt-sm-5" align="right">
                             <h5 class="text-uppercase  mb-3">זמינים לשירותך!</h5>
 
                             <p >
@@ -131,4 +153,7 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default connect(
+    null,
+    { getFilterItems }
+)(Footer);
