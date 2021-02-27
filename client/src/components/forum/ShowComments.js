@@ -47,18 +47,21 @@ class ShowComments extends Component {
         <AddComment postID={this.props.postID} />
 
         <Card color='light' align='right' className="item-details-body mt-4">
-          <CardTitle tag="h5" className='pr-5 pb-3'>תגובות הגולשים</CardTitle>
+          <CardTitle tag="h5" className='pr-4 pb-3'>תגובות הגולשים</CardTitle>
 
           {comments && comments.map(({ _id, body, user, published_date }) => (
 
-            <Card key={_id} className="forum-comment mb-5 mr-5">
+            <Card key={_id} className="forum-comment mb-5 mr-4">
               <CardBody>
                 <Row>
 
                   <div style={postUserDetails} class="input-group ">
                     <CardImg bottom className='forum-pet-image ml-1 mb-2' src={user.petImage} />
                     <p>
-                      {user.name}&nbsp;{user.admin && <small class='text-muted'>מנהל</small>}&nbsp;&nbsp;
+                      <span style={{display:'block'}}>{user.name}&nbsp;
+                      {user.admin && <small class='text-muted'>מנהל</small>}
+
+                      </span>
 
                       <small className="text-muted">
                         פורסם ב:
@@ -66,6 +69,7 @@ class ShowComments extends Component {
                         בשעה:
                         {moment(published_date).format(' hh:mm')}
                       </small>
+                      <br />
                     </p>
                   </div>
                 </Row>
