@@ -113,6 +113,13 @@ body::-webkit-scrollbar-thumb {
     margin-right: 60px;
 }
 
+.robot-categories{
+    /* background-color: lightblue; */
+    width: 200px;
+    height: 200px;
+    overflow: auto;
+}
+
 .grid-container {
     margin: 0 auto;
     display: grid;

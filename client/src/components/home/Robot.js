@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
+import { Link } from 'react-router-dom';
 
 import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
 import { getAges } from '../../actions/ageActions';
@@ -16,8 +17,16 @@ class Robot extends Component {
         Collapsetoggle: false,
         needHelpOpen: true,
         needHelp: '',
+
+        resultOpen: false,
+        result: '',
+
+        todoOpen: false,
+        todo: '',
+
         petOpen: false,
         pet: '',
+
         categoryOpen: false,
         category: '',
         // name: "",
@@ -71,7 +80,7 @@ class Robot extends Component {
         this.setState({ needHelpOpen: false });
         if (this.state.needHelp === 'yes') {
             this.setState({
-                petOpen: !this.state.petOpen
+                todoOpen: !this.state.todoOpen
             })
         }
         else {
@@ -80,19 +89,50 @@ class Robot extends Component {
             })
         }
     }
-    onSubmitPet = e => {
+
+    onSubmitTodo = e => {
         e.preventDefault();
 
-        this.setState({ petOpen: false });
-        if (this.state.pet === 'כלב') {
+        this.setState({ todoOpen: false });
+        if (this.state.todo === 'buy') {
             this.setState({
-                categoryOpen: true
+                petOpen: true
             })
         }
-        else if (this.state.pet === 'חתול') {
+        else if (this.state.todo === 'haircut') {
             this.setState({
-                categoryOpen: true
+                petOpen: true
             })
+        }
+        else if (this.state.todo === 'forum') {
+            this.setState({
+                petOpen: true
+            })
+        }
+    }
+
+    onSubmitPet = e => {
+        e.preventDefault();
+        this.setState({ petOpen: false });
+        if (this.state.pet === 'כלב') {
+            if (this.state.todo === 'haircut') {
+                this.setState({
+                    resultOpen: true
+                })
+            } else
+                this.setState({
+                    categoryOpen: true
+                })
+        }
+        else if (this.state.pet === 'חתול') {
+            if (this.state.todo === 'haircut') {
+                this.setState({
+                    resultOpen: true
+                })
+            } else
+                this.setState({
+                    categoryOpen: true
+                })
         }
         else if (this.state.pet === 'תוכי') {
             this.setState({
@@ -104,6 +144,19 @@ class Robot extends Component {
                 categoryOpen: true
             })
         }
+    }
+    onSubmitCategory = e => {
+        e.preventDefault();
+        this.setState({ categoryOpen: false });
+        if (this.state.todo === 'buy') {
+            //TODO
+        }
+        else if (this.state.pet === 'forum') {
+            //TODO
+        }
+        this.setState({
+            resultOpen: true
+        })
     }
 
     // petOpenHangdle = () => {
@@ -121,6 +174,8 @@ class Robot extends Component {
         this.setState({
             Collapsetoggle: true,
             needHelpOpen: true,
+            resultOpen: false,
+            todoOpen: false,
             petOpen: false,
             categoryOpen: false,
         })
@@ -134,6 +189,7 @@ class Robot extends Component {
             width: this.state.Collapsetoggle ? '300px' : 'none'
         };
     };
+
     render() {
         const { isAuthenticated, user } = this.props.auth;
         const { items, minmaxprice } = this.props.item;
@@ -147,9 +203,6 @@ class Robot extends Component {
         var catBreeds = null;
         var parrotBreeds = null;
         var otherBreeds = null;
-
-
-        const ratingStars = ([-1, 0, 1, 2, 3, 4, 5]);
 
         const filterBtnSymbol = this.state.Collapsetoggle ?
             null :
@@ -188,8 +241,6 @@ class Robot extends Component {
 
 
                 <div class="robot collapse-filter-btn" style={this.robotstyle()} align="right">
-
-                    {/* <Button onClick={this.CollapseHangdle}>סינון מוצרים</Button> */}
                     <Collapse isOpened={this.state.Collapsetoggle}>
                         <button style={{ fontSize: '1.0em', left: '0' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
@@ -200,14 +251,29 @@ class Robot extends Component {
                         <hr style={{ width: "80%" }} />
 
 
-                        {/* <hr style={{ width: "80%" }} /> */}
-                        <Collapse isOpened={this.state.needHelpOpen}>
-                            {/* <Form onSubmit={this.needHelp} > */}
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>היי, צריך עזרה?</span>
+                        <Collapse isOpened={this.state.resultOpen}>
+                            <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>שמחנו לעזור</span>
                             <Col align="right" className='pt-0'>
                                 <label class="checkbox_item">
+                                    <small>
+                                        {
+                                            this.state.todo === "haircut" ? <Link to="/haircut" class="text-dark">תספורת</Link>
+                                                : this.state.todo === "buy" ? < Link to="/products" class="text-dark">חנות</Link>
+                                                    : this.state.todo === "forum" ? < Link to="/forum" class="text-dark">פורום</Link>
+                                                        : <small>מצטער לא לעזור</small>
+                                        }
+
+                                    </small>
+                                </label>
+                            </Col>
+                        </Collapse>
+
+                        <Collapse isOpened={this.state.needHelpOpen}>
+                            <span style={{ fontSize: '1.0em' }} class='lead pr-4'>היי, צריך עזרה?</span>
+                            <Col align="right" className='pt-2'>
+                                <label class="checkbox_item pr-3">
                                     <input onChange={this.onChange} class="ml-2" type="radio" name="needHelp" defaultValue='yes' />
-                                    <small>כן</small>
+                                    <small>כן</small><br />
                                     <input onChange={this.onChange} class="ml-2" type="radio" name="needHelp" defaultValue='no' />
                                     <small>לא</small>
                                 </label>
@@ -223,16 +289,63 @@ class Robot extends Component {
                             {/* </Form> */}
                         </Collapse>
 
-                        <Collapse isOpened={this.state.petOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>היי, איזה חיה יש לך?</span>
-                            {pets.map(({ _id, name }) => (
-                                <Col key={_id} align="right" className='pt-0'>
+                        <Collapse isOpened={this.state.todoOpen}>
+                            <span style={{ fontSize: '1.0em' }} class='lead pr-4'
+                            >קיימים מגוון אפשרויות שאנחנו מציעים,<br />
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;מה תרצה לעשות?</span>
+                            <div class="pr-3 pt-2">
+                                <Col align="right" className='pt-0'>
                                     <label class="checkbox_item">
-                                        <input onChange={this.onChange} class="ml-2" type="radio" name="pet" defaultValue={name} />
-                                        <small>{name}</small>
+                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="buy" />
+                                        <small>לקנות ממבחר המוצרים שלנו</small>
                                     </label>
                                 </Col>
-                            ))}
+                                <Col align="right" className='pt-0'>
+                                    <label class="checkbox_item">
+                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="haircut" />
+                                        <small>תספורות עבור כלב/חתול</small>
+                                    </label>
+                                </Col>
+                                <Col align="right" className='pt-0'>
+                                    <label class="checkbox_item">
+                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="forum" />
+                                        <small>התייעצות בפורום הקהילתי שלנו</small>
+                                    </label>
+                                </Col>
+                            </div>
+                            <Button outline
+                                size="sm"
+                                className="filter-btn"
+                                color='secondary'
+                                style={{ marginTop: '1rem' }}
+                                block
+                                onClick={this.onSubmitTodo}
+                            >בחר</Button>
+                        </Collapse>
+
+                        <Collapse isOpened={this.state.petOpen}>
+                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>איזה חיית מלמד יש לך?</span>
+                            <div class='pt-2'>
+                                {pets.map(({ _id, name }) => (
+                                    this.state.todo === "haircut" ?
+                                        name === 'כלב' || name === 'חתול' ?
+
+                                            <Col key={_id} align="right" className='pt-0'>
+                                                <label class="checkbox_item">
+                                                    <input onChange={this.onChange} class="ml-2" type="radio" name="pet" defaultValue={name} />
+                                                    <small>{name}</small>
+                                                </label>
+                                            </Col>
+                                            : null
+                                        :
+                                        <Col key={_id} align="right" className='pt-0'>
+                                            <label class="checkbox_item">
+                                                <input onChange={this.onChange} class="ml-2" type="radio" name="pet" defaultValue={name} />
+                                                <small>{name}</small>
+                                            </label>
+                                        </Col>
+                                ))}
+                            </div>
                             <Button outline
                                 size="sm"
                                 className="filter-btn"
@@ -244,15 +357,22 @@ class Robot extends Component {
                         </Collapse>
 
                         <Collapse isOpened={this.state.categoryOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>מה תרצה לקנות?</span>
-                            {categories.map(({ _id, name }) => (
-                                <Col key={_id} align="right" className='pt-0'>
-                                    <label class="checkbox_item">
-                                        <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
-                                        <small>{name}</small>
-                                    </label>
-                                </Col>
-                            ))}
+                            {
+                                this.state.todo === 'buy' ?
+                                    <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>מה תרצה לקנות?</span> :
+                                    <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>באיזה נושא תרצה להתייעץ?</span>
+                            }
+
+                            <div class="robot-categories pt-2">
+                                {categories.map(({ _id, name }) => (
+                                    <Col key={_id} align="right" className='pt-0 '>
+                                        <label class="checkbox_item">
+                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
+                                            <small>{name}</small>
+                                        </label>
+                                    </Col>
+                                ))}
+                            </div>
                             <Button outline
                                 size="sm"
                                 className="filter-btn"
@@ -274,7 +394,6 @@ class Robot extends Component {
                         {filterBtnSymbol}
                     </button>
                 </div>
-
             </Fragment>
         );
     }
