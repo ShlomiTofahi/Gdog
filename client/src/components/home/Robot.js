@@ -357,12 +357,26 @@ class Robot extends Component {
 
                             <div class="robot-categories pt-2">
                                 {categories.map(({ _id, name }) => (
+                                    <div>
                                     <Col key={_id} align="right" className='pt-0 '>
                                         <label class="checkbox_item">
                                             <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
                                             <small>{name}</small>
                                         </label>
                                     </Col>
+                                    <Col key={_id} align="right" className='pt-0 '>
+                                        <label class="checkbox_item">
+                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
+                                            <small>{name}</small>
+                                        </label>
+                                    </Col>
+                                    <Col key={_id} align="right" className='pt-0 '>
+                                        <label class="checkbox_item">
+                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
+                                            <small>{name}</small>
+                                        </label>
+                                    </Col>
+                                    </div>
                                 ))}
                             </div>
                             <Button outline

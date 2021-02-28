@@ -63,7 +63,7 @@ body::-webkit-scrollbar-thumb {
     bottom: 0;
     right: 0;
     /* background: #fff; */
-    overflow-x: auto;
+    /* overflow-x: auto; */
     margin-bottom: 10px;
     margin-right: 15px;
     /* color: rgb(155, 155, 155); */
@@ -84,7 +84,7 @@ body::-webkit-scrollbar-thumb {
     bottom: 0;
     right: 0;
     /* background: #fff; */
-    overflow-x: auto;
+    /* overflow-x: auto; */
     margin-bottom: 10px;
     margin-right: 10px;
     /* color: rgb(155, 155, 155); */
@@ -92,7 +92,7 @@ body::-webkit-scrollbar-thumb {
     margin-right: 200px;   
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: .25rem; */
-    overflow: auto;
+    /* overflow: auto; */
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
 }
@@ -115,10 +115,15 @@ body::-webkit-scrollbar-thumb {
 
 .robot-categories{
     /* background-color: lightblue; */
-    width: 200px;
+    width: 250px;
     height: 200px;
     overflow: auto;
 }
+
+
+
+
+
 
 .grid-container {
     margin: 0 auto;
@@ -1027,6 +1032,21 @@ a {
     }
 }
 
+@media screen and (min-width:768px) {
+    .robot-categories::-webkit-scrollbar {
+        width: 0.6em;
+    }
+    
+    .robot-categories::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+    
+    .robot-categories::-webkit-scrollbar-thumb {
+        background-color: rgba(21, 167, 7, 0.055);
+        outline: 1px solid rgba(3, 43, 0, 0.089) ;
+    }
+}
+
 @media screen and (max-width: 1200px) and (min-width:990px ) {
     .forum-post-title{
         word-break:break-all;
@@ -1205,7 +1225,6 @@ a {
     .sidenav a {
         font-size: 18px;
     }
-
 }
 
 @media screen and (max-width: 368px) {
