@@ -7,10 +7,7 @@ import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import { Link } from 'react-router-dom';
 
-import { getItems, getFilterItems, getMinMaxPrice } from '../../actions/itemActions';
-import { getAges } from '../../actions/ageActions';
-import { getPets } from '../../actions/petActions';
-import { getCategories } from '../../actions/categoryActions';
+import { getFilterItems } from '../../actions/itemActions';
 
 class Robot extends Component {
     state = {
@@ -29,14 +26,7 @@ class Robot extends Component {
 
         categoryOpen: false,
         category: '',
-        // name: "",
-        // price: "",
-        // rating: "",
-        // pet: [],
-        // breed: [],
-        // category: [],
-        // age: [],
-        // breeds: [],
+
         dropDownCategoryOpen: false,
         dropDownRatingOpen: false,
         dropDownDogOpen: false,
@@ -46,12 +36,7 @@ class Robot extends Component {
     };
 
     static protoType = {
-        getItems: PropTypes.func.isRequired,
         getFilterItems: PropTypes.func.isRequired,
-        getAges: PropTypes.func.isRequired,
-        getPets: PropTypes.func.isRequired,
-        getCategories: PropTypes.func.isRequired,
-        getMinMaxPrice: PropTypes.func.isRequired,
         auth: PropTypes.object,
         item: PropTypes.object.isRequired,
         age: PropTypes.object.isRequired,
@@ -151,12 +136,6 @@ class Robot extends Component {
     onSubmitCategory = e => {
         e.preventDefault();
         this.setState({ categoryOpen: false });
-        // if (this.state.todo === 'buy') {
-        //    //TODO
-        // }
-        // else if (this.state.pet === 'forum') {
-        //     //TODO
-        // }
         this.setState({
             resultOpen: true
         })
@@ -197,33 +176,14 @@ class Robot extends Component {
     };
 
     render() {
-        const { isAuthenticated, user } = this.props.auth;
-        const { items, minmaxprice } = this.props.item;
-        const { ages } = this.props.age;
-        const is_admin = (isAuthenticated && user.admin);
-        const { pets, pet } = this.props.pet;
+        const { pets } = this.props.pet;
         const { categories } = this.props.category;
-
-
-        var dogBreeds = null;
-        var catBreeds = null;
-        var parrotBreeds = null;
-        var otherBreeds = null;
 
         const filterBtnSymbol = this.state.Collapsetoggle ?
             null :
-
             <span class="robot-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
                 <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
             </svg><span class="pr-2">צריך עזרה?</span></span>
-
-        var filterDropDownSymbol = {}
-        filterDropDownSymbol['category'] = this.state.dropDownCategoryOpen ? <span>&#45;</span> : <span>&#x2B;</span>
-        filterDropDownSymbol['rating'] = this.state.dropDownRatingOpen ? <span>&#45;</span> : <span>&#x2B;</span>
-        filterDropDownSymbol['dog'] = this.state.dropdownDogOpen ? <span>&#45;</span> : <span>&#x2B;</span>
-        filterDropDownSymbol['cat'] = this.state.dropdownCatOpen ? <span>&#45;</span> : <span>&#x2B;</span>
-        filterDropDownSymbol['parrot'] = this.state.dropdownParrotOpen ? <span>&#45;</span> : <span>&#x2B;</span>
-        filterDropDownSymbol['other'] = this.state.dropdownOtherOpen ? <span>&#45;</span> : <span>&#x2B;</span>
 
         return (
             <Fragment>
@@ -357,26 +317,12 @@ class Robot extends Component {
 
                             <div class="robot-categories pt-2">
                                 {categories.map(({ _id, name }) => (
-                                    <div>
                                     <Col key={_id} align="right" className='pt-0 '>
                                         <label class="checkbox_item">
                                             <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
                                             <small>{name}</small>
                                         </label>
                                     </Col>
-                                    <Col key={_id} align="right" className='pt-0 '>
-                                        <label class="checkbox_item">
-                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
-                                            <small>{name}</small>
-                                        </label>
-                                    </Col>
-                                    <Col key={_id} align="right" className='pt-0 '>
-                                        <label class="checkbox_item">
-                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
-                                            <small>{name}</small>
-                                        </label>
-                                    </Col>
-                                    </div>
                                 ))}
                             </div>
                             <Button outline
@@ -405,19 +351,12 @@ class Robot extends Component {
     }
 }
 
-
-
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    item: state.item,
     pet: state.pet,
-    isAuthenticated: state.auth.isAuthenticated,
-    age: state.age,
     category: state.category
-
 });
 
 export default connect(
     mapStateToProps,
-    { getItems, getAges, getFilterItems, getPets, getCategories, getMinMaxPrice }
+    { getFilterItems }
 )(Robot);
