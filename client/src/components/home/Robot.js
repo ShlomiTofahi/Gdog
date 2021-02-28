@@ -189,7 +189,7 @@ class Robot extends Component {
             <Fragment>
                 <div class="robot collapse-filter-btn" style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} align="right">
                     <Collapse isOpened={this.state.Collapsetoggle}>
-                        <button style={{ fontSize: '1.0em', left: '0' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
+                        <button style={window.innerWidth <= 768 ? { fontSize: '1.0em', left: '0', color: 'rgba(173, 273, 173, 0.75)' } : { fontSize: '1.0em', left: '0' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
                                 <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                             </svg>
@@ -234,7 +234,7 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? selectbtn : { marginTop: '1rem', background: 'rgba(173, 173, 173, 0.05)' }}
                                 block
                                 onClick={this.onSubmitNeedHelp}
                             >בחר</Button>
@@ -269,7 +269,7 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? selectbtn : { marginTop: '1rem', background: 'rgba(173, 173, 173, 0.05)' }}
                                 block
                                 onClick={this.onSubmitTodo}
                             >בחר</Button>
@@ -302,7 +302,7 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? selectbtn : { marginTop: '1rem', background: 'rgba(173, 173, 173, 0.05)' }}
                                 block
                                 onClick={this.onSubmitPet}
                             >בחר</Button>
@@ -329,14 +329,14 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? selectbtn : { marginTop: '1rem', background: 'rgba(173, 173, 173, 0.05)' }}
                                 block
                                 onClick={this.onSubmitCategory}
                             >בחר</Button>
                         </Collapse>
                         <hr style={{ width: "80%" }} />
 
-                        <button style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} class="lead collapse-filter-btn" onClick={this.reset}>
+                        <button style={window.innerWidth <= 768 ? { color: 'rgba(173, 273, 173, 0.75)', fontSize: '1.0em' } : { fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.reset}>
                             התחל מחדש כאן
                     </button>
 
@@ -350,6 +350,11 @@ class Robot extends Component {
         );
     }
 }
+const selectbtn = {
+    color: 'rgba(173, 273, 173, 0.75)',
+    marginTop: '1rem',
+    background: 'rgba(173, 173, 173, 0.20)'
+};
 
 const mapStateToProps = (state) => ({
     pet: state.pet,
