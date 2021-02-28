@@ -60,16 +60,19 @@ class Robot extends Component {
         category: PropTypes.object.isRequired
     }
 
-    componentDidMount() {
-        // this.props.getItems();
-        // this.props.getAges();
-        // this.props.getPets();
-        // this.props.getCategories();
-        // if(this.props.item.minmaxprice)
-        //     this.setState({price:this.props.item.minmaxprice.max})
+    getItems = () => {
+        const FiltedItems = {
+            name: '',
+            price: '',
+            pet: this.state.pet,
+            breed: '',
+            category: this.state.category,
+            age: '',
+            rating: ''
+        };
+        // Attempt to filter
+        this.props.getFilterItems(FiltedItems);
     }
-
-
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -148,23 +151,16 @@ class Robot extends Component {
     onSubmitCategory = e => {
         e.preventDefault();
         this.setState({ categoryOpen: false });
-        if (this.state.todo === 'buy') {
-            //TODO
-        }
-        else if (this.state.pet === 'forum') {
-            //TODO
-        }
+        // if (this.state.todo === 'buy') {
+        //    //TODO
+        // }
+        // else if (this.state.pet === 'forum') {
+        //     //TODO
+        // }
         this.setState({
             resultOpen: true
         })
     }
-
-    // petOpenHangdle = () => {
-    //     this.setState({
-    //         petOpen: !this.state.petOpen
-    //     })
-    // }
-
     CollapseHangdle = () => {
         this.setState({
             Collapsetoggle: !this.state.Collapsetoggle
@@ -181,9 +177,19 @@ class Robot extends Component {
         })
     }
 
-    robotstyle = (discount) => {
+    robotstyle = () => {
         return {
-            background: this.state.Collapsetoggle ? 'rgba(173, 173, 173, 0.05)' : 'none',
+            background: this.state.Collapsetoggle ? 'rgba(173, 173, 173, 0.10)' : 'none',
+            border: this.state.Collapsetoggle ? '1px solid rgba(0, 0, 0, 0.125)' : 'none',
+            borderRadius: this.state.Collapsetoggle ? '.25rem' : 'none',
+            width: this.state.Collapsetoggle ? '300px' : 'none'
+        };
+    };
+
+    mobilerobotstyle = () => {
+        return {
+            background: this.state.Collapsetoggle ? 'rgba(173, 173, 173, 0.35)' : 'none',
+            color: this.state.Collapsetoggle ? 'rgba(173, 273, 173, 0.75)' : 'none',
             border: this.state.Collapsetoggle ? '1px solid rgba(0, 0, 0, 0.125)' : 'none',
             borderRadius: this.state.Collapsetoggle ? '.25rem' : 'none',
             width: this.state.Collapsetoggle ? '300px' : 'none'
@@ -220,27 +226,8 @@ class Robot extends Component {
         filterDropDownSymbol['other'] = this.state.dropdownOtherOpen ? <span>&#45;</span> : <span>&#x2B;</span>
 
         return (
-            // <div align="right">
-            //     <Button className="robot-btn" color="none" title="בצע תשלום" onClick={this.CollapseHangdle} >
-
-            //         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-chat-dots-fill robot-icon" viewBox="0 0 16 16">
-            //             <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-            //         </svg>
-            //         <span class='robot lead'>צריך עזרה?</span>
-            //     </Button>
-            //     <Collapse class='robot-body' isOpened={this.state.Collapsetoggle}>
-            //         <div>
-            //             here
-            //         </div>
-            //     </Collapse>
-            // </div>
-
-
             <Fragment>
-
-
-
-                <div class="robot collapse-filter-btn" style={this.robotstyle()} align="right">
+                <div class="robot collapse-filter-btn" style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} align="right">
                     <Collapse isOpened={this.state.Collapsetoggle}>
                         <button style={{ fontSize: '1.0em', left: '0' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
@@ -252,17 +239,22 @@ class Robot extends Component {
 
 
                         <Collapse isOpened={this.state.resultOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>שמחנו לעזור</span>
+                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'> שמחנו לעזור</span>
                             <Col align="right" className='pt-2'>
                                 <label class="checkbox_item">
                                     <small>
                                         {
-                                            this.state.todo === "haircut" ? <Link to="/haircut" class="text-dark">תספורת</Link>
-                                                : this.state.todo === "buy" ? < Link to="/products" class="text-dark">חנות</Link>
-                                                    : this.state.todo === "forum" ? < Link to="/forum" class="text-dark">פורום</Link>
+                                            this.state.todo === "haircut" ? <Link to="/haircut" class="text-dark">
+                                                <strong style={this.mobilerobotstyle()}>תספורת</strong></Link>
+                                                : this.state.todo === "buy" ? < Link to="/products" onClick={this.getItems} class="text-dark">
+                                                    <strong style={this.mobilerobotstyle()}>חנות</strong></Link>
+                                                    : this.state.todo === "forum" ? < Link to={this.state.pet === 'כלב' ? "/forum/dog"
+                                                        : this.state.pet === 'חתול' ? "/forum/cat"
+                                                            : this.state.pet === 'תוכי' ? "/forum/parrot"
+                                                                : "/forum/other"} class="text-dark">
+                                                        <strong style={this.mobilerobotstyle()}>פורום</strong></Link>
                                                         : <small>מצטער לא לעזור</small>
                                         }
-
                                     </small>
                                 </label>
                             </Col>
@@ -282,7 +274,7 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={{ marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
                                 block
                                 onClick={this.onSubmitNeedHelp}
                             >בחר</Button>
@@ -317,14 +309,14 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={{ marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
                                 block
                                 onClick={this.onSubmitTodo}
                             >בחר</Button>
                         </Collapse>
 
                         <Collapse isOpened={this.state.petOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>איזה חיית מלמד יש לך?</span>
+                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>איזה חיית מחמד יש לך?</span>
                             <div class='pt-2'>
                                 {pets.map(({ _id, name }) => (
                                     this.state.todo === "haircut" ?
@@ -350,7 +342,7 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={{ marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
                                 block
                                 onClick={this.onSubmitPet}
                             >בחר</Button>
@@ -377,14 +369,14 @@ class Robot extends Component {
                                 size="sm"
                                 className="filter-btn"
                                 color='secondary'
-                                style={{ marginTop: '1rem' }}
+                                style={window.innerWidth <= 768 ? this.mobilerobotstyle() : { marginTop: '1rem' }}
                                 block
                                 onClick={this.onSubmitCategory}
                             >בחר</Button>
                         </Collapse>
                         <hr style={{ width: "80%" }} />
 
-                        <button style={{ fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.reset}>
+                        <button style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} class="lead collapse-filter-btn" onClick={this.reset}>
                             התחל מחדש כאן
                     </button>
 
