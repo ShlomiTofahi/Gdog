@@ -60,9 +60,7 @@ app.post('/send-mail', (req, res) => {
     from: 'shlomitofahi@outlook.com',
     to: 'shlomitofahi@gmail.com',
     subject: 'Hello World',
-    html: 'Mail of test sendmail ',
-    devHost: 'localhost' // Default: localhost
-
+    html: 'Mail of test sendmail '
   }, function (err, reply) {
     console.log(err && err.stack)
     console.dir(reply)
