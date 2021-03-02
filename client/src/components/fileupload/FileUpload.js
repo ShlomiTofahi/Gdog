@@ -200,9 +200,6 @@ const FileUpload = (props) => {
             if (filepath !== '' && filepath !== noImageFullpath && filepath !== props.prevImage) {
               const formData = new FormData();
               formData.append('filepath', filepath);
-              alert(filepath)
-              alert(props.currImage)
-
               axios.post('/remove', formData);
             }
             if (removedOrginalImage) {
@@ -211,7 +208,9 @@ const FileUpload = (props) => {
           }
         }}
       />
+      
       {message ? <Message msg={message} /> : null}
+      
       <form>
         <div className='custom-file mb-4'>
           <input
@@ -235,21 +234,19 @@ const FileUpload = (props) => {
           style={{ marginTop: '2rem' }}
         >העלאה
         </Button>
-
       </form>
+
       <Fade in={removeOrginalImagefadeIn} tag="h5" className="mt-3">
         <Button
           color='danger'
           size='sm'
-          style={{ width: '140px' }}
-          block
           onClick={removeOrginalImage}
         >מחק תמונה מקורית</Button>
       </Fade>
       {uploadedFile ? (
-        <div className='row mt-5'>
+        <div className='row mt-5' style={{ maxWidth: '506px' }}>
           <div className='col-md-6 m-auto'>
-            <h3 className='text-center'>{uploadedFile.fileName}</h3>
+            <small className='text-center'>{uploadedFile.fileName}</small>
             <img style={{ width: '100%' }} src={uploadedFile.filePath} alt='' />
           </div>
         </div>
@@ -259,8 +256,6 @@ const FileUpload = (props) => {
         <Button
           color='light'
           size='sm'
-          style={{ width: '100px' }}
-          block
           onClick={removeImage}
         >מחק תמונה</Button>
       </Fade>

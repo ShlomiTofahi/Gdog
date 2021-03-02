@@ -1,12 +1,82 @@
 import React, { Component } from 'react'
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container, Input, FormGroup, Form } from 'reactstrap';
+import axios from 'axios';
 
 export default class Contact extends Component {
+    state = {
+        title: '',
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        msg: null,
+    };
+
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSubmit = async e => {
+        e.preventDefault();
+
+        const { name, title, email, phone, message } = this.state;
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('title', title);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('message', message);
+    
+        try {
+          const res = await axios.post('/send-mail', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            // onUploadProgress: progressEvent => {
+            //   setUploadPercentage(
+            //     parseInt(
+            //       Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            //     )
+            //   );
+    
+            //   // Clear percentage
+            //   setTimeout(() => setUploadPercentage(0), 10000);
+            // }
+          });
+    
+        //   const { fileName, filePath } = res.data;
+        //   setFilepath(filePath);
+    
+        //   props.setRegisterModalStates(filePath);
+    
+        //   setUploadedFile({ fileName, filePath });
+    
+        //   setMessage('File Uploaded');
+    
+        //   if (removeImagefadeIn == false) {
+        //     setRemoveImagefadeIn(!removeImagefadeIn);
+        //     setRemoveOrginalImagefadeIn(false);
+        //   }
+        //   if (imageSubmited == false) {
+        //     setImageSubmited(true)
+        //   }
+    
+        } catch (err) {
+          if (err.response.status === 500) {
+            // setMessage('There was a problem with the server');
+          } else {
+            // setMessage(err.response.data.msg);
+          }
+        }
+    }
 
     aboutStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
-            borderRadius: '5%',
+            webkitBorderRadius: '15px',
+            mozBorderRadius: '15px',
+            borderRadius: '15px',
             marginTop: '30px',
             padding: '30px',
 
@@ -20,16 +90,61 @@ export default class Contact extends Component {
             border: '1px solid rgb(230, 230, 230)',
             width: '90%',
             display: 'inline',
-            borderRadius: '5%',
-
-            // paddingBottom:'20px'
+            webkitBorderRadius: '35px',
+            mozBorderRadius: '35px',
+            borderRadius: '35px',
         };
     };
 
     render() {
         return (
-            <Container className='mb-5'>
-                <div align="right" style={this.aboutStyle()}>
+            <div class='contact-fullpage' align='right'>
+                <Container className='mt-4 mb-4'>
+                    <h1 class="brand"><span>Acme</span> Web Design</h1>
+                    <div class="wrapper animated bounceInLeft">
+                        <div class="company-info">
+                            <h3>Acme Web Design</h3>
+                            <ul>
+                                <li><i class="fa fa-road"></i> 44 Something st</li>
+                                <li><i class="fa fa-phone"></i> (555) 555-5555</li>
+                                <li><i class="fa fa-envelope"></i> test@acme.test</li>
+                            </ul>
+                        </div>
+                        <div class="contact">
+                            <h3 class='mb-3'>שלח לנו מייל</h3>
+                            {/* {{ msg }} */}
+                            {/* <form method="POST" action="send"> */}
+                            <Form  onSubmit={this.onSubmit}>
+                                <FormGroup className='contact-form'>
+                                    <p>
+                                        <label>שם</label>
+                                        <Input onChange={this.onChange} type="text" name="name" />
+                                    </p>
+                                    <p>
+                                        <label>נושא</label>
+                                        <Input onChange={this.onChange} type="text" name="title" />
+                                    </p>
+                                    <p>
+                                        <label>כתובת דוא"ל</label>
+                                        <Input onChange={this.onChange} type="email" name="email" />
+                                    </p>
+                                    <p>
+                                        <label>מספר טלפון</label>
+                                        <Input onChange={this.onChange} type="text" name="phone" />
+                                    </p>
+                                    <p class="full">
+                                        <label>הודעה</label>
+                                        <textarea onChange={this.onChange} name="message" rows="5"></textarea>
+                                    </p>
+                                    <p class="full">
+                                        <button type="submit">שלח</button>
+                                    </p>
+                                    {/* </form> */}
+                                </FormGroup>
+                            </Form>
+                        </div>
+                    </div>
+                    {/* <div align="right" style={this.aboutStyle()}>
                     <fieldset>
                         <legend><h1 class='display-4' style={{ color: '#7c6f5a7a' }}>נשמח לשמוע ממכם, ולהיות לשירוכם!</h1></legend>
                         <Row>
@@ -76,8 +191,9 @@ export default class Contact extends Component {
                             </Col>
                         </Row>
                     </fieldset>
-                </div>
-            </Container>
+                </div> */}
+                </Container>
+            </div>
         )
     }
 }

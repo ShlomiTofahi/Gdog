@@ -6,7 +6,9 @@ export default class About extends Component {
     aboutStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
-            borderRadius: '5%',
+            webkitBorderRadius: '15px',
+            mozBorderRadius: '15px',
+            borderRadius: '15px',
             marginTop: '30px',
             padding: '30px',
 
@@ -19,7 +21,9 @@ export default class About extends Component {
             border: '1px solid rgb(230, 230, 230)',
             width: '90%',
             display: 'inline',
-            borderRadius: '10%'
+            webkitBorderRadius: '35px',
+            mozBorderRadius: '35px',
+            borderRadius: '35px',
         };
     };
     render() {

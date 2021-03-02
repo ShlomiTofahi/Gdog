@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     Card, CardBody, Fade, CardTitle, Button, Container, Form, FormGroup, Label,
-    Input, Alert, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
+    Input, Alert, ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Row, Col
 } from 'reactstrap';
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
@@ -14,6 +14,9 @@ import { clearMsgs } from '../../actions/msgActions';
 import { getPet } from '../../actions/petActions';
 
 import FileUpload from '../fileupload/FileUpload';
+import ChangePassword from './ChangePassword';
+import ChangeUserInfo from './ChangeUserInfo';
+import ChangeEmail from './ChangeEmail';
 
 class EditProfile extends Component {
     state = {
@@ -229,137 +232,17 @@ class EditProfile extends Component {
         return (
             <Fragment >
                 <Container className='mb-5'>
-                    <div className='position-relative mt-4'
-                    // style={this.frameStyle()}
-                    >
-                        <Card style={this.bodyStyle()} align="right">
-                            <CardTitle className={'mr-5 mb-2 lead'} tag="h5" style={{ display: 'inline' }}>ערכית משתמש</CardTitle>
-
-                            {/* <div class="items-image pt-4" align="center">
-                            <CardImg bottom className='ProductImg' src={user.petImage} alt="תמונה חיית מחמד" />
-                        </div> */}
-                            <CardBody className='pr-4 mr-5'>
-                                {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
-                                <Form onSubmit={this.onSubmit}>
-                                    <FormGroup>
-
-                                        <Label for='name'>שם מלא</Label>
-                                        <Input
-                                            type='name'
-                                            defaultValue={this.state.name}
-                                            name='name'
-                                            id='name'
-                                            placeholder='Name'
-                                            className='mb-3'
-                                            onChange={this.onChange}
-                                        />
-
-                                        <Label for='cellphone'>טלפון</Label>
-                                        <Input
-                                            type='number'
-                                            defaultValue={this.state.cellphone}
-                                            name='cellphone'
-                                            id='cellphone'
-                                            placeholder='cellphone'
-                                            className='mb-3'
-                                            onChange={this.onChange}
-                                        />
-
-                                        <ButtonDropdown
-                                            style={{ display: 'block', marginBottom: '1rem' }}
-
-                                            isOpen={this.state.dropdownPetOpen} toggle={this.DropDowntogglePet}>
-                                            <DropdownToggle caret>{this.state.pet}</DropdownToggle>
-                                            <DropdownMenu
-                                                modifiers={{
-                                                    setMaxHeight: {
-                                                        enabled: true,
-                                                        order: 890,
-                                                        fn: (data) => {
-                                                            return {
-                                                                ...data,
-                                                                styles: {
-                                                                    ...data.styles,
-                                                                    overflow: 'auto',
-                                                                    maxHeight: '100px',
-                                                                },
-                                                            };
-                                                        },
-                                                    },  
-                                                }}>
-                                                {pets.map(({ name, _id }) => (
-                                                    <DropdownItem key={_id} name='pet' value={_id} onClick={this.selectPet}>{name}</DropdownItem>
-                                                ))}
-                                            </DropdownMenu>
-                                        </ButtonDropdown>
-
-                                        <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
-                                            <ButtonDropdown
-                                                style={{ marginBottom: '1rem' }}
-                                                isOpen={this.state.dropdownBreedOpen} toggle={this.DropDowntoggleBreed}>
-                                                {this.state.breed != '' ?
-                                                    <DropdownToggle caret>{this.state.breed}</DropdownToggle>
-                                                    :
-                                                    <DropdownToggle caret>{this.state.dropDownBreedValue}</DropdownToggle>
-                                                }
-
-                                                <DropdownMenu
-                                                    modifiers={{
-                                                        setMaxHeight: {
-                                                            enabled: true,
-                                                            order: 890,
-                                                            fn: (data) => {
-                                                                return {
-                                                                    ...data,
-                                                                    styles: {
-                                                                        ...data.styles,
-                                                                        overflow: 'auto',
-                                                                        maxHeight: '100px',
-                                                                    },
-                                                                };
-                                                            },
-                                                        },
-                                                    }}>
-                                                    {pet &&
-                                                        pet.breeds.map(({ name }) => (
-                                                            <DropdownItem name='breed' onClick={this.selectBreed}>{name}</DropdownItem>
-                                                        ))}
-                                                </DropdownMenu>
-                                            </ButtonDropdown>
-                                        </Fade>
-
-                                        <FileUpload
-                                            payload={this.state.cellphone}
-                                            setRegisterModalStates={this.setRegisterModalStates}
-                                            path={this.state.path}
-                                            currImage={this.state.petImage}
-                                            prevImage={this.state.prevPetImage}
-                                            imageSaved={this.state.imageSubmited}
-                                            removedOrginalImageAndNotSave={this.removedOrginalImageAndNotSave}
-                                        />
-                                        {/* <Fade in={this.state.removeImagefadeIn} tag="h5" className="mt-3">
-                                <Button
-                                        color='light'
-                                        size='sm'
-                                        style={{ marginTop: '2rem', width:'100px'}}
-                                        block
-                                        onClick={this.removeImage}
-                                    >מחק תמונה</Button>
-                                </Fade> */}
-                                        <Button
-                                            color='dark'
-                                            style={{ marginTop: '2rem' }}
-                                            block
-                                        >שמור</Button>
-                                    </FormGroup>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </div>
-
-                    {this.state.redirect &&
-                        <Redirect exact from='profile/edit' to={this.state.redirect} />
-                    }
+                    <Row >
+                        <ChangeUserInfo />
+                        <div>
+                            <Col>
+                                <ChangePassword />
+                            </Col>
+                            <Col>
+                                <ChangeEmail />
+                            </Col>
+                        </div>
+                    </Row>
                 </Container>
             </Fragment>
         );

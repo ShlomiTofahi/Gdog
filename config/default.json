@@ -1,4 +1,5 @@
 {
     "mongoURI" : "mongodb+srv://shlomitofahi:shlomi1234@animalshop.dgl7x.mongodb.net/shlomi?retryWrites=true&w=majority",
-    "jwtSecret" : "sl_myJwtSecret"
+    "jwtSecret" : "sl_myJwtSecret",
+    "adminMail" : "shlomitofahi@gmail.com"
 }

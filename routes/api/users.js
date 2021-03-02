@@ -74,6 +74,52 @@ router.post('/edit/:id', auth, (req, res) => {
     })
 });
 
+// @route   POST api/users/change-pass
+// @desc    Chnage Password For A User
+// @access  Private
+router.post('/change-pass/:id', auth, (req, res) => {
+    let { validationPassword, password, currentPassword } = req.body;
+
+    //Simple validation
+    if (!password || !validationPassword || !currentPassword) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+    if (req.user.id !== req.params.id) {
+        return res.status(400).json({ msg: 'Invalid credentials' });
+    }
+    if (validationPassword !== password) {
+        return res.status(400).json({ msg: 'אימות סיסמא לא זהה' });
+    }
+
+
+
+    User.findById(req.params.id).then(user => {
+
+        // Validate password
+        bcrypt.compare(currentPassword, user.password)
+            .then(isMatch => {
+                if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+
+                // Create salt & hash
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
+                        if (err) throw err;
+
+                        password = hash;
+                        user.updateOne({ password }).then(() => {
+                            User.findById(req.params.id).populate('pet').populate('breed')
+                                .then(user => {
+                                    res.json(user)
+                                })
+                        })
+                            .catch(err => res.status(404).json({ success: false })
+                            );
+                    })
+                })
+            })
+    })
+});
+
 
 // @route   GET api/users
 // @desc    Register new user

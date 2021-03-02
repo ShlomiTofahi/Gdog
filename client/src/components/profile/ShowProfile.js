@@ -29,11 +29,14 @@ class ShowProfile extends Component {
     bodyStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
-            borderRadius: '5%',
+            webkitBorderRadius: '15px',
+            mozBorderRadius: '15px',
+            borderRadius: '15px',
             padding: '30px',
             height: 'auto',
             webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
-            boxSshadow: '0 0 5px 0.1px #C7C7C7'
+            boxSshadow: '0 0 5px 0.1px #C7C7C7',
+            // maxWidth:'1000px'
         };
     };
 
@@ -43,13 +46,13 @@ class ShowProfile extends Component {
         return (
             <Fragment >
                 <Container className='mb-5'>
-                    <div className='position-relative mt-4' style={this.frameStyle()}>
+                    <div className='position-relative mt-4'>
                         <Card style={this.bodyStyle()} align="right">
                             <div class="items-image pt-4" align="center">
                                 <CardImg bottom className='ProductImg' src={user.petImage} alt="תמונה חיית מחמד" />
                             </div>
                             <CardBody className='pr-4 mr-5'>
-                                <CardTitle className={'mr-5 mb-2 lead'} tag="h5" style={{ display: 'inline' }}>פרטים אישיים</CardTitle>
+                                <CardTitle className={'mb-2 lead'} tag="h5" style={{ display: 'inline' }}>פרטים אישיים</CardTitle>
                                 <Link className='badge badge-pill badge-secondary mb-3 mr-1' to='/profile/edit'>עריכה</Link>
                                 <CardSubtitle tag="h6" className="mb-2 text-muted"><spen style={{ color: 'black' }}>שם:</spen> {user.name}</CardSubtitle>
                                 <CardSubtitle tag="h6" className="mb-2 text-muted"><spen style={{ color: 'black' }}>אמייל:</spen> {user.email}</CardSubtitle>

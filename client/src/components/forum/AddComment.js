@@ -107,6 +107,7 @@ const addPostInput = {
   borderRadius: '20px',
   zIndex: '1'
 };
+
 const commentButton = {
   position: 'relative',
   left: '34px',

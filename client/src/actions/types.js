@@ -12,6 +12,8 @@ export const USERS_LOADING = 'USERS_LOADING';
 export const DELETE_USER = 'DELETE_USER';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
 
 //Items
 export const GET_ITEMS = 'GET_ITEMS';
