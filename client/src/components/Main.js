@@ -16,6 +16,7 @@ import Haircut from './Haircut';
 import Payment from './product/Payment';
 import Forum from './forum/Forum';
 import ForumPet from './forum/ForumPet';
+import RestPassword from './auth/RestPassword';
 import Post from './forum/Post';
 
 class Main extends Component {
@@ -46,6 +47,7 @@ class Main extends Component {
                     <Route exact path="/forum/:pet" component={Forum} />
                     {/* <Route exact path="/forum/post/:id" component={Post} /> */}
 
+                    <Route exact path='/rest-pasword' component={RestPassword} />
                     <Route exact path='/about' component={About} />
                     <Route exact path='/contact' component={Contact} />
                     <Route exact path='/haircut' component={Haircut} />

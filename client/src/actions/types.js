@@ -14,6 +14,8 @@ export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
+export const USER_LOADED_BY_EMAIL = 'USER_LOADED_BY_EMAIL';
+export const USER_LOADED_BY_EMAIL_FAIL = 'USER_LOADED_BY_EMAIL_FAIL';
 
 //Items
 export const GET_ITEMS = 'GET_ITEMS';
@@ -78,4 +80,10 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GET_MSGS = 'GET_MSGS';
 export const CLEAR_MSGS = 'CLEAR_MSGS';
 export const DELETE_FAIL = 'DELETE_FAIL';
+
+//TwoFactorAuthentication
+export const CREATE_TOKEN = 'CREATE_TOKEN';
+export const CREATE_TOKEN_FAIL = 'CREATE_TOKEN_FAIL';
+export const VERIFY_TOKEN = 'VERIFY_TOKEN';
+export const VERIFY_TOKEN_FAIL = 'VERIFY_TOKEN_FAIL';
 

@@ -9,6 +9,7 @@ import petReducer from './petReducer';
 import breedReducer from './breedReducer';
 import ageReducer from './ageReducer';
 import categoryReducer from './categoryReducer';
+import twoFactorAuthReducer from './twoFactorAuthReducer';
 
 export default combineReducers({
     item: itemReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     pet: petReducer,
     breed: breedReducer,
     age: ageReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    twoFactorAuth: twoFactorAuthReducer
 });

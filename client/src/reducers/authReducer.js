@@ -1,5 +1,5 @@
 import {
-  USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS,
+  USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, USER_LOADED_BY_EMAIL,
   REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, USERS_LOADING, DELETE_USER, EDIT_USER_SUCCESS
 } from '../actions/types';
 
@@ -32,6 +32,11 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: true,
         isLoading: false,
         user: action.payload
+      };
+    case USER_LOADED_BY_EMAIL:
+      return {
+        ...state,
+        ...action.payload
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:

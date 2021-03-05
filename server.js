@@ -5,6 +5,7 @@ const config = require('config');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 const sendmail = require('sendmail')();
+const speakeasy = require('speakeasy');
 
 var fs = require('fs');
 
@@ -56,17 +57,50 @@ app.post('/send-mail', (req, res) => {
     <h3>Message</h3>
     <p>${req.body.message}</p>
   `;
-  sendmail({
-    from: 'shlomitofahi@outlook.com',
-    to: 'shlomitofahi@gmail.com',
-    subject: 'Hello World',
-    html: 'Mail of test sendmail '
-  }, function (err, reply) {
-    console.log(err && err.stack)
-    console.dir(reply)
-  })
-  
 
+  // sendmail({
+  //   from: 'shlomitofahi@outlook.com',
+  //   to: 'shlomitofahi@gmail.com',
+  //   subject: 'Hello World',
+  //   html: 'Mail of test sendmail '
+  // }, function (err, reply) {
+  //   console.log(err && err.stack)
+  //   console.dir(reply)
+  // })
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: config.get('adminMail'), // generated ethereal user
+      pass: 'Golan1996!'  // generated ethereal password
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: `"Nodemailer Contact" <${config.get('adminMail')}>`, // sender address
+    to: 'shlomitofahi@outlook.com', // list of receivers
+    subject: 'Node Contact Request', // Subject line
+    text: 'Hello world?', // plain text body
+    html: output // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log('Message sent: %s', info.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+    // res.render('/', { msg: 'Email has been sent' });
+  });
 });
 
 // DB Config   

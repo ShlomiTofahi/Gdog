@@ -30,6 +30,47 @@ router.post('/all', auth, (req, res) => {
         });
 });
 
+// @route   POST api/users/userid
+// @desc    Get User By Email
+// @access  Private
+router.post('/userid', (req, res) => {
+    console.log(req.body)
+    const { email } = req.body;
+    //Simple validation
+    if (!email)
+        return res.status(400).json({ msg: 'Please enter all fields' });
+
+    User.findOne({ email })
+        .then(user => {
+
+            jwt.sign(
+                { id: user.id },
+                config.get('jwtSecret'),
+                { expiresIn: 3600 },
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({
+                        token,
+                        user: {
+                            _id: user.id,
+                            name: user.name,
+                            admin: user.admin,
+                            email: user.email,
+                            cellphone: user.cellphone,
+                            petImage: user.petImage,
+                            pet: user.pet,
+                            breed: user.breed,
+                            posts: user.posts,
+                            comments: user.comments,
+                            password: user.password
+                        }
+                    });
+                }
+            )
+        })
+        .catch(err => res.status(404).json({ msg: 'User Does not exist' }));
+});
+
 // @route   DELETE api/users
 // @desc    Delete User
 // @access  Private
@@ -85,13 +126,11 @@ router.post('/change-pass/:id', auth, (req, res) => {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
     if (req.user.id !== req.params.id) {
-        return res.status(400).json({ msg: 'Invalid credentials' });
+        return res.status(400).json({ msg: 'משתמש לא זהה' });
     }
     if (validationPassword !== password) {
         return res.status(400).json({ msg: 'אימות סיסמא לא זהה' });
     }
-
-
 
     User.findById(req.params.id).then(user => {
 
@@ -117,6 +156,45 @@ router.post('/change-pass/:id', auth, (req, res) => {
                     })
                 })
             })
+    })
+});
+
+// @route   POST api/users/change-pass
+// @desc    Chnage Password For A User By Email
+// @access  Private
+router.post('/change-pass-by-email/:id', auth, (req, res) => {
+    let { validationPassword, password, currentPassword } = req.body;
+    console.log(req.body)
+    //Simple validation
+    if (!password || !validationPassword || !currentPassword) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+    if (req.user.id !== req.params.id) {
+        return res.status(400).json({ msg: 'משתמש לא זהה' });
+    }
+    if (validationPassword !== password) {
+        return res.status(400).json({ msg: 'אימות סיסמא לא זהה' });
+    }
+
+    User.findById(req.params.id).then(user => {
+
+        // Create salt & hash
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(password, salt, (err, hash) => {
+                if (err) throw err;
+
+                password = hash;
+                user.updateOne({ password }).then(() => {
+                    User.findById(req.params.id).populate('pet').populate('breed')
+                        .then(user => {
+                            res.json(user)
+                        })
+                })
+                    .catch(err => res.status(404).json({ success: false })
+                    );
+            })
+        })
+
     })
 });
 

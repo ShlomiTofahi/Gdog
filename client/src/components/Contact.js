@@ -31,7 +31,7 @@ export default class Contact extends Component {
         try {
           const res = await axios.post('/send-mail', formData, {
             headers: {
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'application/json'
             },
             // onUploadProgress: progressEvent => {
             //   setUploadPercentage(
@@ -63,11 +63,13 @@ export default class Contact extends Component {
         //   }
     
         } catch (err) {
-          if (err.response.status === 500) {
+            console.log(err);
+            alert(err)
+        //   if (err.response.status === 500) {
             // setMessage('There was a problem with the server');
-          } else {
+        //   } else {
             // setMessage(err.response.data.msg);
-          }
+        //   }
         }
     }
 
@@ -100,7 +102,7 @@ export default class Contact extends Component {
         return (
             <div class='contact-fullpage' align='right'>
                 <Container className='mt-4 mb-4'>
-                    <h1 class="brand"><span>Acme</span> Web Design</h1>
+                    <h1 class="brand"><span>GDog</span> Dogs & Cats</h1>
                     <div class="wrapper animated bounceInLeft">
                         <div class="company-info">
                             <h3>Acme Web Design</h3>

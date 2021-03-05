@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -20,13 +20,13 @@ class LoginModal extends Component {
         error: PropTypes.object.isRequired,
         login: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
-    }    
+    }
 
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
-        if(error !== prevProps.error) {
+        if (error !== prevProps.error) {
             // Check for register error
-            if(error.id === 'LOGIN_FAIL') {
+            if (error.id === 'LOGIN_FAIL') {
                 this.setState({ msg: error.msg });
             } else {
                 this.setState({ msg: null });
@@ -34,8 +34,8 @@ class LoginModal extends Component {
         }
 
         // If authenticated, close modal
-        if(this.state.modal) {
-            if(isAuthenticated) {
+        if (this.state.modal) {
+            if (isAuthenticated) {
                 this.toggle();
             }
         }
@@ -50,13 +50,13 @@ class LoginModal extends Component {
     }
 
     onChange = e => {
-        this.setState( { [e.target.name]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit = e => {
         e.preventDefault();
 
-        const  { email, password } = this.state;
+        const { email, password } = this.state;
 
         const user = {
             email,
@@ -68,15 +68,15 @@ class LoginModal extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
                 {/* <Link className='navlink' style={{float:'right'}} onClick={ this.toggle } href='#'>התחבר</Link>   */}
-                <Link style={{float:'right'}} className={'navlink py-2 nav-link d-md-inline-block lead'} onClick={ this.toggle } to='#'>התחבר</Link>
+                <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} onClick={this.toggle} to='#'>התחבר</Link>
 
                 <Modal align="right" isOpen={this.state.modal} toggle={this.toggle}>
-                    <ModalHeader  cssModule={{'modal-title': 'w-100 text-center'}} toggle={this.toggle}>התחברות</ModalHeader>
+                    <ModalHeader cssModule={{ 'modal-title': 'w-100 text-center' }} toggle={this.toggle}>התחברות</ModalHeader>
                     <ModalBody>
-                         { this.state.msg ? <Alert color="danger">{ this.state.msg }</Alert> : null }
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='email'>אימייל</Label>
@@ -95,12 +95,12 @@ class LoginModal extends Component {
                                     name='password'
                                     id='password'
                                     placeholder='סיסמא'
-                                    className='mb-3'
                                     onChange={this.onChange}
                                 />
+                                <small><Link onClick={this.toggle} to="/rest-pasword" class="text-dark">שכחתי סיסמא</Link></small>
                                 <Button
                                     color='dark'
-                                    style={{marginTop: '2rem'}}
+                                    style={{ marginTop: '2rem' }}
                                     block
                                 >התחבר</Button>
                             </FormGroup>
@@ -119,5 +119,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-     { login, clearErrors }
-     )(LoginModal);
+    { login, clearErrors }
+)(LoginModal);

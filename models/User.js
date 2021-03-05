@@ -31,6 +31,10 @@ const UserSchema =  new Schema({
         required: true,
         default: '/uploads/users/no-image.png'
     },
+    secret: {
+        type: String,
+        required: false
+    },
     pet: {
         type:mongoose.Schema.Types.ObjectId,
         ref:'Pet'
