@@ -6,10 +6,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import FroalaEditorComponent from 'react-froala-wysiwyg';
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import 'froala-editor/js/plugins.pkgd.min.js';
+import SunEditor, { buttonList } from "suneditor-react";
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 import { addItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -299,10 +297,14 @@ class AddItemModal extends Component {
                                 /> */}
 
                                 <Label for='description'>תיאור</Label>
-                                <FroalaEditorComponent
-                                    model={this.state.description}
-                                    onModelChange={this.handleModelChange}
-                                    tag='textarea' />
+                                <SunEditor
+                                    name='description'
+                                    onChange={this.handleModelChange}
+                                    setOptions={{
+                                        // height: 200,
+                                        buttonList: buttonList.complex // Or Array of button list, eg. [['font', 'align'], ['image']]
+                                        // Other option
+                                    }} />
 
                                 <Label className='mt-2' for='price'>מחיר</Label>
                                 <Input

@@ -5,8 +5,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
-import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
-
+import SunEditor, { buttonList } from "suneditor-react";
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 class ItemDetail extends Component {
     state = {
@@ -80,7 +80,12 @@ class ItemDetail extends Component {
 
                                 <div class="item-description mb-4">
                                     <CardText className={["mb-2 text-muted", "pb-3"]}>
-                                        <FroalaEditorView model={item.description} />
+                                        <SunEditor disable={true}
+                                            enableToolbar={false}
+                                            showToolbar={false}
+                                            setContents={item.description}
+                                            width="100%" height="100%" setOptions={{ resizingBar: false, showPathLabel: false }} />
+                                        {/* <FroalaEditorView model={item.description} /> */}
                                     </CardText>
                                 </div>
 
