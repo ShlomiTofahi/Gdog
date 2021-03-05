@@ -6,10 +6,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import FroalaEditorComponent from 'react-froala-wysiwyg';
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import 'froala-editor/js/plugins.pkgd.min.js';
+import SunEditor, { buttonList } from "suneditor-react";
+import 'suneditor/dist/css/suneditor.min.css';
 
 import { addPost } from '../../actions/postActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -247,10 +245,13 @@ class AddPostModal extends Component {
                   onChange={this.onChange}
                 />
                 <Label for='body'>גוף</Label>
-                <FroalaEditorComponent
-                  model={this.state.body}
-                  onModelChange={this.handleModelChange}
-                  tag='textarea' />
+                <SunEditor
+                  name='body'
+                  onChange={this.handleModelChange}
+                  setOptions={{
+                    height: 150,
+                    buttonList: buttonList.complex
+                  }} />
                 {/* <Input
                   type='text'
                   name='body'

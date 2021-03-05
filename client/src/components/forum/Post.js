@@ -7,7 +7,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+import SunEditor, { buttonList } from "suneditor-react";
+import 'suneditor/dist/css/suneditor.min.css';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import parrotIcon from '@iconify-icons/twemoji/parrot';
@@ -140,7 +141,11 @@ class Post extends Component {
           <CardBody>
             <div class="item-description mb-4">
               <CardText className={["mb-2 text-muted", "pb-3"]}>
-                <FroalaEditorView model={post.body} />
+                <SunEditor disable={true}
+                  enableToolbar={false}
+                  showToolbar={false}
+                  setContents={post.body}
+                  width="100%" height="100%" setOptions={{ resizingBar: false, showPathLabel: false }} />
               </CardText>
             </div>
           </CardBody>

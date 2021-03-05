@@ -301,9 +301,8 @@ class AddItemModal extends Component {
                                     name='description'
                                     onChange={this.handleModelChange}
                                     setOptions={{
-                                        // height: 200,
-                                        buttonList: buttonList.complex // Or Array of button list, eg. [['font', 'align'], ['image']]
-                                        // Other option
+                                        height: 150,
+                                        buttonList: buttonList.complex
                                     }} />
 
                                 <Label className='mt-2' for='price'>מחיר</Label>

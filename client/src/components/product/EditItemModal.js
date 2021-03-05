@@ -6,10 +6,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import FroalaEditorComponent from 'react-froala-wysiwyg';
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import 'froala-editor/js/plugins.pkgd.min.js';
+import SunEditor, { buttonList } from "suneditor-react";
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 import { editItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -461,10 +459,14 @@ class EditItemModal extends Component {
                                     defaultValue={this.state.name}
                                 />
                                 <Label for='name'>תיאור</Label>
-                                <FroalaEditorComponent
-                                    model={this.state.description}
-                                    onModelChange={this.handleModelChange}
-                                    tag='textarea' />
+                                <SunEditor
+                                    name='description'
+                                    onChange={this.handleModelChange}
+                                    defaultValue={this.state.description}
+                                    setOptions={{
+                                        height: 150,
+                                        buttonList: buttonList.complex
+                                    }} />
                                 {/* <Input
                                     type='text'
                                     name='description'
