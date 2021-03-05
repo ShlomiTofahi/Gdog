@@ -6,9 +6,10 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
 
 import { addPost } from '../../actions/postActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -36,7 +37,7 @@ class AddPostModal extends Component {
     dropDownCategoryOpen: false,
     dropDownPetOpen: false,
     dropDownBreedOpen: false,
-    editorState: EditorState.createEmpty()
+    // editorState: EditorState.createEmpty()
   };
 
   static propTypes = {
@@ -174,6 +175,10 @@ class AddPostModal extends Component {
     });
   }
 
+  handleModelChange = model => {
+    this.setState({ body: model });
+  }
+
   setRegisterModalStates = (val) => {
     if (val != '')
       this.setState({ postImage: val });
@@ -242,14 +247,18 @@ class AddPostModal extends Component {
                   onChange={this.onChange}
                 />
                 <Label for='body'>גוף</Label>
-                <Input
+                <FroalaEditorComponent
+                  model={this.state.body}
+                  onModelChange={this.handleModelChange}
+                  tag='textarea' />
+                {/* <Input
                   type='text'
                   name='body'
                   id='body'
                   placeholder='גוף'
                   className='mb-2'
                   onChange={this.onChange}
-                />
+                /> */}
 
                 <ButtonDropdown
                   style={{ marginBottom: '1rem', marginTop: '1rem' }}

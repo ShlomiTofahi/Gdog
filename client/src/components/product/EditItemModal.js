@@ -6,9 +6,10 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
 
 import { editItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -49,7 +50,7 @@ class EditItemModal extends Component {
         checkedDiscount: false,
         checkedWeight: false,
         removedOrginalImageAndNotSave: false,
-        editorState: EditorState.createEmpty()
+        // editorState: EditorState.createEmpty()
     };
 
     static propTypes = {
@@ -398,6 +399,10 @@ class EditItemModal extends Component {
         this.props.editItem(id);
     }
 
+    handleModelChange = model => {
+        this.setState({ description: model });
+    }
+
     removedOrginalItemImage = () => {
         this.setState({
             removedOrginalImageAndNotSave: true
@@ -445,6 +450,7 @@ class EditItemModal extends Component {
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='name'>מוצר</Label>
+                                <Label for='description'>תיאור</Label>
                                 <Input
                                     type='text'
                                     name='name'
@@ -455,7 +461,11 @@ class EditItemModal extends Component {
                                     defaultValue={this.state.name}
                                 />
                                 <Label for='name'>תיאור</Label>
-                                <Input
+                                <FroalaEditorComponent
+                                    model={this.state.description}
+                                    onModelChange={this.handleModelChange}
+                                    tag='textarea' />
+                                {/* <Input
                                     type='text'
                                     name='description'
                                     id='description'
@@ -463,24 +473,8 @@ class EditItemModal extends Component {
                                     className='mb-2'
                                     onChange={this.onChange}
                                     defaultValue={this.state.description}
-                                />
-                                {/* <Label for='description'>תיאור</Label>
-                                <Editor
-                                    editorState={this.state.editorState}
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                    onEditorStateChange={this.onEditorStateChange}
-                                    onChange={this.onChangeEditor}
-                                    placeholder='תיאור המוצר'
-                                    name='description'
-                                    id='description'
-                                    hashtag={{
-                                        separator: ' ',
-                                        trigger: '#',
-                                      }}
                                 /> */}
-                                <Label for='price'>מחיר</Label>
+                                <Label className='mt-2' for='price'>מחיר</Label>
                                 <Input
                                     type="number"
                                     step="0.01"

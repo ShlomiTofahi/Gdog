@@ -4,9 +4,8 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Collapse } from 'react-collapse';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 
 class ItemDetail extends Component {
@@ -80,7 +79,9 @@ class ItemDetail extends Component {
                             <CardBody>
 
                                 <div class="item-description mb-4">
-                                    <CardText className={["mb-2 text-muted", "pb-3"]}> {item.description}</CardText>
+                                    <CardText className={["mb-2 text-muted", "pb-3"]}>
+                                        <FroalaEditorView model={item.description} />
+                                    </CardText>
                                 </div>
 
                                 {/* <CardSubtitle tag="h6" className="mb-2 text-muted"><spen style={{color: 'black'}}>חיית מחמד:</spen> {item.pet.name}</CardSubtitle> */}

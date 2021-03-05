@@ -6,9 +6,10 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
 
 import { addItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
@@ -45,7 +46,6 @@ class AddItemModal extends Component {
         dropDownBreedOpen: false,
         checkedDiscount: false,
         checkedWeight: false,
-        editorState: EditorState.createEmpty()
     };
 
     static propTypes = {
@@ -93,12 +93,6 @@ class AddItemModal extends Component {
         }
     }
 
-    onEditorStateChange = (editorState) => {
-        this.setState({
-            editorState,
-        });
-    };
-
     toggle = () => {
         // Clear errors
         this.props.clearErrors();
@@ -127,8 +121,6 @@ class AddItemModal extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    // onChangeEditor = (editorState) => this.setState({editorState});
-
     onSubmit = e => {
         e.preventDefault();
 
@@ -149,8 +141,6 @@ class AddItemModal extends Component {
             description,
             itemImage
         }
-
-        // const content = this.state.editorState.getCurrentContent();
 
         // Add item via addItem action
         this.props.addItem(newItem);
@@ -232,6 +222,10 @@ class AddItemModal extends Component {
         });
     }
 
+    handleModelChange = model => {
+        this.setState({ description: model });
+    }
+
     setRegisterModalStates = (val) => {
         if (val != '')
             this.setState({ itemImage: val });
@@ -294,7 +288,7 @@ class AddItemModal extends Component {
                                     className='mb-2'
                                     onChange={this.onChange}
                                 />
-                                <Label for='name'>תיאור</Label>
+                                {/* <Label for='name'>תיאור</Label>
                                 <Input
                                     type='text'
                                     name='description'
@@ -302,24 +296,15 @@ class AddItemModal extends Component {
                                     placeholder='תיאור המוצר'
                                     className='mb-2'
                                     onChange={this.onChange}
-                                />
-                                {/* <Label for='description'>תיאור</Label>
-                                <Editor
-                                    editorState={this.state.editorState}
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                    onEditorStateChange={this.onEditorStateChange}
-                                    onChange={this.onChangeEditor}
-                                    placeholder='תיאור המוצר'
-                                    name='description'
-                                    id='description'
-                                    hashtag={{
-                                        separator: ' ',
-                                        trigger: '#',
-                                      }}
                                 /> */}
-                                <Label for='price'>מחיר</Label>
+
+                                <Label for='description'>תיאור</Label>
+                                <FroalaEditorComponent
+                                    model={this.state.description}
+                                    onModelChange={this.handleModelChange}
+                                    tag='textarea' />
+
+                                <Label className='mt-2' for='price'>מחיר</Label>
                                 <Input
                                     type="number"
                                     step="0.01"

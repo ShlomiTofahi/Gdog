@@ -7,8 +7,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import parrotIcon from '@iconify-icons/twemoji/parrot';
@@ -96,7 +95,7 @@ class Post extends Component {
               <div style={postUserDetails} class="input-group col-12 col-sm-8 col-md-6 col-lg-5 pr-0">
                 <CardImg bottom className='forum-pet-image ml-1 mt-sm-0 mt-3' src={post.user.petImage} />
                 <p class='pt-sm-1 pt-3'>
-                  {post.user.name} {post.user.admin && <small class='text-muted'>מנהל</small> }
+                  {post.user.name} {post.user.admin && <small class='text-muted'>מנהל</small>}
                   <br />
                   <small className="text-muted">
                     פורסם ב:
@@ -140,7 +139,9 @@ class Post extends Component {
 
           <CardBody>
             <div class="item-description mb-4">
-              <CardText className={["mb-2 text-muted", "pb-3"]}> {post.body}</CardText>
+              <CardText className={["mb-2 text-muted", "pb-3"]}>
+                <FroalaEditorView model={post.body} />
+              </CardText>
             </div>
           </CardBody>
         </Card>
