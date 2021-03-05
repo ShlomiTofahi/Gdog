@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import FroalaEditorComponent from 'react-froala-wysiwyg';
 import 'froala-editor/css/froala_style.min.css';
-// import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/plugins.pkgd.min.js';
 
 import { addPost } from '../../actions/postActions';
