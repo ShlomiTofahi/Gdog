@@ -3,32 +3,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import {
-    Card, CardBody, CardTitle, Button, Form,
+    Card, CardBody, Button, Form,
      FormGroup, Label, Input, Alert, Row
 } from 'reactstrap';
 
-import { changePassword } from '../../actions/authActions';
+import { changeEmail } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { clearMsgs } from '../../actions/msgActions';
 
-class ChangePassword extends Component {
+class ChangeEmail extends Component {
     state = {
         Collapsetoggle: false,
         message: '',
         visible: true,
 
-        currentPassword: '',
         password: '',
-        validationPassword: '',
+        email: '',
 
         msg: null,
+        msgAlert:''
     };
 
     static protoType = {
         auth: PropTypes.object,
         msg: PropTypes.object.isRequired,
         error: PropTypes.object.isRequired,
-        changePassword: PropTypes.func.isRequired,
+        changeEmail: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
         clearMsgs: PropTypes.func.isRequired,
     }
@@ -36,19 +36,20 @@ class ChangePassword extends Component {
     componentDidUpdate(prevProps) {
         const { error, msg } = this.props;
         if (error !== prevProps.error) {
-            // Check for register error
-            if (error.id === 'CHANGE_PASSWORD_FAIL') {
+            if (error.id === 'CHANGE_EMAIL_FAIL') {
                 this.setState({
                     msg: error.msg,
+                    msgAlert: 'danger'
                 });
             } else {
                 this.setState({ msg: null });
             }
         }
 
-        if (msg && msg.id === 'CHANGE_PASSWORD_SUCCESS') {
+        if (msg && msg.id === 'CHANGE_EMAIL_SUCCESS') {
             this.setState({
                 message: msg.msg,
+                msgAlert: 'info',
                 visible: true,
                 Collapsetoggle: false
             })
@@ -65,17 +66,16 @@ class ChangePassword extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { validationPassword, password, currentPassword } = this.state;
+        const { password, email } = this.state;
         const id = this.props.auth.user._id;
 
         const data = {
-            currentPassword,
-            validationPassword,
+            email,
             password
         };
 
         // Attempt to change
-        this.props.changePassword(id, data);
+        this.props.changeEmail(id, data);
     }
 
     CollapseHangdle = () => {
@@ -112,7 +112,7 @@ class ChangePassword extends Component {
             <Fragment >
 
                 <div className='position-relative mt-5 mr-4'>
-                    {this.state.message ? <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.message}</Alert>
+                    {this.state.message ? <Alert color={this.state.msgAlert} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.message}</Alert>
                         : null}
 
                     <Button
@@ -120,30 +120,15 @@ class ChangePassword extends Component {
                         size='sm'
                         onClick={this.CollapseHangdle}
                         style={{ marginBottom: '1rem' }}
-                    >שינוי סיסמא<strong class='pl-3' style={{ position: 'absolute', left: '0' }}>{dropDownSymbol}</strong></Button>
+                    >שינוי אימייל<strong class='pl-3' style={{ position: 'absolute', left: '0' }}>{dropDownSymbol}</strong></Button>
                     <Collapse isOpened={this.state.Collapsetoggle}>
                         <Card style={this.bodyStyle()} align="right">
-                            {/* <CardTitle className={'mr-5 mb-2 lead'} tag="h5" style={{ display: 'inline' }}>עריכת סיסמא</CardTitle> */}
-
-
                             <CardBody className='pr-4 mr-5'>
                                 {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
                                 <Form onSubmit={this.onSubmit}>
                                     <FormGroup>
                                         <Row>
-                                            <Label className='pl-2' for='currentPassword'>סיסמא נוכחית:</Label>
-                                            <Input
-                                                size='sm'
-                                                type='password'
-                                                name='currentPassword'
-                                                id='currentPassword'
-                                                className='mb-3'
-                                                onChange={this.onChange}
-                                                style={addPostInput}
-                                            />
-                                        </Row>
-                                        <Row>
-                                            <Label className='pl-2' for='password'>סיסמא חדשה:&nbsp;</Label>
+                                            <Label className='pl-2' for='password'>סיסמא:</Label>
                                             <Input
                                                 size='sm'
                                                 type='password'
@@ -155,18 +140,17 @@ class ChangePassword extends Component {
                                             />
                                         </Row>
                                         <Row>
-                                            <Label className='pl-2' for='validationPassword'>אימות סיסמא:&nbsp;</Label>
+                                            <Label className='pl-2' for='email'>אמייל:&nbsp;</Label>
                                             <Input
                                                 size='sm'
-                                                type='password'
-                                                name='validationPassword'
-                                                id='validationPassword'
+                                                type='email'
+                                                name='email'
+                                                id='email'
                                                 className='mb-3'
                                                 onChange={this.onChange}
                                                 style={addPostInput}
                                             />
                                         </Row>
-
                                         <Button
                                             size='sm'
                                             color='light'
@@ -179,7 +163,6 @@ class ChangePassword extends Component {
                         </Card>
                     </Collapse>
                 </div>
-
             </Fragment>
         );
     }
@@ -199,5 +182,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { changePassword, clearErrors, clearMsgs }
-)(ChangePassword);
+    { changeEmail, clearErrors, clearMsgs }
+)(ChangeEmail);

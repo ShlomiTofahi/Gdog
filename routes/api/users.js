@@ -123,7 +123,7 @@ router.post('/change-pass/:id', auth, (req, res) => {
 
     //Simple validation
     if (!password || !validationPassword || !currentPassword) {
-        return res.status(400).json({ msg: 'Please enter all fields' });
+        return res.status(400).json({ msg: 'הכנס בבקשה את כל השדות' });
     }
     if (req.user.id !== req.params.id) {
         return res.status(400).json({ msg: 'משתמש לא זהה' });
@@ -146,6 +146,47 @@ router.post('/change-pass/:id', auth, (req, res) => {
 
                         password = hash;
                         user.updateOne({ password }).then(() => {
+                            User.findById(req.params.id).populate('pet').populate('breed')
+                                .then(user => {
+                                    res.json(user)
+                                })
+                        })
+                            .catch(err => res.status(404).json({ success: false })
+                            );
+                    })
+                })
+            })
+    })
+});
+
+// @route   POST api/users/change-email
+// @desc    Chnage Email For A User
+// @access  Private
+router.post('/change-email/:id', auth, (req, res) => {
+    const { password, email } = req.body;
+
+    //Simple validation
+    if (!password || !email) {
+        return res.status(400).json({ msg: 'הכנס בבקשה את כל השדות' });
+    }
+    if (req.user.id !== req.params.id) {
+        return res.status(400).json({ msg: 'משתמש לא זהה' });
+    }
+
+    User.findById(req.params.id).then(user => {
+
+        // Validate password
+        bcrypt.compare(password, user.password)
+            .then(isMatch => {
+                if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+
+                // Create salt & hash
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
+                        if (err) throw err;
+
+                        password = hash;
+                        user.updateOne({ email }).then(() => {
                             User.findById(req.params.id).populate('pet').populate('breed')
                                 .then(user => {
                                     res.json(user)

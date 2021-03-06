@@ -4,8 +4,9 @@ import { returnErrors } from './errorActions';
 import { returnMsgs } from './msgActions';
 
 import {
-  USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS,REGISTER_SUCCESS, REGISTER_FAIL, USERS_LOADING,
-   DELETE_USER, GET_USERS, EDIT_USER_SUCCESS, EDIT_USER_FAIL, CHANGE_PASSWORD, CHANGE_PASSWORD_FAIL, USER_LOADED_BY_EMAIL, USER_LOADED_BY_EMAIL_FAIL
+  USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS,REGISTER_SUCCESS,
+  REGISTER_FAIL, USERS_LOADING, DELETE_USER, GET_USERS, EDIT_USER_SUCCESS, EDIT_USER_FAIL, CHANGE_PASSWORD,
+  CHANGE_PASSWORD_FAIL, USER_LOADED_BY_EMAIL, USER_LOADED_BY_EMAIL_FAIL, CHANGE_EMAIL, CHANGE_EMAIL_FAIL
 } from './types';
 
 
@@ -140,6 +141,29 @@ export const changePassword = (id, data) => (dispatch, getState) => {
       );
       dispatch({
         type: CHANGE_PASSWORD_FAIL
+      });
+    });
+};
+
+//Change Password User
+export const changeEmail = (id, data) => (dispatch, getState) => {
+  axios
+    .post(`/api/users/change-email/${id}`, data, tokenConfig(getState))
+    .then(res => {
+      dispatch(
+        returnMsgs('האימייל שונה בהצלחה', null, 'CHANGE_EMAIL_SUCCESS')
+      );
+      dispatch({
+        type: CHANGE_EMAIL,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data.msg, err.response.status, 'CHANGE_EMAIL_FAIL')
+      );
+      dispatch({
+        type: CHANGE_EMAIL_FAIL
       });
     });
 };

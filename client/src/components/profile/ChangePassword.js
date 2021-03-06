@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import {
-    Card, CardBody, CardTitle, Button, Form,
+    Card, CardBody, Button, Form,
      FormGroup, Label, Input, Alert, Row
 } from 'reactstrap';
 
@@ -22,6 +22,7 @@ class ChangePassword extends Component {
         validationPassword: '',
 
         msg: null,
+        msgAlert:''
     };
 
     static protoType = {
@@ -36,10 +37,10 @@ class ChangePassword extends Component {
     componentDidUpdate(prevProps) {
         const { error, msg } = this.props;
         if (error !== prevProps.error) {
-            // Check for register error
             if (error.id === 'CHANGE_PASSWORD_FAIL') {
                 this.setState({
                     msg: error.msg,
+                    msgAlert: 'danger'
                 });
             } else {
                 this.setState({ msg: null });
@@ -49,6 +50,7 @@ class ChangePassword extends Component {
         if (msg && msg.id === 'CHANGE_PASSWORD_SUCCESS') {
             this.setState({
                 message: msg.msg,
+                msgAlert: 'info',
                 visible: true,
                 Collapsetoggle: false
             })
@@ -112,7 +114,7 @@ class ChangePassword extends Component {
             <Fragment >
 
                 <div className='position-relative mt-5 mr-4'>
-                    {this.state.message ? <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.message}</Alert>
+                    {this.state.message ? <Alert color={this.state.msgAlert} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.message}</Alert>
                         : null}
 
                     <Button

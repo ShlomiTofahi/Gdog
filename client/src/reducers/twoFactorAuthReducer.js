@@ -1,8 +1,7 @@
 import { CREATE_TOKEN, CREATE_TOKEN_FAIL, VERIFY_TOKEN, VERIFY_TOKEN_FAIL } from '../actions/types';
 
 const initialState = {
-  token: '',
-  isVerified: null,
+  isVerified: null
 };
 
 export default function twoFactorAuthReducer(state = initialState, action) {
