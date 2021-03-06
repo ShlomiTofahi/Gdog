@@ -5,7 +5,6 @@ const config = require('config');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 const sendmail = require('sendmail')();
-const speakeasy = require('speakeasy');
 
 var fs = require('fs');
 
@@ -58,16 +57,16 @@ app.post('/send-mail', (req, res) => {
     <p>${req.body.message}</p>
   `;
 
-  // sendmail({
-  //   from: 'shlomitofahi@outlook.com',
-  //   to: 'shlomitofahi@gmail.com',
-  //   subject: 'Hello World',
-  //   html: 'Mail of test sendmail '
-  // }, function (err, reply) {
-  //   console.log(err && err.stack)
-  //   console.dir(reply)
-  // })
-
+  sendmail({
+    from: 'shlomitofahi@outlook.com',
+    to: 'shlomitofahi@gmail.com',
+    subject: 'Hello World',
+    html: 'Mail of test sendmail '
+  }, function (err, reply) {
+    console.log(err && err.stack)
+    console.dir(reply)
+  })
+  return res.json("good");
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -116,7 +115,7 @@ mongoose.set('useUnifiedTopology', true);
 mongoose
   .connect(db)
   .then(() => console.log('mongoDB Connected..'))
-  .catch(err => console.log(e));
+  .catch(err => console.log(err));
 
 // Use Routes
 app.use('/api/items', require('./routes/api/items'));
@@ -128,6 +127,7 @@ app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/categories', require('./routes/api/categories'));
 app.use('/api/comments', require('./routes/api/comments'));
 app.use('/api/ages', require('./routes/api/ages'));
+app.use('/api/contacts', require('./routes/api/contacts'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

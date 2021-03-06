@@ -1,152 +1,177 @@
 import React, { Component } from 'react'
-import { Row, Col, Container, Input, FormGroup, Form } from 'reactstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Row, Col, Container, Input, FormGroup, Form, Alert } from 'reactstrap';
+import ReactWhatsapp from 'react-whatsapp';
 import axios from 'axios';
 
-export default class Contact extends Component {
+import { sendMail } from '../actions/contactsActions';
+import { clearErrors } from '../actions/errorActions';
+import { clearMsgs } from '../actions/msgActions';
+
+class Contact extends Component {
+
     state = {
         title: '',
         name: '',
         phone: '',
         email: '',
         message: '',
+
         msg: null,
+        msgAlery: '',
+        visible: true
     };
 
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+    static protoType = {
+        error: PropTypes.object.isRequired,
+        msg: PropTypes.object.isRequired,
+        clearErrors: PropTypes.func.isRequired,
+        clearMsgs: PropTypes.func.isRequired,
+        sendMail: PropTypes.func.isRequired
     }
 
-    onSubmit = async e => {
-        e.preventDefault();
 
-        const { name, title, email, phone, message } = this.state;
-
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('title', title);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('message', message);
-    
-        try {
-          const res = await axios.post('/send-mail', formData, {
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            // onUploadProgress: progressEvent => {
-            //   setUploadPercentage(
-            //     parseInt(
-            //       Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            //     )
-            //   );
-    
-            //   // Clear percentage
-            //   setTimeout(() => setUploadPercentage(0), 10000);
-            // }
-          });
-    
-        //   const { fileName, filePath } = res.data;
-        //   setFilepath(filePath);
-    
-        //   props.setRegisterModalStates(filePath);
-    
-        //   setUploadedFile({ fileName, filePath });
-    
-        //   setMessage('File Uploaded');
-    
-        //   if (removeImagefadeIn == false) {
-        //     setRemoveImagefadeIn(!removeImagefadeIn);
-        //     setRemoveOrginalImagefadeIn(false);
-        //   }
-        //   if (imageSubmited == false) {
-        //     setImageSubmited(true)
-        //   }
-    
-        } catch (err) {
-            console.log(err);
-            alert(err)
-        //   if (err.response.status === 500) {
-            // setMessage('There was a problem with the server');
-        //   } else {
-            // setMessage(err.response.data.msg);
-        //   }
+    componentDidUpdate(prevProps) {
+        const { error, msg } = this.props;
+        if (error !== prevProps.error) {
+            // Check for register error
+            if (error.id === 'SEND_MAIL_FAIL') {
+                this.setState({
+                    msg: error.msg,
+                    msgAlery: 'danger'
+                });
+            } else {
+                this.setState({ msg: null });
+            }
+        }
+        if (msg && msg.id === 'SEND_MAIL_SUCCESS') {
+            this.setState({
+                property: msg.msg,
+                propertyAlery: 'info',
+            })
+            
+            // Clear errors
+            this.props.clearErrors();
+            // Clear msgs
+            this.props.clearMsgs();
         }
     }
 
-    aboutStyle = () => {
-        return {
-            border: '1px solid rgb(230, 230, 230)',
-            webkitBorderRadius: '15px',
-            mozBorderRadius: '15px',
-            borderRadius: '15px',
-            marginTop: '30px',
-            padding: '30px',
+        onChange = e => {
+            this.setState({ [e.target.name]: e.target.value });
+        }
 
-            webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
-            boxSshadow: '0 0 5px 0.1px #C7C7C7'
+        onSubmit = async e => {
+            e.preventDefault();
+
+            const { name, title, email, phone, message } = this.state;
+            const data = {
+                name,
+                title,
+                phone,
+                email,
+                message
+            };
+
+            // this.props.sendMail(data);
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('title', title);
+            formData.append('email', email);
+            formData.append('phone', phone);
+            formData.append('message', message);
+
+              const res = await axios.post('/send-mail', formData, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        onDismiss = () => {
+            this.setState({
+                visible: false
+            })
+        }
+
+        aboutStyle = () => {
+            return {
+                border: '1px solid rgb(230, 230, 230)',
+                webkitBorderRadius: '15px',
+                mozBorderRadius: '15px',
+                borderRadius: '15px',
+                marginTop: '30px',
+                padding: '30px',
+
+                webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
+                boxSshadow: '0 0 5px 0.1px #C7C7C7'
+            };
         };
-    };
 
-    imgStyle = () => {
-        return {
-            border: '1px solid rgb(230, 230, 230)',
-            width: '90%',
-            display: 'inline',
-            webkitBorderRadius: '35px',
-            mozBorderRadius: '35px',
-            borderRadius: '35px',
+        imgStyle = () => {
+            return {
+                border: '1px solid rgb(230, 230, 230)',
+                width: '90%',
+                display: 'inline',
+                webkitBorderRadius: '35px',
+                mozBorderRadius: '35px',
+                borderRadius: '35px',
+            };
         };
-    };
 
-    render() {
-        return (
-            <div class='contact-fullpage' align='right'>
-                <Container className='mt-4 mb-4'>
-                    <h1 class="brand"><span>GDog</span> Dogs & Cats</h1>
-                    <div class="wrapper animated bounceInLeft">
-                        <div class="company-info">
-                            <h3>Acme Web Design</h3>
-                            <ul>
-                                <li><i class="fa fa-road"></i> 44 Something st</li>
-                                <li><i class="fa fa-phone"></i> (555) 555-5555</li>
-                                <li><i class="fa fa-envelope"></i> test@acme.test</li>
-                            </ul>
+        render() {
+            return (
+                <div class='contact-fullpage' align='right'>
+                    <Container className='mt-4 mb-4'>
+                        <h1 class="brand"><span>GDog</span> Dogs & Cats</h1>
+                        {this.state.msg ? <Alert color={this.state.msgAlery} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.msg}</Alert>
+                                : null}
+                        <div class="wrapper animated bounceInLeft">
+                            <div class="company-info">
+                                <h3>Acme Web Design</h3>
+                                <ul>
+                                    <li><i class="fa fa-road"></i> 44 Something st</li>
+                                    <li><i class="fa fa-phone"></i> (555) 555-5555</li>
+                                    <li><i class="fa fa-envelope"></i> test@acme.test</li>
+                                    <li><i class="fa fa-whatsapp"></i><ReactWhatsapp number="972-050-213-0027" message="?מה שלומך" element='a' class='contact-btn' href="#"> הודעה לוואצאפ</ReactWhatsapp></li>
+                                </ul>
+                            </div>
+                            <div class="contact">
+                                <h3 class='mb-3'>שלח לנו מייל</h3>
+                                {/* {{ msg }} */}
+                                {/* <form method="POST" action="send"> */}
+                                <Form onSubmit={this.onSubmit}>
+                                    <FormGroup className='contact-form'>
+                                        <p>
+                                            <label>שם</label>
+                                            <Input onChange={this.onChange} type="text" name="name" />
+                                        </p>
+                                        <p>
+                                            <label>נושא</label>
+                                            <Input onChange={this.onChange} type="text" name="title" />
+                                        </p>
+                                        <p>
+                                            <label>כתובת דוא"ל</label>
+                                            <Input onChange={this.onChange} type="email" name="email" />
+                                        </p>
+                                        <p>
+                                            <label>מספר טלפון</label>
+                                            <Input onChange={this.onChange} type="text" name="phone" />
+                                        </p>
+                                        <p class="full">
+                                            <label>הודעה</label>
+                                            <textarea onChange={this.onChange} name="message" rows="5"></textarea>
+                                        </p>
+                                        <p class="full">
+                                            <button type="submit">שלח</button>
+                                        </p>
+                                        {/* </form> */}
+                                    </FormGroup>
+                                </Form>
+                            </div>
                         </div>
-                        <div class="contact">
-                            <h3 class='mb-3'>שלח לנו מייל</h3>
-                            {/* {{ msg }} */}
-                            {/* <form method="POST" action="send"> */}
-                            <Form  onSubmit={this.onSubmit}>
-                                <FormGroup className='contact-form'>
-                                    <p>
-                                        <label>שם</label>
-                                        <Input onChange={this.onChange} type="text" name="name" />
-                                    </p>
-                                    <p>
-                                        <label>נושא</label>
-                                        <Input onChange={this.onChange} type="text" name="title" />
-                                    </p>
-                                    <p>
-                                        <label>כתובת דוא"ל</label>
-                                        <Input onChange={this.onChange} type="email" name="email" />
-                                    </p>
-                                    <p>
-                                        <label>מספר טלפון</label>
-                                        <Input onChange={this.onChange} type="text" name="phone" />
-                                    </p>
-                                    <p class="full">
-                                        <label>הודעה</label>
-                                        <textarea onChange={this.onChange} name="message" rows="5"></textarea>
-                                    </p>
-                                    <p class="full">
-                                        <button type="submit">שלח</button>
-                                    </p>
-                                    {/* </form> */}
-                                </FormGroup>
-                            </Form>
-                        </div>
-                    </div>
-                    {/* <div align="right" style={this.aboutStyle()}>
+                        {/* <div align="right" style={this.aboutStyle()}>
                     <fieldset>
                         <legend><h1 class='display-4' style={{ color: '#7c6f5a7a' }}>נשמח לשמוע ממכם, ולהיות לשירוכם!</h1></legend>
                         <Row>
@@ -194,8 +219,13 @@ export default class Contact extends Component {
                         </Row>
                     </fieldset>
                 </div> */}
-                </Container>
-            </div>
-        )
+                    </Container>
+                </div>
+            )
+        }
     }
-}
+
+    export default connect(
+    null,
+        { sendMail, clearErrors, clearMsgs }
+    )(Contact);

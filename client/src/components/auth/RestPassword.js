@@ -191,7 +191,7 @@ class RestPassword extends Component {
                             {this.state.message ? <Alert color={this.state.messageAlery} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.message}</Alert>
                                 : null}
                             <Collapse isOpened={this.state.emailCollapsetoggle}>
-                                <Card style={this.bodyStyle()}>
+                                <Card style={this.bodyStyle()} className='animated bounceInLeft'>
                                     <CardBody className='pr-4'>
                                         <Row>
                                             <Label className='pl-2' for='email'>הכנס אמייל</Label>

@@ -68,8 +68,8 @@ router.get('/user', auth, (req, res) => {
 });
 
 // @route   GET api/auth/create-token
-// @desc    Create secret
-// @access  Private
+// @desc    Create Secret
+// @access  Public
 router.post('/create-token', (req, res) => {
     const { email } = req.body;
     //Simple validation
@@ -145,7 +145,7 @@ router.post('/create-token', (req, res) => {
 
 // @route   GET api/auth/verify-token
 // @desc    Verify token and make secret perm
-// @access  Private
+// @access  Public
 router.post('/verify-token', (req, res) => {
     const { token, email } = req.body;
     //Simple validation

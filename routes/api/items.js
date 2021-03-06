@@ -36,6 +36,8 @@ router.get('/minmaxprice', (req, res) => {
         .sort({ "price": 1 })
         .limit(1)
         .then(minitemPrice => {
+            if(!minitemPrice.length)
+                return res.status(400).json({ msg: 'no items' });
             Item.find()
                 .select("price")
                 .sort({ "price": -1 })

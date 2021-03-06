@@ -59,7 +59,7 @@ class Products extends Component {
                             <div style={{ position: 'relative', height: '333px' }}><Spinner style={spinnerStyle} color="secondary" /></div>
                             :
                             <Row>
-                                {items.map(({ _id, name, price, age, category, discount, itemImage, pet, breed, description, weight, rating, views }) => (
+                                {items && items.map(({ _id, name, price, age, category, discount, itemImage, pet, breed, description, weight, rating, views }) => (
                                     <Item key={_id}
                                         _id={_id}
                                         name={name}

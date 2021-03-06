@@ -87,3 +87,6 @@ export const CREATE_TOKEN_FAIL = 'CREATE_TOKEN_FAIL';
 export const VERIFY_TOKEN = 'VERIFY_TOKEN';
 export const VERIFY_TOKEN_FAIL = 'VERIFY_TOKEN_FAIL';
 
+//Contact
+export const MAIL_SEND = 'MAIL_SEND';
+export const MAIL_SEND_FAIL = 'MAIL_SEND_FAIL';

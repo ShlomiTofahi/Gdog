@@ -1,5 +1,5 @@
 {
-    "mongoURI" : "mongodb+srv://shlomitofahi:shlomi1234@animalshop.dgl7x.mongodb.net/shlomi?retryWrites=true&w=majority",
+    "mongoURI" : "mongodb+srv://GDogDB:Mia101010@gdogcluster.24tab.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "jwtSecret" : "sl_myJwtSecret",
     "adminMail" : "topdogs5551@gmail.com"
 }

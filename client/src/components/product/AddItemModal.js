@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import SunEditor, { buttonList } from "suneditor-react";
-import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
+import 'suneditor/dist/css/suneditor.min.css';
 
 import { addItem } from '../../actions/itemActions';
 import { clearErrors } from '../../actions/errorActions';
