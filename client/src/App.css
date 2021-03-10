@@ -1338,6 +1338,16 @@ ul{
   transition: background-color 2s ease-out;
 }
 
+.about-fullpage{
+    background:#b8e792;
+    color:#4d7448;
+    line-height:1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:1em;
+  }
+.about-company-info{
+    background:#e6ffc9;
+  }
 /* LARGE SCREENS */
 @media(min-width:700px){
   .wrapper{
@@ -1353,3 +1363,39 @@ ul{
     text-align: left;
   }
 }
+
+
+
+
+
+
+.haircut-iconn-container {
+    position: relative;
+    /* width: 100%;
+    max-width: 400px; */
+  }
+  
+  
+  .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      /* height: 100%;
+      width: 100%; */
+      opacity: 0.5;
+    }
+    
+    .icon1 {
+      /* display: block;
+      height: auto;
+      opacity: 0.8; */
+    }
+    
+    .icon2 {
+        /* font-size: 100px; */
+        /* position: absolute; */
+    /* text-align: center; */
+  }
+  
