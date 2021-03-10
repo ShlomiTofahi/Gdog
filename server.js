@@ -44,7 +44,7 @@ app.post('/remove', (req, res) => {
 
 
 app.post('/send-mail', (req, res) => {
-  const output = `
+  const output1 = `
     <p>You have a new contact request</p>
     <h3>Contact Details</h3>
     <ul>  
@@ -56,12 +56,24 @@ app.post('/send-mail', (req, res) => {
     <h3>Message</h3>
     <p>${req.body.message}</p>
   `;
-
+  const output = `
+    <p>יש לך בקשה ליצירת קשר חדשה</p>
+    <h3>פרטי קשר:</h3>
+    <ul>  
+      <li>שם: ${req.body.name}</li>
+      <li>אימייל: ${req.body.email}</li>
+      <li>טלפון: ${req.body.phone}</li>
+    </ul>
+    <h2>נושא: ${req.body.title} </h2>
+    <h3>הודעה:</h3>
+    <p>${req.body.message}</p>
+  `;
+  console.log(req.body)
   sendmail({
-    from: 'shlomitofahi@outlook.com',
-    to: 'shlomitofahi@gmail.com',
-    subject: 'Hello World',
-    html: 'Mail of test sendmail '
+    from: req.body.email,
+    to: config.get('adminMail'),
+    subject: req.body.title,
+    html: output
   }, function (err, reply) {
     console.log(err && err.stack)
     console.dir(reply)

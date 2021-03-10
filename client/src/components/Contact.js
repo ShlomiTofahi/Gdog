@@ -77,19 +77,19 @@ class Contact extends Component {
             message
         };
 
-        // this.props.sendMail(data);
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('title', title);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('message', message);
+        this.props.sendMail(data);
+        // const formData = new FormData();
+        // formData.append('name', name);
+        // formData.append('title', title);
+        // formData.append('email', email);
+        // formData.append('phone', phone);
+        // formData.append('message', message);
 
-        const res = await axios.post('/send-mail', formData, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
+        // const res = await axios.post('/send-mail', formData, {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        // });
     }
 
     onDismiss = () => {
@@ -186,7 +186,7 @@ class Contact extends Component {
                                     </p>
                                     <p>
                                         <label>מספר טלפון</label>
-                                        <Input onChange={this.onChange} type="text" name="phone" />
+                                        <Input onChange={this.onChange} type="number" name="phone" />
                                     </p>
                                     <p class="full">
                                         <label>הודעה</label>

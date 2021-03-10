@@ -10,36 +10,35 @@ const User = require('../../models/User');
 // @desc    Sending Mail To Admin
 // @access  Public
 router.post('/mail-sending', (req, res) => {
-    console.log(req.body)
     const { email, name, phone, title, message } = req.body;
     //Simple validation
     if (!email || !name || !phone || !title || !message) {
         return res.status(400).json({ msg: 'אנא הכנס את המייל שלך' });
     }
     try {
-          sendmail({
-    from: 'shlomitofahi@outlook.com',
-    to: 'shlomitofahi@gmail.com',
-    subject: 'Hello World',
-    html: 'Mail of test sendmail '
-  }, function (err, reply) {
-    console.log(err && err.stack)
-    console.dir(reply)
-  })
-        // sendmail({
-        //     from: email,
-        //     to: config.get('adminMail'),
-        //     subject: title,
-        //     html: message
-        // }, function (err, reply) {
-        //     if (err) {
-        //         console.log(err && err.stack)
-        //         return res.status(400).json({ msg: 'תקלה בשליחת המייל' });
-        //     }
-        //     console.dir(reply)
-        //     return res.json({ msg: 'המייל נשלח בהצלחה, תודה לפנייתך!' });
 
-        // })
+        const output = `
+        <p>יש לך בקשה ליצירת קשר חדשה</p>
+        <h3>פרטי קשר:</h3>
+        <ul>  
+          <li>שם: ${name}</li>
+          <li>אימייל: ${email}</li>
+          <li>טלפון: ${phone}</li>
+        </ul>
+        <h2>נושא: ${title} </h2>
+        <h3>הודעה:</h3>
+        <p>${message}</p>
+      `;
+        sendmail({
+            from: email,
+            to: config.get('adminMail'),
+            subject: title,
+            html: output
+        }, function (err, reply) {
+            console.log(err && err.stack)
+            console.dir(reply)
+        })
+
     } catch (error) {
         console.log(error)
         return res.status(500).json({ msg: error })
