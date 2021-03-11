@@ -449,7 +449,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .collapsible:after {
-    /* content: '\002B'; */
     color: rgb(146, 146, 146);
     font-weight: bold;
     float: left;
@@ -1272,6 +1271,13 @@ a {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding:1em;
   }
+.payment-fullpage{
+    background:#ddbfbff1;
+    color:#8a5e5e;
+    line-height:1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:1em;
+  }
 
 ul{
   list-style: none;
@@ -1303,6 +1309,9 @@ ul{
 .haircut-info{
     background:#fff7c9;
 }
+.payment-info{
+    background:#fff3f3be;
+}
 
 .contact-info h3, .contact-info ul,
 .about-info h3, .about-info ul,
@@ -1319,6 +1328,12 @@ ul{
   }
 .haircut{
   background:#fffef9;
+}
+.haircut{
+  background:#fffef9;
+}
+.payment{
+  background:#fff9f9;
 }
 
 /* FORM STYLES */

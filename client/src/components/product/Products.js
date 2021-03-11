@@ -43,11 +43,9 @@ class Products extends Component {
         const is_admin = (isAuthenticated && user.admin);
 
         return (
-
             <Fragment>
-
-
                 <Container className='mb-5'>
+                    
                     <SideBarFilterItem />
 
                     <div class="main">
