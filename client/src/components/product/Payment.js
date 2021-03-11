@@ -41,7 +41,7 @@ export default class Payment extends Component {
                     <div class="wrapper animated bounceInLeft">
                         <div class="payment-info">
                             <h3>דגשים חשובים</h3>
-                            <ul style={{ listStyleType: 'circle' }}>
+                            <ul class='mr-2' style={{ listStyleType: 'circle' }}>
                                 <li>העברת התשלום למספר 050-2130027</li>
                                 <li>יש לציין את קוד הפריט בתיאור העברה</li>
                             </ul>
