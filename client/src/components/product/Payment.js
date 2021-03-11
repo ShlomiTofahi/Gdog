@@ -54,7 +54,7 @@ export default class Payment extends Component {
                                     <Row>
 
                                         <p class='lead'>
-                                            מה זה bit?<br />אפליקצייה להעברת כספים כולל קבוצות. וכן, אפשר גם לבקש כסף...
+                                            מה זה bit?<br />אפליקצייה להעברת כספים כולל קבוצות.
 
                                         </p>
                                         <a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
