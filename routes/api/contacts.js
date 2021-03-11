@@ -10,15 +10,17 @@ const User = require('../../models/User');
 // @desc    Sending Mail To Admin
 // @access  Public
 router.post('/mail-sending', (req, res) => {
-    const { email, name, phone, title, message } = req.body;
+    console.log(req.body)
+    const { email, name, phone, message, isHaircut } = req.body;
+    let { title } = req.body;
     //Simple validation
-    if (!email || !name || !phone || !title || !message) {
-        return res.status(400).json({ msg: 'אנא הכנס את המייל שלך' });
+    if (!email || !message) {
+        return res.status(400).json({ msg: 'אנא הכנס את המייל שלך והודעה' });
     }
     try {
 
-        const output = `
-        <p>יש לך בקשה ליצירת קשר חדשה</p>
+        let output = `
+        <p>יש לך בקשה ליצירת קשר חדש</p>
         <h3>פרטי קשר:</h3>
         <ul>  
           <li>שם: ${name}</li>
@@ -29,6 +31,12 @@ router.post('/mail-sending', (req, res) => {
         <h3>הודעה:</h3>
         <p>${message}</p>
       `;
+
+        if (isHaircut) {
+            output = message;
+            title = 'תור למספרה'
+        }
+
         sendmail({
             from: email,
             to: config.get('adminMail'),
@@ -38,8 +46,9 @@ router.post('/mail-sending', (req, res) => {
             console.log(err && err.stack)
             console.dir(reply)
         })
-
+        res.json({ success: true });
     } catch (error) {
+        console.log('_------------------------------eroorrrrrrrrrr----------------------')
         console.log(error)
         return res.status(500).json({ msg: error })
     }

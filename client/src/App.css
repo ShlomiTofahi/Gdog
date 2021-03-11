@@ -1258,13 +1258,20 @@ a {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding:1em;
 }
-/* 
-.container{
-  max-width:1170px;
-  margin-left:auto;
-  margin-right:auto;
-  padding:1em;
-} */
+.about-fullpage{
+    background:#b8e792;
+    color:#4d7448;
+    line-height:1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:1em;
+}
+.haircut-fullpage{
+    background:#e7df92;
+    color:#746a48;
+    line-height:1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:1em;
+  }
 
 ul{
   list-style: none;
@@ -1287,35 +1294,56 @@ ul{
   padding: 1em;
 }
 
-.company-info{
+.contact-info{
   background:#c9e6ff;
 }
+.about-info{
+    background:#e6ffc9;
+}
+.haircut-info{
+    background:#fff7c9;
+}
 
-.company-info h3, .company-info ul{
+.contact-info h3, .contact-info ul,
+.about-info h3, .about-info ul,
+.haircut-info h3, .haircut-info ul{
   text-align: center;
   margin:0 0 1rem 0;
 }
 
 .contact{
-  background:#f9feff;
+    background:#f9feff;
+  }
+.about{
+    background:#fafff9;
+  }
+.haircut{
+  background:#fffef9;
 }
 
 /* FORM STYLES */
-.contact .contact-form{
+.contact .contact-form,
+.about .about-form{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap:20px;
 }
 
-.contact .contact-form label{
+.contact .contact-form label,
+.about .about-form label,
+.haircut .haircut-form label{
   display:block;
 }
 
-.contact .contact-form p{
+.contact .contact-form p,
+.about .about-form p,
+.haircut .haircut-form p{
   margin:0;
 }
 
-.contact .contact-form .full{
+.contact .contact-form .full,
+.about .about-form .full,
+.haircut .haircut-form .full{
   grid-column: 1 / 3;
 }
 
@@ -1324,9 +1352,31 @@ ul{
   padding:1em;
   border:1px solid #c9e6ff;
 }
+.about .about-form button, .about .about-form input, .about .about-form textarea{
+  width:100%;
+  padding:1em;
+  border:1px solid #c9ffc9;
+}
+.haircut .haircut-form button, .haircut .haircut-form input, .haircut .haircut-form textarea{
+  width:100%;
+  padding:1em;
+  border:1px solid #fff1c9;
+}
 
 .contact .contact-form button{
   background:#c9e6ff;
+  border:0;
+  text-transform: uppercase;
+}   
+.about .about-form button{
+  color:rgba(0, 0, 0, 0.568);
+  background:#c9ffd0;
+  border:0;
+  text-transform: uppercase;
+}
+.haircut .haircut-form button{
+    color:rgba(0, 0, 0, 0.568);
+  background:#ffecc9;
   border:0;
   text-transform: uppercase;
 }
@@ -1337,17 +1387,20 @@ ul{
   outline:0;
   transition: background-color 2s ease-out;
 }
+.about .about-form button:hover,.about .about-form button:focus{
+  background:#ade792;
+  color:#fff;
+  outline:0;
+  transition: background-color 2s ease-out;
+}
+.haircut .haircut-form button:hover,.haircut .haircut-form button:focus{
+  background:#e7df92;
+  color:#fff;
+  outline:0;
+  transition: background-color 2s ease-out;
+}
 
-.about-fullpage{
-    background:#b8e792;
-    color:#4d7448;
-    line-height:1.6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding:1em;
-  }
-.about-company-info{
-    background:#e6ffc9;
-  }
+
 /* LARGE SCREENS */
 @media(min-width:700px){
   .wrapper{
@@ -1359,7 +1412,13 @@ ul{
     padding:2em;
   }
 
-  .company-info h3, .company-info ul, .brand{
+  .contact-info h3, .contact-info ul, .brand{
+    text-align: left;
+  }
+  .about-info h3, .about-info ul, .brand{
+    text-align: left;
+  }
+  .haircut-info h3, .haircut-info ul, .brand{
     text-align: left;
   }
 }
@@ -1399,3 +1458,74 @@ ul{
     /* text-align: center; */
   }
   
+
+
+
+
+
+
+
+
+  /* The container */
+.haircut-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .haircut-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .haircut-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .haircut-container:hover input ~ .haircut-checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .haircut-container input:checked ~ .haircut-checkmark {
+    background-color: #c9a282da;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .haircut-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .haircut-container input:checked ~ .haircut-checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .haircut-container .haircut-checkmark:after {
+       top: 9px;
+      left: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+  }

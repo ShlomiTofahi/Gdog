@@ -79,6 +79,9 @@ class AppNavbar extends Component {
                                     <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/products'>המוצרים שלנו</Link>
                                 </NavItem>
                                 <NavItem>
+                                    <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/haircut'>תספורת</Link>
+                                </NavItem>
+                                <NavItem>
                                     <Link style={{ float: 'right' }} className={'navlink py-2 nav-link d-md-inline-block lead'} to='/about'>אודות</Link>
                                 </NavItem>
                                 <NavItem>

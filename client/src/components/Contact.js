@@ -39,19 +39,22 @@ class Contact extends Component {
         const { error, msg } = this.props;
         if (error !== prevProps.error) {
             // Check for register error
-            if (error.id === 'SEND_MAIL_FAIL') {
+            if (error.id === 'MAIL_SEND_FAIL') {
                 this.setState({
                     msg: error.msg,
                     msgAlery: 'danger'
                 });
-            } else {
-                this.setState({ msg: null });
-            }
+            } 
         }
-        if (msg && msg.id === 'SEND_MAIL_SUCCESS') {
+        if (msg && msg.id === 'MAIL_SEND') {
             this.setState({
-                property: msg.msg,
-                propertyAlery: 'info',
+                msg: msg.msg,
+                msgAlery: 'info',
+                title: '',
+                name: '',
+                phone: '',
+                email: '',
+                message: ''
             })
 
             // Clear errors
@@ -78,18 +81,6 @@ class Contact extends Component {
         };
 
         this.props.sendMail(data);
-        // const formData = new FormData();
-        // formData.append('name', name);
-        // formData.append('title', title);
-        // formData.append('email', email);
-        // formData.append('phone', phone);
-        // formData.append('message', message);
-
-        // const res = await axios.post('/send-mail', formData, {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        // });
     }
 
     onDismiss = () => {
@@ -130,13 +121,11 @@ class Contact extends Component {
             <div class='contact-fullpage' align='right'>
                 <Container className='mt-4 mb-4'>
                     <h1 class="brand"><span><strong>GDog</strong></span><Icon icon={petsIcon} /> | Contact Us</h1>
-                    {this.state.msg ? <Alert color={this.state.msgAlery} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.msg}</Alert>
-                        : null}
                     <div class="wrapper animated bounceInLeft">
-                        <div class="company-info">
+                        <div class="contact-info">
                             <h3>לפרטים נוספים והזמנות:</h3>
                             <ul class='pb-5 pr-0 pr-xl-3 text-right'>
-                                <li><i class="fa fa-road"></i> משה רבנו 164</li>
+                                <li><i class="fa fa-road"></i> משה רבנו 165, שדרות</li>
                                 <a href="tel:0502130027" style={{ display: 'block' }} class='contact-btn'>
                                     <li><i class="fa fa-phone"></i> 050-213-0027</li>
                                 </a>
@@ -167,35 +156,34 @@ class Contact extends Component {
                         </div>
                         <div class="contact">
                             <h1 style={{ color: '#7c6f5a7a' }}>נשמח לשמוע ממכם, ולהיות לשירוכם!</h1>
+                            {this.state.msg ? <Alert color={this.state.msgAlery} isOpen={this.state.visible} toggle={this.onDismiss}>{this.state.msg}</Alert>
+                        : null}
                             <h3 class='mb-4'>שלח לנו מייל:</h3>
-                            {/* {{ msg }} */}
-                            {/* <form method="POST" action="send"> */}
                             <Form onSubmit={this.onSubmit}>
                                 <FormGroup className='contact-form'>
                                     <p>
-                                        <label>שם</label>
-                                        <Input onChange={this.onChange} type="text" name="name" />
+                                        <label>שם מלא</label>
+                                        <Input onChange={this.onChange} type="text" name="name" defaultValue={this.state.name} />
                                     </p>
                                     <p>
                                         <label>נושא</label>
-                                        <Input onChange={this.onChange} type="text" name="title" />
+                                        <Input onChange={this.onChange} type="text" name="title" defaultValue={this.state.title} />
                                     </p>
                                     <p>
                                         <label>כתובת דוא"ל</label>
-                                        <Input onChange={this.onChange} type="email" name="email" />
+                                        <Input onChange={this.onChange} type="email" name="email" defaultValue={this.state.email} />
                                     </p>
                                     <p>
                                         <label>מספר טלפון</label>
-                                        <Input onChange={this.onChange} type="number" name="phone" />
+                                        <Input onChange={this.onChange} type="number" name="phone" defaultValue={this.state.phone} />
                                     </p>
                                     <p class="full">
                                         <label>הודעה</label>
-                                        <textarea onChange={this.onChange} name="message" rows="5"></textarea>
+                                        <textarea onChange={this.onChange} name="message" rows="5" defaultValue={this.state.message}></textarea>
                                     </p>
                                     <p class="full">
                                         <button type="submit">שלח</button>
                                     </p>
-                                    {/* </form> */}
                                 </FormGroup>
                             </Form>
                         </div>
@@ -206,7 +194,12 @@ class Contact extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    error: state.error,
+    msg: state.msg
+});
+
 export default connect(
-    null,
+    mapStateToProps,
     { sendMail, clearErrors, clearMsgs }
 )(Contact);

@@ -39,7 +39,7 @@ export default class About extends Component {
                 <Container className='mt-4 mb-4'>
                     <h1 class="brand"><span><strong>GDog</strong></span><Icon icon={petsIcon} /> | About Us</h1>
                     <div class="wrapper animated bounceInLeft">
-                        <div class="company-info about-company-info text-center">
+                        <div class="about-info text-center">
                             <div style={iconStyle}>
                                 <Icon icon={peopleCommunity20Filled} width="80" />
                                 <span class='lead d-block'>קהילה תומכת</span>
@@ -64,14 +64,14 @@ export default class About extends Component {
                                 <span class='lead d-block'>עובדים במתכונת משלוחים</span>
                             </div>
                         </div>
-                        <div class="contact">
+                        <div class="about">
                             {/* <h3 class='mb-3'>אז למה לכם בעצם, ומה אנחנו מציעים?</h3> */}
                             <div align="right" style={this.aboutStyle()}>
                                 <fieldset>
-                                    <legend><h1 class='display-4' style={{ color: '#4d7448', opacity: '0.4' }}>אז למה לכם בעצם, ומה אנחנו מציעים?</h1></legend>
+                                    <legend><h2 class='display-4' style={window.innerWidth >= 992 ? { color: '#4d7448', opacity: '0.4' }:{color: '#4d7448', opacity: '0.4',fontSize:'2.0em'}}>אז למה לכם בעצם, ומה אנחנו מציעים?</h2></legend>
                                     <Row>
 
-                                        <p class='lead' style={aboutTextStyle}>
+                                        <p class='lead' style={window.innerWidth >= 992 ? aboutTextStyle : null}>
 
                                             הדף נוצר לאפשר לכל אדם שאוהב ומגדל כלב או חתול  לקבל את כל המידע, העדכונים והשירותים. מחירים שווים לכל כיס!
                                             משפחה המגדלת כלב או חתול  זקוקה לא פעם לשירותים שונים הקשורים לבעלי חיים  ולמידע מהימן ואיכותי, שיכול לסייע לה בתהליך הגידול.  ברגע שעשיתם את הבחירה להיכנס לאתר הצטרפתם לקבוצה גדולה יותר של אנשים שיש להם מכנה משותף, אנחנו פה על מנת לספק לכם כל מה שאתם צריכים באהבה רבה🧡
@@ -112,5 +112,4 @@ const aboutTextStyle = {
 	mozColumCount:'2',
 	columnCount:'2',
     columnGap: '40px'
-
 }
