@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import { deletePost, viewsPost } from '../../actions/postActions';
 // import { clearErrors, returnErrors } from '../../actions/errorActions';
@@ -15,6 +16,7 @@ import { deletePost, viewsPost } from '../../actions/postActions';
 
 class ShowPosts extends Component {
   state = {
+    path: '/uploads/posts/',
     modal: false
   };
 
@@ -23,18 +25,6 @@ class ShowPosts extends Component {
     viewsPost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const { error, msg, isAuthenticated } = this.props;
-  //   if (error !== prevProps.error) {
-  //     // Check for register error
-  //     if (error.id === 'DELETE_FAIL') {
-  //       this.setState({ msg: error.msg, modal: true });
-  //     } else {
-  //       this.setState({ msg: null, modal: false });
-  //     }
-  //   }
-  // }
 
   handleClickPost = (id) => {
     var viewedPostList = localStorage.getItem('viewedPostList');
@@ -49,9 +39,20 @@ class ShowPosts extends Component {
     localStorage.setItem('viewedPostList', viewedPostList);
   }
 
-  onDeleteClick = (id) => {
+  onDeleteClick = (id, postImage) => {
     this.props.deletePost(id);
+
+      const noImageFullpath = this.state.path + 'no-image.png';
+      const filepath = postImage;
+      if (filepath !== '' && filepath != noImageFullpath) {
+          const formData = new FormData();
+          formData.append('filepath', filepath);
+          formData.append('abspath', this.state.path);
+
+          axios.post('/remove', formData);
+      }
   }
+
   onEditClick = (id) => {
     //TODO
   }
@@ -72,7 +73,7 @@ class ShowPosts extends Component {
     return (
       <Fragment >
         <TransitionGroup align='right' className='pt-3 pb-3'>
-          {elements && elements.map(({ _id, title, published_date, views, comments, user }) => (
+          {elements && elements.map(({ _id, title, published_date, views, comments, user, postImage }) => (
             <CSSTransition key={_id} timeout={500} classNames='fade'>
               <ListGroupItem className='mt-2' style={this.getStyle()}>
                 <Link to={'/forum/post/' + _id} className="text-dark" onClick={this.handleClickPost.bind(this, _id)}>
@@ -118,7 +119,7 @@ class ShowPosts extends Component {
                       className='remove-btn-admin'
                       color='danger'
                       size='sm'
-                      onClick={this.onDeleteClick.bind(this, _id)}
+                      onClick={this.onDeleteClick.bind(this, _id, postImage)}
                     >&#10007;</Button>
                     {/* <Button
                         style={btnEditStyle}

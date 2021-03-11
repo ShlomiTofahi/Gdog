@@ -3,10 +3,14 @@ import { Button, Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import axios from 'axios';
 
 import { getUsers, deleteUser } from '../../actions/authActions';
 
 class ShowUsers extends Component {
+  state = {
+    path: '/uploads/users/'
+  };
 
   static protoType = {
     auth: PropTypes.object,
@@ -18,9 +22,20 @@ class ShowUsers extends Component {
     this.props.getUsers();
   }
 
-  onDeleteClick = (id) => {
+  onDeleteClick = (id, petImage) => {
     this.props.deleteUser(id);
+
+    const noImageFullpath = this.state.path + 'no-image.png';
+    const filepath = petImage;
+    if (filepath !== '' && filepath != noImageFullpath) {
+        const formData = new FormData();
+        formData.append('filepath', filepath);
+        formData.append('abspath', this.state.path);
+
+        axios.post('/remove', formData);
+    }
   }
+
   onEditClick = (id) => {
     //TODO
   }
@@ -46,7 +61,7 @@ class ShowUsers extends Component {
             </tr>
           </thead>
           <tbody>
-            {users.map(({ _id, name, email, pet, breed, register_date }) => (
+            {users.map(({ _id, name, email, pet, breed, register_date, petImage }) => (
               <tr>
                 {/* <th scope="row">{index}</th> */}
                 <td>{name}</td>
@@ -62,7 +77,7 @@ class ShowUsers extends Component {
                         title='מחק'
                         color='danger'
                         size='sm'
-                        onClick={this.onDeleteClick.bind(this, _id)}
+                        onClick={this.onDeleteClick.bind(this, _id, petImage)}
                       >&#10007;
                 </Button>
 

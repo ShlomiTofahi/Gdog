@@ -6,6 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactStars from "react-rating-stars-component";
+import axios from 'axios';
 
 import { deleteItem, ratingItem, viewsItem } from '../../actions/itemActions';
 
@@ -14,6 +15,7 @@ import EditItemModal from './EditItemModal';
 
 class Item extends Component {
     state = {
+        path: '/uploads/items/',
         rating: 0,
         itemClicked: false
     };
@@ -24,8 +26,18 @@ class Item extends Component {
         auth: PropTypes.object
     }
 
-    onDeleteClick = (id) => {
+    onDeleteClick = (id, itemImage) => {
         this.props.deleteItem(id);
+
+        const noImageFullpath = this.state.path + 'no-image.png';
+        const filepath = itemImage;
+        if (filepath !== '' && filepath != noImageFullpath) {
+            const formData = new FormData();
+            formData.append('filepath', filepath);
+            formData.append('abspath', this.state.path);
+
+            axios.post('/remove', formData);
+        }
     }
 
     ratingChanged = (_id, rating) => {
@@ -105,7 +117,7 @@ class Item extends Component {
                                                 title="מחק"
                                                 color='danger'
                                                 size='sm'
-                                                onClick={this.onDeleteClick.bind(this, _id)}
+                                                onClick={this.onDeleteClick.bind(this, _id, itemImage)}
                                             >&#10007;</Button>
                                             <EditItemModal itemID={_id} />
 

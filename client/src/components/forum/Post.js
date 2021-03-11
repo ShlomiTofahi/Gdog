@@ -9,6 +9,9 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import SunEditor, { buttonList } from "suneditor-react";
 import 'suneditor/dist/css/suneditor.min.css';
+import { Redirect } from "react-router-dom";
+
+import axios from 'axios';
 
 import { Icon, InlineIcon } from '@iconify/react';
 import parrotIcon from '@iconify-icons/twemoji/parrot';
@@ -20,6 +23,10 @@ import { deletePost } from '../../actions/postActions';
 import ShowComments from './ShowComments';
 
 class Post extends Component {
+  state = {
+    path: '/uploads/posts/',
+    redirect: null
+  };
 
   static propTypes = {
     deletePost: PropTypes.func.isRequired,
@@ -28,8 +35,20 @@ class Post extends Component {
     comment: PropTypes.object.isRequired,
   }
 
-  onDeletePostClick = (id) => {
+  onDeletePostClick = (id, postImage) => {
     this.props.deletePost(id);
+
+    const noImageFullpath = this.state.path + 'no-image.png';
+    const filepath = postImage;
+    if (filepath !== '' && filepath != noImageFullpath) {
+      const formData = new FormData();
+      formData.append('filepath', filepath);
+      formData.append('abspath', this.state.path);
+
+      axios.post('/remove', formData);
+    }
+    this.setState({ redirect: '/forum' });
+
   }
 
   render() {
@@ -42,12 +61,15 @@ class Post extends Component {
     var post = posts.filter(post => post._id == this.props.match.params.id)[0];
 
     let petIcon;
-    if (post.pet.name == 'כלב')
-      petIcon = <Icon icon={dogIcon} />;
-    if (post.pet.name == 'חתול')
-      petIcon = <Icon icon={catIcon} />
-    if (post.pet.name == 'תוכי')
-      petIcon = <Icon icon={parrotIcon} />
+    if (post) {
+      if (post.pet.name == 'כלב')
+        petIcon = <Icon icon={dogIcon} />;
+      if (post.pet.name == 'חתול')
+        petIcon = <Icon icon={catIcon} />
+      if (post.pet.name == 'תוכי')
+        petIcon = <Icon icon={parrotIcon} />
+    }
+
 
     return (
       <Fragment>
@@ -116,7 +138,7 @@ class Post extends Component {
                 className='remove-btn-admin'
                 color='danger'
                 size='sm'
-                onClick={this.onDeletePostClick.bind(this, post._id)}
+                onClick={this.onDeletePostClick.bind(this, post._id, post.postImage)}
               >&#10007;</Button>
               {/* <Button
                         style={btnEditStyle}
@@ -152,7 +174,9 @@ class Post extends Component {
         </Card>
 
         <ShowComments postID={this.props.match.params.id} />
-
+        {this.state.redirect &&
+                    <Redirect exact from='/forum/post/:id' to={this.state.redirect} />
+                }
       </Fragment>
     );
   }
