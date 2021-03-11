@@ -514,8 +514,8 @@ class EditItemModal extends Component {
                                 <label class="checkbox_item" style={{ display: 'block', marginTop: '1rem' }}>
                                     {
                                         this.state.checkedWeight ?
-                                            <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedWeight} checked />
-                                            : <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedWeight} />
+                                            <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="discount" data-tax="name" defaultValue={this.state.checkedWeight} checked />
+                                            : <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="discount" data-tax="name" defaultValue={this.state.checkedWeight} />
                                     }
                                     <span>משקל</span>
                                 </label>

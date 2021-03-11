@@ -252,7 +252,7 @@ class AddItemModal extends Component {
             payload = payload + this.state.discount;
         if (this.state.weight)
             payload = payload + this.state.weight;
-
+        console.log(pet.breeds)
         return (
             <div>
                 { this.props.isAuthenticated ?
@@ -317,7 +317,7 @@ class AddItemModal extends Component {
                                 />
 
                                 <label class="checkbox_item" style={{ display: 'block' }}>
-                                    <input class="ml-2" onChange={this.OnCheckedDiscount} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedDiscount} />
+                                    <input class="ml-2" onChange={this.OnCheckedDiscount} type="checkbox" name="discount" data-tax="name" defaultValue={this.state.checkedDiscount} />
                                     <span>הנחה</span>
                                 </label>
                                 <Collapse isOpen={this.state.checkedDiscount} className="mt-3">
@@ -335,7 +335,7 @@ class AddItemModal extends Component {
                                 </Collapse>
 
                                 <label class="checkbox_item" style={{ display: 'block', marginTop: '1rem' }}>
-                                    <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="breed" data-tax="name" defaultValue={this.state.checkedWeight} />
+                                    <input class="ml-2" onChange={this.OnCheckedWeight} type="checkbox" name="weight" data-tax="name" defaultValue={this.state.checkedWeight} />
                                     <span>משקל</span>
                                 </label>
                                 <Collapse isOpen={this.state.checkedWeight} className="mt-3">

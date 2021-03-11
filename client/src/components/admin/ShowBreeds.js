@@ -56,14 +56,16 @@ class ShowBreeds extends Component {
     var parrotBreeds = [];
     if (breeds)
       breeds.map(breed => {
-        if (breed.pet.name == "כלב") {
-          dogBreeds = [...dogBreeds, breed]
-        }
-        if (breed.pet.name == "חתול") {
-          catBreeds = [...catBreeds, breed]
-        }
-        if (breed.pet.name == "תוכי") {
-          parrotBreeds = [...parrotBreeds, breed]
+        if(breed.name!='אחר'){
+          if (breed.pet.name == "כלב") {
+            dogBreeds = [...dogBreeds, breed]
+          }
+          if (breed.pet.name == "חתול") {
+            catBreeds = [...catBreeds, breed]
+          }
+          if (breed.pet.name == "תוכי") {
+            parrotBreeds = [...parrotBreeds, breed]
+          }
         }
       })
 

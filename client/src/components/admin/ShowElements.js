@@ -65,9 +65,12 @@ class ShowElements extends Component {
         <ListGroup style={{ maxWidth: '600px', textAlign: 'right' }}>
           <TransitionGroup className='pt-3 pb-3'>
             {elements && elements.map(({ _id, name }) => (
+                name!=='אחר' &&
               <CSSTransition key={_id} timeout={500} classNames='fade'>
                 <ListGroupItem className='mt-1' style={this.getStyle()}>
+          
 
+            
                   {isAuthenticated ?
                     <div>
                       <Button
@@ -92,6 +95,7 @@ class ShowElements extends Component {
                   <span class="ml-4">{name}</span>
                 </ListGroupItem>
               </CSSTransition>
+            
             ))}
           </TransitionGroup>
         </ListGroup>
