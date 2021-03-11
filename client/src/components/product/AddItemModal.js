@@ -252,7 +252,6 @@ class AddItemModal extends Component {
             payload = payload + this.state.discount;
         if (this.state.weight)
             payload = payload + this.state.weight;
-        console.log(pet.breeds)
         return (
             <div>
                 { this.props.isAuthenticated ?
