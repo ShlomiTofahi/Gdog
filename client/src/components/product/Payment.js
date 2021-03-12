@@ -48,23 +48,23 @@ export default class Payment extends Component {
                         <div class="payment">
                             <div align="right" style={this.aboutStyle()}>
                                 <fieldset>
-                                    <h2 class='display-4' style={window.innerWidth >= 992 ? { color: '#8a5e5e', opacity: '0.4' } : { color: '#4d7448', opacity: '0.4', fontSize: '2.0em' }}>
+                                    <h2 class='display-4 mb-4' style={window.innerWidth >= 992 ? { color: '#8a5e5e', opacity: '0.4' } : { color: '#4d7448', opacity: '0.4', fontSize: '2.0em' }}>
                                         התשלום מתבצע דרך ביט</h2>
-                                    <Row>
+                                    <Row className='pr-3'>
 
                                         <p class='lead'>
-                                            מה זה bit?<br />אפליקצייה להעברת כספים כולל קבוצות.
+                                            <h4>מה זה bit?</h4>אפליקצייה להעברת כספים כולל קבוצות.
                                         </p>
                                         <p class='lead'>
-                                            איך אפשר להעביר כסף?<br />
+                                        <h4>איך אפשר להעביר כסף?</h4>
                                             נכנסים אל ׳העבר׳ בוחרים את איש הקשר אליו רוצים להעביר (׳למי׳) מציינים את הסכום (׳כמה׳) וכדאי גם לציין את סיבת ההעברה (׳למה׳). מציינים את הסיסמה ו...הכסף בדרך.
                                         </p>
                                         <p class='lead'>
-                                            אפשר לשלם כסף למי שלא מופיע באנשי קשר שלי?<br />
+                                        <h4>אפשר לשלם כסף למי שלא מופיע באנשי קשר שלי?</h4>
                                             לחיצה על כפתור "העבר" , בחירה ב"העברה ל"מספר שאינו באנשי קשר", הזנה של מספר הטלפון וזהו. בנוסף, אפשר להעביר כסף באמצעות "העבר בסריקה".
                                         </p>
-                                        <a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
-                                            <img style={petfoodStyle} src='/images/bit-icon.png' alt='' />
+                                        <p class='pr-5'> לפרטים נוספים:</p><a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
+                                        <img style={bitIconStyle} src='/images/bit-icon.png' alt='' />
                                             {/* <span class='lead d-block'>שקי אוכל ברמה גבוה</span> */}
                                         </a>
                                     </Row>
@@ -87,7 +87,7 @@ const iconStyle = {
     opacity: '0.8',
     marginBottom: '25px'
 }
-const petfoodStyle = {
+const bitIconStyle = {
     // letf: '50%',
     // right: '35%',
     width: '20%',
