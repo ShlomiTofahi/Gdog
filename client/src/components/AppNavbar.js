@@ -66,7 +66,7 @@ class AppNavbar extends Component {
                     <Container>
                     <Link style={{ marginRight: '100px' }} className={['navlinkLogo d-sm-inline-block']} to='/'>
                             <p class='mb-0'>
-                                <img style={{ width: '71%' }} src='/images/logo.png' alt='לוגו' />
+                                <img style={{ width: '108.3px' }} src='/images/logo.png' alt='לוגו' />
                             </p>
                         </Link>
                         <NavbarToggler className='NavToggler' onClick={this.toggle} />
