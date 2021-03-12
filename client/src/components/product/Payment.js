@@ -28,7 +28,7 @@ export default class Payment extends Component {
                             <h3>דגשים חשובים</h3>
                             <ul class='mr-2' style={{ listStyleType: 'circle' }}>
                                 <li>העברת התשלום למספר 050-2130027</li>
-                                <li>יש לציין את קוד הפריט בתיאור העברה</li>
+                                <li>יש לציין את שם הפריט בתיאור העברה</li>
                             </ul>
                         </div>
                         <div class="payment">
