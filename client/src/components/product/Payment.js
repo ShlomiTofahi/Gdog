@@ -36,7 +36,7 @@ export default class Payment extends Component {
                                 <fieldset>
                                     <h2 class='display-4 mb-4' style={window.innerWidth >= 992 ? { color: '#8a5e5e', opacity: '0.4' } : { color: '#4d7448', opacity: '0.4', fontSize: '2.0em' }}>
                                         התשלום מתבצע דרך ביט</h2>
-                                    <Row className='pr-3'>
+                                    <Row className='pr-0 pr-sm-3'>
 
                                         <p class='lead'>
                                             <h4>מה זה bit?</h4>אפליקצייה להעברת כספים כולל קבוצות.
@@ -62,21 +62,6 @@ export default class Payment extends Component {
         )
     }
 }
-const iconStyle = {
-    position: 'relative',
-    // letf: '50%',
-    // right: '35%',
-    opacity: '0.8',
-    marginBottom: '25px'
-}
 const bitIconStyle = {
-    // letf: '50%',
-    // right: '35%',
     width: '20%',
-}
-const aboutTextStyle = {
-    webkitColumnCount: '2',
-    mozColumCount: '2',
-    columnCount: '2',
-    columnGap: '40px'
 }
