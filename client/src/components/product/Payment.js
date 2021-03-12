@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Col, Container } from 'reactstrap';
-import peopleCommunity20Filled from '@iconify-icons/fluent/people-community-20-filled';
+import { Row, Container } from 'reactstrap';
 
 import { Icon, InlineIcon } from '@iconify/react';
-import cutIcon from '@iconify-icons/whh/cut';
-import combIcon from '@iconify-icons/si-glyph/comb';
-import shopIcon from '@iconify-icons/entypo/shop';
 import petsIcon from '@iconify-icons/dashicons/pets';
 
 export default class Payment extends Component {
@@ -56,27 +52,24 @@ export default class Payment extends Component {
                                             <h4>מה זה bit?</h4>אפליקצייה להעברת כספים כולל קבוצות.
                                         </p>
                                         <p class='lead'>
-                                        <h4>איך אפשר להעביר כסף?</h4>
+                                            <h4>איך אפשר להעביר כסף?</h4>
                                             נכנסים אל ׳העבר׳ בוחרים את איש הקשר אליו רוצים להעביר (׳למי׳) מציינים את הסכום (׳כמה׳) וכדאי גם לציין את סיבת ההעברה (׳למה׳). מציינים את הסיסמה ו...הכסף בדרך.
                                         </p>
                                         <p class='lead'>
-                                        <h4>אפשר לשלם כסף למי שלא מופיע באנשי קשר שלי?</h4>
+                                            <h4>אפשר לשלם כסף למי שלא מופיע באנשי קשר שלי?</h4>
                                             לחיצה על כפתור "העבר" , בחירה ב"העברה ל"מספר שאינו באנשי קשר", הזנה של מספר הטלפון וזהו. בנוסף, אפשר להעביר כסף באמצעות "העבר בסריקה".
                                         </p>
                                         <p class='pr-5'> לפרטים נוספים:</p><a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
-                                        <img style={bitIconStyle} src='/images/bit-icon.png' alt='' />
+                                            <img style={bitIconStyle} src='/images/bit-icon.png' alt='' />
                                             {/* <span class='lead d-block'>שקי אוכל ברמה גבוה</span> */}
                                         </a>
                                     </Row>
-
                                 </fieldset>
                             </div>
                         </div>
                     </div>
                 </Container>
             </div>
-
-
         )
     }
 }
