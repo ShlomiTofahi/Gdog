@@ -13,7 +13,9 @@ const app = express();
 //Bodyparser Middleware
 app.use(express.json());
 
-app.use(fileUpload());
+app.use(fileUpload({
+  limits: { fileSize: 5 * 1024 * 1024 },
+}));
 
 // Upload Endpoint
 app.post('/upload', (req, res) => {
