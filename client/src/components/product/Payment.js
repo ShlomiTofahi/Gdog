@@ -16,7 +16,6 @@ export default class Payment extends Component {
             webkitBorderRadius: '15px',
             mozBorderRadius: '15px',
             borderRadius: '15px',
-            marginTop: '10%',
             padding: '30px',
 
             webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
@@ -55,7 +54,14 @@ export default class Payment extends Component {
 
                                         <p class='lead'>
                                             מה זה bit?<br />אפליקצייה להעברת כספים כולל קבוצות.
-
+                                        </p>
+                                        <p class='lead'>
+                                            איך אפשר להעביר כסף?<br />
+                                            נכנסים אל ׳העבר׳ בוחרים את איש הקשר אליו רוצים להעביר (׳למי׳) מציינים את הסכום (׳כמה׳) וכדאי גם לציין את סיבת ההעברה (׳למה׳). מציינים את הסיסמה ו...הכסף בדרך.
+                                        </p>
+                                        <p class='lead'>
+                                            אפשר לשלם כסף למי שלא מופיע באנשי קשר שלי?<br />
+                                            לחיצה על כפתור "העבר" , בחירה ב"העברה ל"מספר שאינו באנשי קשר", הזנה של מספר הטלפון וזהו. בנוסף, אפשר להעביר כסף באמצעות "העבר בסריקה".
                                         </p>
                                         <a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
                                             <img style={petfoodStyle} src='/images/bit-icon.png' alt='' />
