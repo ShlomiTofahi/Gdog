@@ -6,7 +6,7 @@ import petsIcon from '@iconify-icons/dashicons/pets';
 
 export default class Payment extends Component {
 
-    aboutStyle = () => {
+    paymentStyle = () => {
         return {
             border: '1px solid rgb(230, 230, 230)',
             webkitBorderRadius: '15px',
@@ -16,16 +16,6 @@ export default class Payment extends Component {
 
             webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
             boxSshadow: '0 0 5px 0.1px #C7C7C7'
-        };
-    };
-    imgStyle = () => {
-        return {
-            // border: '1px solid rgb(230, 230, 230)',
-            width: '90%',
-            display: 'inline',
-            webkitBorderRadius: '35px',
-            mozBorderRadius: '35px',
-            borderRadius: '35px',
         };
     };
     render() {
@@ -42,7 +32,7 @@ export default class Payment extends Component {
                             </ul>
                         </div>
                         <div class="payment">
-                            <div align="right" style={this.aboutStyle()}>
+                            <div align="right" style={this.paymentStyle()}>
                                 <fieldset>
                                     <h2 class='display-4 mb-4' style={window.innerWidth >= 992 ? { color: '#8a5e5e', opacity: '0.4' } : { color: '#4d7448', opacity: '0.4', fontSize: '2.0em' }}>
                                         התשלום מתבצע דרך ביט</h2>
@@ -61,7 +51,6 @@ export default class Payment extends Component {
                                         </p>
                                         <p class='pr-5'> לפרטים נוספים:</p><a class=' text-center' href='https://www.poalimsites.co.il/bit/index.html' target="_blank">
                                             <img style={bitIconStyle} src='/images/bit-icon.png' alt='' />
-                                            {/* <span class='lead d-block'>שקי אוכל ברמה גבוה</span> */}
                                         </a>
                                     </Row>
                                 </fieldset>
