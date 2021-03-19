@@ -181,37 +181,37 @@ class Robot extends Component {
 
         const filterBtnSymbol = this.state.Collapsetoggle ?
             null :
-            <span class="robot-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+            <span className="robot-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="bi bi-chat-dots-fill" viewBox="0 0 16 16">
                 <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-            </svg><span class="pr-2">צריך עזרה?</span></span>
+            </svg><span className="pr-2">צריך עזרה?</span></span>
 
         return (
             <Fragment>
-                <div class="robot collapse-filter-btn" style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} align="right">
+                <div className="robot collapse-filter-btn" style={window.innerWidth <= 768 ? this.mobilerobotstyle() : this.robotstyle()} align="right">
                     <Collapse isOpened={this.state.Collapsetoggle}>
-                        <button style={window.innerWidth <= 768 ? { fontSize: '1.0em', left: '0', color: 'rgba(173, 273, 173, 0.75)' } : { fontSize: '1.0em', left: '0' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <button style={window.innerWidth <= 768 ? { fontSize: '1.0em', left: '0', color: 'rgba(173, 273, 173, 0.75)' } : { fontSize: '1.0em', left: '0' }} className="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-dash" viewBox="0 0 16 16">
                                 <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                             </svg>
                         </button>
-                        <span style={{ fontSize: '1.0em' }} class=' lead pr-5'>איך נוכל לעזור לך?</span>
+                        <span style={{ fontSize: '1.0em' }} className=' lead pr-5'>איך נוכל לעזור לך?</span>
                         <hr style={{ width: "80%" }} />
 
 
                         <Collapse isOpened={this.state.resultOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'> שמחנו לעזור</span>
+                            <span style={{ fontSize: '1.0em' }} className=' lead pr-4'> שמחנו לעזור</span>
                             <Col align="right" className='pt-2'>
-                                <label class="checkbox_item">
+                                <label className="checkbox_item">
                                     <small>
                                         {
-                                            this.state.todo === "haircut" ? <Link to="/haircut" class="text-dark">
+                                            this.state.todo === "haircut" ? <Link to="/haircut" className="text-dark">
                                                 <strong style={this.mobilerobotstyle()}>תספורת</strong></Link>
-                                                : this.state.todo === "buy" ? < Link to="/products" onClick={this.getItems} class="text-dark">
+                                                : this.state.todo === "buy" ? < Link to="/products" onClick={this.getItems} className="text-dark">
                                                     <strong style={this.mobilerobotstyle()}>חנות</strong></Link>
                                                     : this.state.todo === "forum" ? < Link to={this.state.pet === 'כלב' ? "/forum/dog"
                                                         : this.state.pet === 'חתול' ? "/forum/cat"
                                                             : this.state.pet === 'תוכי' ? "/forum/parrot"
-                                                                : "/forum/other"} class="text-dark">
+                                                                : "/forum/other"} className="text-dark">
                                                         <strong style={this.mobilerobotstyle()}>פורום</strong></Link>
                                                         : <small>מצטער לא לעזור</small>
                                         }
@@ -221,12 +221,12 @@ class Robot extends Component {
                         </Collapse>
 
                         <Collapse isOpened={this.state.needHelpOpen}>
-                            <span style={{ fontSize: '1.0em' }} class='lead pr-4'>היי, צריך עזרה?</span>
+                            <span style={{ fontSize: '1.0em' }} className='lead pr-4'>היי, צריך עזרה?</span>
                             <Col align="right" className='pt-2'>
-                                <label class="checkbox_item pr-3">
-                                    <input onChange={this.onChange} class="ml-2" type="radio" name="needHelp" defaultValue='yes' />
+                                <label className="checkbox_item pr-3">
+                                    <input onChange={this.onChange} className="ml-2" type="radio" name="needHelp" defaultValue='yes' />
                                     <small>כן</small><br />
-                                    <input onChange={this.onChange} class="ml-2" type="radio" name="needHelp" defaultValue='no' />
+                                    <input onChange={this.onChange} className="ml-2" type="radio" name="needHelp" defaultValue='no' />
                                     <small>לא</small>
                                 </label>
                             </Col>
@@ -242,25 +242,25 @@ class Robot extends Component {
                         </Collapse>
 
                         <Collapse isOpened={this.state.todoOpen}>
-                            <span style={{ fontSize: '1.0em' }} class='lead pr-4'
+                            <span style={{ fontSize: '1.0em' }} className='lead pr-4'
                             >קיימים מגוון אפשרויות שאנחנו מציעים,<br />
                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;מה תרצה לעשות?</span>
-                            <div class="pr-3 pt-2">
+                            <div className="pr-3 pt-2">
                                 <Col align="right" className='pt-0'>
-                                    <label class="checkbox_item">
-                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="buy" />
+                                    <label className="checkbox_item">
+                                        <input onChange={this.onChange} className="ml-2" type="radio" name="todo" defaultValue="buy" />
                                         <small>לקנות ממבחר המוצרים שלנו</small>
                                     </label>
                                 </Col>
                                 <Col align="right" className='pt-0'>
-                                    <label class="checkbox_item">
-                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="haircut" />
+                                    <label className="checkbox_item">
+                                        <input onChange={this.onChange} className="ml-2" type="radio" name="todo" defaultValue="haircut" />
                                         <small>תספורות עבור כלב/חתול</small>
                                     </label>
                                 </Col>
                                 <Col align="right" className='pt-0'>
-                                    <label class="checkbox_item">
-                                        <input onChange={this.onChange} class="ml-2" type="radio" name="todo" defaultValue="forum" />
+                                    <label className="checkbox_item">
+                                        <input onChange={this.onChange} className="ml-2" type="radio" name="todo" defaultValue="forum" />
                                         <small>התייעצות בפורום הקהילתי שלנו</small>
                                     </label>
                                 </Col>
@@ -276,23 +276,23 @@ class Robot extends Component {
                         </Collapse>
 
                         <Collapse isOpened={this.state.petOpen}>
-                            <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>איזה חיית מחמד יש לך?</span>
-                            <div class='pt-2'>
+                            <span style={{ fontSize: '1.0em' }} className=' lead pr-4'>איזה חיית מחמד יש לך?</span>
+                            <div className='pt-2'>
                                 {pets.map(({ _id, name }) => (
                                     this.state.todo === "haircut" ?
                                         name === 'כלב' || name === 'חתול' ?
 
                                             <Col key={_id} align="right" className='pt-0'>
-                                                <label class="checkbox_item">
-                                                    <input onChange={this.onChange} class="ml-2" type="radio" name="pet" defaultValue={name} />
+                                                <label className="checkbox_item">
+                                                    <input onChange={this.onChange} className="ml-2" type="radio" name="pet" defaultValue={name} />
                                                     <small>{name}</small>
                                                 </label>
                                             </Col>
                                             : null
                                         :
                                         <Col key={_id} align="right" className='pt-0'>
-                                            <label class="checkbox_item">
-                                                <input onChange={this.onChange} class="ml-2" type="radio" name="pet" defaultValue={name} />
+                                            <label className="checkbox_item">
+                                                <input onChange={this.onChange} className="ml-2" type="radio" name="pet" defaultValue={name} />
                                                 <small>{name}</small>
                                             </label>
                                         </Col>
@@ -311,15 +311,15 @@ class Robot extends Component {
                         <Collapse isOpened={this.state.categoryOpen}>
                             {
                                 this.state.todo === 'buy' ?
-                                    <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>מה תרצה לקנות?</span> :
-                                    <span style={{ fontSize: '1.0em' }} class=' lead pr-4'>באיזה נושא תרצה להתייעץ?</span>
+                                    <span style={{ fontSize: '1.0em' }} className=' lead pr-4'>מה תרצה לקנות?</span> :
+                                    <span style={{ fontSize: '1.0em' }} className=' lead pr-4'>באיזה נושא תרצה להתייעץ?</span>
                             }
 
-                            <div class="robot-categories pt-2">
+                            <div className="robot-categories pt-2">
                                 {categories.map(({ _id, name }) => (
                                     <Col key={_id} align="right" className='pt-0 '>
-                                        <label class="checkbox_item">
-                                            <input onChange={this.onChange} class="ml-2" type="radio" name="category" defaultValue={name} />
+                                        <label className="checkbox_item">
+                                            <input onChange={this.onChange} className="ml-2" type="radio" name="category" defaultValue={name} />
                                             <small>{name}</small>
                                         </label>
                                     </Col>
@@ -336,12 +336,12 @@ class Robot extends Component {
                         </Collapse>
                         <hr style={{ width: "80%" }} />
 
-                        <button style={window.innerWidth <= 768 ? { color: 'rgba(173, 273, 173, 0.75)', fontSize: '1.0em' } : { fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.reset}>
+                        <button style={window.innerWidth <= 768 ? { color: 'rgba(173, 273, 173, 0.75)', fontSize: '1.0em' } : { fontSize: '1.0em' }} className="lead collapse-filter-btn" onClick={this.reset}>
                             התחל מחדש כאן
                     </button>
 
                     </Collapse>
-                    <button style={{ fontSize: '1.0em' }} class="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
+                    <button style={{ fontSize: '1.0em' }} className="lead collapse-filter-btn" onClick={this.CollapseHangdle}>
 
                         {filterBtnSymbol}
                     </button>

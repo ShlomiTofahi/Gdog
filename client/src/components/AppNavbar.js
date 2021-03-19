@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
+    Collapse, Navbar, NavbarToggler, Nav, NavItem, Container
 } from 'reactstrap';
 
 import RegisterModal from './auth/RegisterModal';
@@ -29,7 +29,7 @@ class AppNavbar extends Component {
     shdowStyle = () => {
         return {
             direction:'ltr',
-            webkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
+            WebkitBoxShadow: '0 0 5px 0.1px #C7C7C7',
             boxSshadow: '0 0 5px 0.1px #C7C7C7'
         };
     };
@@ -61,11 +61,11 @@ class AppNavbar extends Component {
         );
 
         return (
-            <div>
+            <Fragment>
                 <Navbar style={this.shdowStyle()} fixed='top' color='white' light expand='sm' className='mb-5'>
                     <Container>
                     <Link style={{ marginRight: '100px' }} className={['navlinkLogo d-sm-inline-block']} to='/'>
-                            <p class='mb-0'>
+                            <p className='mb-0'>
                                 <img style={{ width: '108.3px' }} src='/images/logo.png' alt='לוגו' />
                             </p>
                         </Link>
@@ -96,10 +96,9 @@ class AppNavbar extends Component {
                                 }
                             </Nav>
                         </Collapse>
-
                     </Container>
                 </Navbar>
-            </div>
+            </Fragment>
         );
     }
 }

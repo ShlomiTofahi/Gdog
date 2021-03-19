@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import {
     Row, Container, Spinner
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 

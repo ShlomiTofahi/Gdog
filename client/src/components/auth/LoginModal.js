@@ -97,7 +97,7 @@ class LoginModal extends Component {
                                     placeholder='סיסמא'
                                     onChange={this.onChange}
                                 />
-                                <small><Link onClick={this.toggle} to="/rest-pasword" class="text-dark">שכחתי סיסמא</Link></small>
+                                <small><Link onClick={this.toggle} to="/rest-pasword" className="text-dark">שכחתי סיסמא</Link></small>
                                 <Button
                                     color='dark'
                                     style={{ marginTop: '2rem' }}

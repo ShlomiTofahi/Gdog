@@ -236,7 +236,7 @@ class RegisterModal extends Component {
                                 </ButtonDropdown>
                                 <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
 
-
+                            {pet && 
                                     <ButtonDropdown
                                         style={{ marginBottom: '2rem' }}
                                         isOpen={this.state.dropdownBreedOpen} toggle={this.DropDowntoggleBreed}>
@@ -257,14 +257,14 @@ class RegisterModal extends Component {
                                                         };
                                                     },
                                                 },
-                                            }}>
+                                            }}> 
                                             {pet &&
                                                 pet.breeds.map(({ name }) => (
                                                     <DropdownItem name='breed' onClick={this.selectBreed}>{name}</DropdownItem>
                                                 ))}
                                         </DropdownMenu>
                                     </ButtonDropdown>
-
+                                }
 
                                 </Fade>
                                 <FileUpload
