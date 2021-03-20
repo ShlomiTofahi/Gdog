@@ -94,7 +94,6 @@ class Item extends Component {
 
         const { _id, name, price, age, category, discount, itemImage, pet, breed, weight, rating, views } = this.props;
         rating.overall = (rating.overall % 1) > 0.85 ? rating.overall + 1 : rating.overall;
-
         return (
 
             <Fragment>
@@ -104,12 +103,17 @@ class Item extends Component {
                             <Card className={['products']} align="right" timeout={500}
                                 style={{
                                     maxHeight: "500px", minHeight: "400px",
-                                    // backgroundImage: 'url(images/itemcard.png)',
-                                    // objectFit: 'cover',
                                 }}
 
                             >
-                                <CardBody >
+                                {
+                                    discount &&
+                                    <div className="sales">
+                                        <CardImg className='sales-img' src='/images/sales.png' />
+                                        <small className="discount-text"><strong>{Math.floor(discount)}% הנחה</strong></small>
+                                    </div>
+                                }
+                                <CardBody>
                                     {is_admin &&
                                         <div>
                                             <Button
@@ -118,12 +122,13 @@ class Item extends Component {
                                                 color='danger'
                                                 size='sm'
                                                 onClick={this.onDeleteClick.bind(this, _id, itemImage)}
-                                            >&#10007;</Button>
+                                            ><i class="fa fa-trash-o" aria-hidden="true"></i></Button>
                                             <EditItemModal itemID={_id} />
 
                                         </div>
 
                                     }
+
                                     <div class="items-image" align="center" onClick={this.handleClickItemToTrue.bind(this, _id)}>
                                         <CardImg bottom className='ProductImg' src={itemImage} alt="תמונה חיית מחמד" />
                                     </div>
@@ -157,6 +162,7 @@ class Item extends Component {
 
 
                                     </div>
+
                                 </CardBody>
                                 <div class="items-views">
                                     <CardText className='pr-2'>

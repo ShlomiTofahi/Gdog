@@ -539,6 +539,30 @@ option:checked {
     object-fit: contain;
 }
 
+.sales {
+    position: absolute;
+    left: -5px;
+    top:0;
+    width: 100px;
+    height: 120px;
+}
+.sales-img {
+    position: absolute;
+    width:50%;
+    left: 1px;
+    top: -4px;
+}
+
+.discount-text {
+    position: absolute;
+    top: 7%;
+    left: -1%;
+    transform: rotate(-45deg);
+    color: rgb(255, 255, 255);
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 0.6em;
+ }
+
 .rating {
     /* position: absolute;
   right:80px;
@@ -549,7 +573,7 @@ option:checked {
 .remove-btn {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
 }
 
 .remove-btn-admin {
@@ -562,8 +586,9 @@ option:checked {
 
 .edit-btn {
     position: absolute;
-    top: 0;
+    top: 33px;
     right: 0;
+    /* width: 30px; */
 }
 
 .edit-btn-admin {

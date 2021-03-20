@@ -76,19 +76,34 @@ class EditItemModal extends Component {
                 checkedWeight: true
             });
 
+        console.log(item.category)
+        console.log(item)
         this.setState({
             name: item.name,
             description: item.description,
             price: item.price,
             discount: item.discount,
             weight: item.weight,
-            category: item.category.name,
-            pet: item.pet.name,
-            age: item.age.level,
-            breed: item.breed.name,
             itemImage: item.itemImage,
             prevItemImage: item.itemImage
         });
+
+        if (item.category)
+            this.setState({
+                category: item.category.name
+            });
+        if (item.age)
+            this.setState({
+                age: item.age.level
+            });
+        if (item.pet)
+            this.setState({
+                pet: item.pet.name
+            });
+        if (item.breed)
+            this.setState({
+                breed: item.breed.name
+            });
 
         if (this.state.prevItemImage != '')
             this.setState({ prevItemImage: item.itemImage });
@@ -112,12 +127,6 @@ class EditItemModal extends Component {
             }
         }
     }
-
-    // onEditorStateChange = (editorState) => {
-    //     this.setState({
-    //         editorState,
-    //     });
-    // };
 
     toggle = () => {
         const { items } = this.props.item;
@@ -372,13 +381,26 @@ class EditItemModal extends Component {
                 price: item.price,
                 discount: item.discount,
                 weight: item.weight,
-                category: item.category.name,
-                pet: item.pet.name,
-                age: item.age.level,
-                breed: item.breed.name,
                 itemImage: item.itemImage,
                 prevItemImage: item.itemImage
             });
+
+            if (item.category)
+                this.setState({
+                    category: item.category.name
+                });
+            if (item.age)
+                this.setState({
+                    age: item.age.level
+                });
+            if (item.pet)
+                this.setState({
+                    pet: item.pet.name
+                });
+            if (item.breed)
+                this.setState({
+                    breed: item.breed.name
+                });
 
             this.props.getPet(item.pet.name);
         }
@@ -431,8 +453,7 @@ class EditItemModal extends Component {
                         color='warning'
                         size='sm'
                         onClick={this.toggle}
-                    // { this.onEditClick.bind(this, this.props.itemID) }
-                    >&#x2711;</Button>
+                    ><i class="fa fa-pencil" style={{color:'white'}} ria-hidden="true"></i></Button>
                     : null}
 
 
