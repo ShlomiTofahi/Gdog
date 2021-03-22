@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Prompt } from 'react-router'
 import { Button, Fade } from 'reactstrap';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import Message from './Message';
 import Progress from './Progress';
@@ -50,18 +51,18 @@ const FileUpload = (props) => {
   });
   const onChangeFileUpload = event => {
     let file = event.target.files[0];
-    if (file.type != "image/png" && file.type != 'image/jpg' && file.type != 'image/jpeg'
+    if (file && file.type != "image/png" && file.type != 'image/jpg' && file.type != 'image/jpeg'
       && file.type != 'image/webp' && file.type != 'image/gif') {
       setMessage("File does not support. You must use .png or .jpg ");
       // return false;
     }
-    else if (file.size > 5242880) {
+    else if (file && file.size > 5242880) {
       setMessage("Please upload a file smaller than 5 MB");
       //  return false;
     }
     else {
       setFile(file);
-      setFilename(props.payload + '_' + file.name.replace(/\s+/g, '_'));
+      setFilename(props.payload + '_' + file.name.replace(/\s+/g, '_') + uuidv4());
     }
   };
 

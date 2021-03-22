@@ -76,8 +76,6 @@ class EditItemModal extends Component {
                 checkedWeight: true
             });
 
-        console.log(item.category)
-        console.log(item)
         this.setState({
             name: item.name,
             description: item.description,
