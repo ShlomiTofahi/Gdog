@@ -125,8 +125,7 @@ export const editItem = (id, item) => (dispatch, getState) => {
         });
 };
 
-export const ratingItem = (_id, rating) => (dispatch, getState) => {
-
+export const ratingItem = (_id, rating) => (dispatch) => {
     // Headers
     const config = {
         headers: {
