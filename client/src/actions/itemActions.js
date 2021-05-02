@@ -127,12 +127,19 @@ export const editItem = (id, item) => (dispatch, getState) => {
 
 export const ratingItem = (_id, rating) => (dispatch, getState) => {
 
+    // Headers
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
     // Request body
     const body = JSON.stringify({ rating });
 
     dispatch(setItemsLoading());
     axios
-        .post(`/api/items/rating/${_id}`, body, tokenConfig(getState))
+        .post(`/api/items/rating/${_id}`, body, config)
         .then(res =>
             dispatch({
                 type: RATING_ITEM,

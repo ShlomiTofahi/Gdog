@@ -291,7 +291,7 @@ router.post('/edit/:id', auth, (req, res) => {
 // @route   POST api/items/rating
 // @desc    Ranking A Item
 // @access  Private
-router.post('/rating/:id', auth, (req, res) => {
+router.post('/rating/:id', (req, res) => {
 
     const { rating } = req.body;
 
