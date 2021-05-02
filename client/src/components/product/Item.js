@@ -52,6 +52,7 @@ class Item extends Component {
         }
 
         localStorage.setItem('ratedItemList', ratedItemList);
+        window.location.reload(false);
 
     };
 
