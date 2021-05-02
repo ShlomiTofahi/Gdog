@@ -102,11 +102,11 @@ class ItemDetail extends Component {
 
 
 
-                                <div class="item-views">
+                                {/* <div class="item-views">
                                     <CardText>
                                         <small className="text-muted">צפיות: {item.views}</small>
                                     </CardText>
-                                </div>
+                                </div> */}
 
                             </CardBody>
                             <Button className="item-cart" color="none" title="בצע תשלום" onClick={this.DropDowntogglePayment} >

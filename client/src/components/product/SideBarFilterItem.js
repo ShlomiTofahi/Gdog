@@ -192,8 +192,6 @@ class SideBarFilterItem extends Component {
 
         return (
             <Fragment>
-
-
                 <div class="sidenav" align="center">
 
                     {loading ?

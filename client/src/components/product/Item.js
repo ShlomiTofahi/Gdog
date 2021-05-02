@@ -164,11 +164,11 @@ class Item extends Component {
                                     </div>
 
                                 </CardBody>
-                                <div class="items-views">
+                                {/* <div class="items-views">
                                     <CardText className='pr-2'>
                                         <small className='text-muted'>צפיות: {views}</small>
                                     </CardText>
-                                </div>
+                                </div> */}
                                 {this.state.itemClicked ? <ItemDetails itemID={_id} handleClickItemToFalse={this.handleClickItemToFalse} /> : null}
 
                                 <CardFooter onClick={this.handleClickItemToTrue.bind(this, _id)}>
