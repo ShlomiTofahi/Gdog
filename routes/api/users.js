@@ -204,11 +204,11 @@ router.post('/change-email/:id', auth, (req, res) => {
 // @desc    Chnage Password For A User By Email
 // @access  Private
 router.post('/change-pass-by-email/:id', auth, (req, res) => {
-    let { validationPassword, password, currentPassword } = req.body;
+    let { validationPassword, password } = req.body;
     console.log(req.body)
     //Simple validation
-    if (!password || !validationPassword || !currentPassword) {
-        return res.status(400).json({ msg: 'Please enter all fields' });
+    if (!password || !validationPassword) {
+        return res.status(400).json({ msg: 'אנא הכנס את כל השדות בבקשה' });
     }
     if (req.user.id !== req.params.id) {
         return res.status(400).json({ msg: 'משתמש לא זהה' });
