@@ -186,7 +186,57 @@ router.post('/filter', (req, res) => {
     })
 });
 
+// @route   POST api/items
+// @desc    Create A Item
+// @access  Private
+router.post('/', auth, (req, res) => {
+    User.findById(req.user.id).then(user => {
+        if (!user.admin) {
+            return res.status(400).json({ msg: 'No permission' });
+        }
 
+        const { name, age, pet, breed, category, price, discount, description, itemImage, weight } = req.body;
+
+        //Simple validation
+        if (!name || !age || !pet || !breed || !category || !price || !description) {
+            return res.status(400).json({ msg: 'Please enter all fields' });
+        }
+        Pet.findOne({ name: pet }).then(pet => {
+            Breed.findOne({ name: breed }).then(breed => {
+                Category.findOne({ name: category }).then(category => {
+                    Age.findOne({ level: age }).then(age => {
+                        const newRating = new Rating();
+                        newRating.save().then(rating => {
+                            const newItem = new Item({
+                                name,
+                                price,
+                                discount,
+                                description,
+                                pet,
+                                breed,
+                                category,
+                                age,
+                                weight,
+                                rating
+                            });
+
+                            if (itemImage != '')
+                                newItem.itemImage = itemImage;
+
+                            newItem.save().then(item => {
+                                Item.findOne(item).populate('pet').populate('breed').populate('category').populate('rating')
+                                    .then(item => {
+                                        res.json(item)
+                                    });
+                            });
+                        })
+                    })
+                })
+            })
+        })
+    })
+
+});
 
 // @route   POST api/items/edit
 // @desc    Edit A Item
@@ -283,59 +333,6 @@ router.delete('/:id', auth, (req, res) => {
             })
         })
         .catch(err => res.status(404).json({ success: false }));
-});
-
-// @route   POST api/items
-// @desc    Create A Item
-// @access  Private
-router.post('/', auth, (req, res) => {
-    User.findById(req.user.id).then(user => {
-        if (!user.admin) {
-            return res.status(400).json({ msg: 'No permission' });
-        }
-
-        const { name, age, pet, breed, category, price, discount, description, itemImage, weight } = req.body;
-
-        //Simple validation
-        if (!name || !age || !pet || !breed || !category || !price || !description) {
-            return res.status(400).json({ msg: 'Please enter all fields' });
-        }
-        Pet.findOne({ name: pet }).then(pet => {
-            Breed.findOne({ name: breed }).then(breed => {
-                Category.findOne({ name: category }).then(category => {
-                    Age.findOne({ level: age }).then(age => {
-                        const newRating = new Rating();
-                        newRating.save().then(rating => {
-                            const newItem = new Item({
-                                name,
-                                price,
-                                discount,
-                                description,
-                                pet,
-                                breed,
-                                category,
-                                age,
-                                weight,
-                                rating
-                            });
-
-                            if (itemImage != '')
-                                newItem.itemImage = itemImage;
-
-                            newItem.save().then(item => {
-                                Item.findOne(item).populate('pet').populate('breed').populate('category').populate('rating')
-                                    .then(item => {
-                                        res.json(item)
-                                    });
-                            });
-                        })
-
-
-                    })
-                })
-            })
-        })
-    })
 });
 
 module.exports = router;
